@@ -38,10 +38,11 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var mapController = require('./controllers/map');
+var claimController = require('./controllers/claim');
 
-/**
- * API keys and Passport configuration.
- */
+
+// API keys and Passport configuration.
+ 
 var passportConf = require('./config/passport');
 
 /**
@@ -52,7 +53,8 @@ var app = express();
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
+// mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
+mongoose.connect('mongodb://localhost/claims'); 
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);

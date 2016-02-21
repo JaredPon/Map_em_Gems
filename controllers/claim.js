@@ -1,0 +1,1 @@
+var Hobbit = require('./models/Claim.js');  
