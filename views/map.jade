@@ -11,35 +11,50 @@ block content
 
   script.
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
-    var geojson = [
-    {
-    "type": "Feature",
-    "geometry": {
-    "type": "Point",
-    "coordinates": [-77.03238901390978,38.913188059745586]
-    },
-    "properties": {
-    "title": "Mapbox DC",
-    "description": "1714 14th St NW, Washington DC",
-    "marker-color": "#fc4353",
-    "marker-size": "large",
-    "marker-symbol": "monument"
-    }
-    },
-    {
-    "type": "Feature",
-    "geometry": {
-    "type": "Point",
-    "coordinates": [-122.414, 37.776]
-    },
-    "properties": {
-    "title": "Mapbox SF",
-    "description": "155 9th St, San Francisco",
-    "marker-color": "#fc4353",
-    "marker-size": "large",
-    "marker-symbol": "harbor"
-    }
-    }
-    ];
+    //- var geojson = [
+    //- {
+    //- "type": "Feature",
+    //- "geometry": {
+    //- "type": "Point",
+    //- "coordinates": [-77.03238901390978,38.913188059745586]
+    //- },
+    //- "properties": {
+    //- "title": "Mapbox DC",
+    //- "description": "1714 14th St NW, Washington DC",
+    //- "marker-color": "#fc4353",
+    //- "marker-size": "large",
+    //- "marker-symbol": "monument"
+    //- }
+    //- },
+    //- {
+    //- "type": "Feature",
+    //- "geometry": {
+    //- "type": "Point",
+    //- "coordinates": [-122.414, 37.776]
+    //- },
+    //- "properties": {
+    //- "title": "Mapbox SF",
+    //- "description": "155 9th St, San Francisco",
+    //- "marker-color": "#fc4353",
+    //- "marker-size": "large",
+    //- "marker-symbol": "harbor"
+    //- }
+    //- }
+    //- ];
+
+    //- var geojson = request({
+    //-     url: '/claims/nick',
+    //-     json: true
+    //-     }, function (error, response, body) {
+
+    //-         if (!error && response.statusCode === 200) {
+    //-             return body
+    //-         }
+    //- })
+
+    //- var geojson = '/claims/nick'
+    var geojson = mongoose.model('Claim').find({'properties.CLIENTNUM': 278107});
     L.mapbox.map('map', 'mapbox.streets')
       .featureLayer.setGeoJSON(geojson);
+
+    console.log(geojson);

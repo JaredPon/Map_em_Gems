@@ -23,6 +23,7 @@ var sass = require('node-sass-middleware');
 var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, 'uploads') });
 var fs = require('fs');
+var request = require("request");
 
 
 /**
@@ -63,7 +64,7 @@ mongoose.connection.on('error', function() {
 });
 
 //load models folder
-  // Added by me
+  // Added by Nick
 fs.readdirSync(__dirname + '/models').forEach(function(filename){
   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
 });
@@ -144,6 +145,13 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 app.get('/claims', function(req, res) {
   mongoose.model('Claim').find(function(err, claims){
     res.send(claims);
+  });
+});
+
+app.get('/claims/nick', function(req, res) {
+  mongoose.model('Claim').find({'properties.CLIENTNUM': 278107}, function(err, claims){
+    res.send(claims);
+    //return res.json(claims);
   });
 });
 

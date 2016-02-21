@@ -32,17 +32,8 @@ var claimSchema = new Schema({
   trmntndt: String,
   rnhctrs: Number,
   ttltpcd: String,
-  geometry: { type: [String], coordinates: '2dsphere'}
+  geometry: { type: [String], index: '2dsphere'}
 }, { collection : 'docs' });
 // }
 // 
 mongoose.model('Claim', claimSchema);
-
-// var Claim = mongoose.model('Claim', claimSchema);
-// module.exports = Claim;
-// get all the users
-// Claim.find({}, function(err, claims) {
-//   if (err) throw err;
-
-//   // object of all the users
-//   console.log(claims);

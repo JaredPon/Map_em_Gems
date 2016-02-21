@@ -1,1 +1,1 @@
-// var Claim = require('./models/Claim.js');  
+// var User = require('../models/Claim')
