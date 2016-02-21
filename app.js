@@ -22,6 +22,8 @@ var expressValidator = require('express-validator');
 var sass = require('node-sass-middleware');
 var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, 'uploads') });
+var fs = require('fs');
+
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -38,7 +40,7 @@ var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 var mapController = require('./controllers/map');
-var claimController = require('./controllers/claim');
+// var claimController = require('./controllers/claim');
 
 
 // API keys and Passport configuration.
@@ -54,10 +56,16 @@ var app = express();
  * Connect to MongoDB.
  */
 // mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
-mongoose.connect('mongodb://localhost/claims'); 
+mongoose.connect('mongodb://127.0.0.1/claims'); 
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
+});
+
+//load models folder
+  // Added by me
+fs.readdirSync(__dirname + '/models').forEach(function(filename){
+  if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
 });
 
 /**
@@ -111,7 +119,6 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-
 /**
  * Primary app routes.
  */
@@ -133,6 +140,12 @@ app.post('/account/password', passportConf.isAuthenticated, userController.postU
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
+//New stuff that I added for linking models
+app.get('/claims', function(req, res) {
+  mongoose.model('Claim').find(function(err, claims){
+    res.send(claims);
+  });
+});
 
 
 // EDIT NEW ROUTES HERE!!!!

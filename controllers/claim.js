@@ -1,1 +1,1 @@
-var Hobbit = require('./models/Claim.js');  
+// var Claim = require('./models/Claim.js');  
