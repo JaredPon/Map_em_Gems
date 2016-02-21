@@ -150,7 +150,7 @@ app.get('/claims', function(req, res) {
 
 app.get('/claims/nick', function(req, res) {
   mongoose.model('Claim').find({'properties.CLIENTNUM': 278107}, function(err, claims){
-    res.send(claims);
+    res.json(claims);
     //return res.json(claims);
   });
 });

@@ -34,6 +34,5 @@ var claimSchema = new Schema({
   ttltpcd: String,
   geometry: { type: [String], index: '2dsphere'}
 }, { collection : 'docs' });
-// }
-// 
+
 mongoose.model('Claim', claimSchema);
