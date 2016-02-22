@@ -35,13 +35,6 @@ var claimSchema = new Schema({
       rnhctrs: Number,
       ttltpcd: String},
   geometry: { type: {type: String}, coordinates: []}
-}, { collection : 'docs' });
-//  geometry: {
-//     type: { type : String, default: 'Polygon' },
-//     coodinates: {type: Number, index: '2dsphere'}
-//   }
-// });
-
-// geometry: { type: String, index: '2dsphere'}
+    }, { collection : 'docs' });
 
 mongoose.model('Claim', claimSchema);
