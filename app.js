@@ -154,11 +154,6 @@ app.get('/claims/nick', function(req, res) {
   });
 });
 
-// app.get('/claims/nick', function(req, res) {
-//   mongoose.model('Claim').find({'properties.CLIENTNUM': 278107}, {_id: 0} )
-// });
-
-
 
 // EDIT NEW ROUTES HERE!!!!
 app.get('/map', mapController.show);
