@@ -149,11 +149,15 @@ app.get('/claims', function(req, res) {
 });
 
 app.get('/claims/nick', function(req, res) {
-  mongoose.model('Claim').find({'properties.CLIENTNUM': 278107}, function(err, claims){
+  mongoose.model('Claim').find({'properties.CLIENTNUM': 278107}, {_id: 0}, function(err, claims){
     res.json(claims);
-    //return res.json(claims);
   });
 });
+
+// app.get('/claims/nick', function(req, res) {
+//   mongoose.model('Claim').find({'properties.CLIENTNUM': 278107}, {_id: 0} )
+// });
+
 
 
 // EDIT NEW ROUTES HERE!!!!

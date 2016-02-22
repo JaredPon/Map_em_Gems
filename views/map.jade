@@ -12,9 +12,11 @@ block content
   script.
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
     
-    //- var geojson = mongoose.model('Claim').find({'properties.CLIENTNUM': 278107});
      var geojson = $.getJSON('/claims/nick',function(result){
             return result;
         });
+
+    //- geojson = $.parseJSON(geojson.responseText);
+
     L.mapbox.map('map', 'mapbox.outdoors')
-      .featureLayer.setGeoJSON(geojson);
+      .featureLayer.setGeoJSON(geojson.responseJSON);
