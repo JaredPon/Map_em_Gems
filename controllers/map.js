@@ -11,8 +11,48 @@ exports.show = function(req, res) {
 
 exports.postSearch = function(req, res) {
   // set clientNum to clientid (passed in through getjson)
-  var clientNum = +req.query.clientid;
-  mongoose.model('Claim').find({'properties.CLIENTNUM': clientNum}, {_id: 0}, function(err, claims){
+  var clientNum = +req.query.clientnum;
+  var TNRNMBRD = +req.query.TNRNMBRD;
+  var TNRTPDSCRP = req.query.TNRTPDSCRP;
+  var GDTDT = req.query.GDTDT;
+  var ownerName = req.query.ownerName;
+
+  console.log(clientNum);
+  console.log(TNRNMBRD);
+  // console.log(TNRTPDSCRP);
+  // console.log(GDTDT);
+  // console.log(ownerName);
+
+
+
+  // mongoose.model('Claim').find({'properties.clientnum': clientNum}, {_id: 0}, function(err, claims){
+  //     res.json(claims);
+  //   });
+
+  var array = [];
+
+  if (clientNum !== 0)
+    array.push({ 'properties.CLIENTNUM': clientNum });
+
+  if (TNRNMBRD !== 0)
+  array.push({ 'properties.TNRNMBRD': TNRNMBRD });
+
+  if (TNRTPDSCRP !== "")
+  array.push({ 'properties.TNRTPDSCRP': TNRTPDSCRP });
+
+  if (GDTDT !== "")
+  array.push({ 'properties.GDTDT': GDTDT });
+
+  if (ownerName !== "")
+  array.push({ 'properties.owner_name': ownerName });
+  
+  console.log(array);
+
+
+  mongoose.model('Claim').find({
+    $and:array
+    }, function(err, claims){
       res.json(claims);
     });
 };
+
