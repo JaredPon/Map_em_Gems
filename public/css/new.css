@@ -14,6 +14,16 @@ body .container p.lead {
   opacity: 0.8;
 }
 
+.col-sm-6 :first {
+  margin: auto;
+  width: 35%;
+}
+
+.col-sm-6 :nth-child(1){
+  width: 50%;
+  margin: 0 auto; 
+}
+
 .col-sm-6 p {
   color: #FFFFFF;
 }
@@ -30,11 +40,13 @@ body .container p.lead {
  bottom: 100px;
 
  width: 60%;
+ margin-right: 10%;
 }
 
 .sidebar-controls {
-  position: absolute;
+  position: relative;
   float: right;
-  margin-left: 5%;    
+  padding-left: 5%;
+/*  margin-left: 5%;*/    
   width: 20%;
 }
