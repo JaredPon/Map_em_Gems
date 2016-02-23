@@ -8,45 +8,51 @@ block content
   #map
 
   .search-bar
-    //- form(id="theForm", name="claim_search", method="get", action="/map/search")
-    form(id="theForm", name="claim_search")
+    form(id="searchForm", name="claim_search")
       div.input
         span.label ClientNum
         input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
       div.input
-        span.label Description
-        textarea(name="description", cols="40", rows="5")
+        span.label TNRNMBRD
+        input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+      //- div.input
+      //-   span.label ClientNum
+      //-   input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+      //- div.input
+      //-   span.label ClientNum
+      //-   input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
       div.actions
         input(type="submit", value="Search")    
 
-  //- //- Use Jquery and AJAX calls to send out queries??? 
-  //- script.
-  //-   $(function() {
-  //-     $("#theForm").on('submit',function(e){
-  //-       var ClientNum = $('#ClientNum').val();
-  //-       console.log(ClientNum);
-  //-       e.preventDefault();
-
-  //-       var geojson = $.getJSON('/map/search',function(result){
-  //-         L.mapbox.map('map', 'mapbox.outdoors')
-  //-         .setView([49.72902, -121.43253], 12)
-  //-         .featureLayer.setGeoJSON(result);
-  //-       });
-  //-     });
-  //-   });
 
   script.
+    $(function() {
+      $("#searchForm").on('submit',function(e){
+          //- Grab ClientNum from form
+        var ClientNum = $('#ClientNum').val();
+        e.preventDefault();
+        if (typeof featureLayer !== "undefined"){
+          map.removeLayer(featureLayer);          
+        };
+          
+        
+        //- Pass in clientid: ClientNum into getJSON
+        $.getJSON('/map/search', {clientid: ClientNum},function(result){
+          map.featureLayer.setGeoJSON(result);
+          console.log("result from server", result);
+        });
+      });
+    });
+
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
     
-     //- var geojson = $.getJSON('/claims/nick',function(result){
-     //-        L.mapbox.map('map', 'mapbox.outdoors')
-     //-        .setView([49.72902, -121.43253], 12)
-     //-        .featureLayer.setGeoJSON(result);
+    var map = L.mapbox.map('map', 'mapbox.outdoors')
+            .setView([49.72902, -121.43253], 12);
+            //- .featureLayer.setGeoJSON(result);
+    
 
-     //-    });
-
-    var geojson = $.getJSON('/claims/placer',function(result){
-            L.mapbox.map('map', 'mapbox.outdoors')
-            .setView([49.72902, -121.43253], 12)
-            .featureLayer.setGeoJSON(result);
-        });
+    //- var geojson = $.getJSON('/claims/placer',function(result){
+    //-         L.mapbox.map('map', 'mapbox.outdoors')
+    //-         .setView([49.72902, -121.43253], 12)
+    //-         .featureLayer.setGeoJSON(result);
+    //-     });

@@ -10,12 +10,9 @@ exports.show = function(req, res) {
 
 
 exports.postSearch = function(req, res) {
-  var ClientNum = req.query.CLIENTNUM;
-  console.log(ClientNum);
-
-  var showme = mongoose.model('Claim').find({'properties.CLIENTNUM': ClientNum}, {_id: 0}, function(err, claims){
+  // set clientNum to clientid (passed in through getjson)
+  var clientNum = +req.query.clientid;
+  mongoose.model('Claim').find({'properties.CLIENTNUM': clientNum}, {_id: 0}, function(err, claims){
       res.json(claims);
     });
-
-  console.log(showme);
 };
