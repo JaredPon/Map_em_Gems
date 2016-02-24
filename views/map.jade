@@ -23,7 +23,9 @@ block content
         span.label ownerName
         input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
       div.actions
-        input(type="submit", value="Search")    
+        input(type="submit", value="Search")   
+
+  .results-count 
 
   .data-table
     table#data
@@ -43,7 +45,9 @@ block content
         if (typeof featureLayer !== "undefined"){
           map.removeLayer(featureLayer);          
         };
-          
+
+        $(".results-count").empty();
+
         //- Pass in clientid: ClientNum into getJSON
         $.getJSON('/map/search', {
           clientnum: $('#ClientNum').val(),
@@ -54,10 +58,9 @@ block content
         },
         function(results){
           map.featureLayer.setGeoJSON(results);
-          console.log("results from server", results);
+          $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
 
-
-          var table = $("#data").find('tbody');
+          var table = $("#data").find('tbody').empty();
           results.forEach(function(result) { 
             var tr = $("<tr>").appendTo(table);
             $("<td>").appendTo(tr).text(result.properties.CLIENTNUM);

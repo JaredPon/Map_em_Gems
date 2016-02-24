@@ -7,12 +7,29 @@
 #map {
   position: absolute; 
   top:50px; 
-  bottom:50px; 
-  width:40%;
+  height: 700px; 
+  width:600px;
   float:left;
 }
 
 .data-table{
   float:right;
-  clear:both;
+  max-width: 530px;
+  clear: both;
+  margin-top: 10px;
+}
+
+.data-table th{
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.data-table th {
+  padding: 10px;
+}
+
+.results-count{
+  float:right;
 }
