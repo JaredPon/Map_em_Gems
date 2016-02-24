@@ -1,42 +1,47 @@
 extends layout
 
 block content
-  #map
+  .row 
+    .col-sm-9#mapss
+      #map
 
-  .search-bar
-    form(id="searchForm", name="claim_search")
-      div.input
-        span.label ClientNum
-        input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
-      div.input
-        span.label TNRNMBRD
-        input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-      select(name="TNRTPDSCRP", id='TNRTPDSCRP')
-        option(value="") TNRTPDSCRP
-        option(value="Coal") Coal
-        option(value="Mineral") Mineral
-        option(value="Placer") Placer
-      div.input
-        span.label GDTDT
-        input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
-      div.input
-        span.label ownerName
-        input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
-      div.actions
-        input(type="submit", value="Search")   
+    .col-sm-3#info
+      .search-bar
+        form(id="searchForm", name="claim_search")
+          div.input
+            span.label ClientNum
+            input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+          div.input
+            span.label TNRNMBRD
+            input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+          div.hello
+            select(name="TNRTPDSCRP", id='TNRTPDSCRP')
+              option(value="") TNRTPDSCRP
+              option(value="Coal") Coal
+              option(value="Mineral") Mineral
+              option(value="Placer") Placer
+          div.input
+            span.label GDTDT
+            input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+          div.input
+            span.label ownerName
+            input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
+          div.actions
+            input(type="submit", value="Search")   
 
-  .results-count 
+      .results-count 
 
-  .data-table
-    table#data
-      thead
-        tr
-          th Client Number
-          th TNRNMBRD
-          th TNRTPDSCRP
-          th Expiration Date
-          th Owner Name
-      tbody
+      .data-table
+        table#data
+          thead
+            tr
+              th Client Number
+              th TNRNMBRD
+              th TNRTPDSCRP
+              th Expiration Date
+              th Owner Name
+          tbody
+
 
   script.
     $(function() {
@@ -69,9 +74,10 @@ block content
             $("<td>").appendTo(tr).text(result.properties.GDTDT);
             $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
           });
-
         });
       });
+
+
     });
 
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
