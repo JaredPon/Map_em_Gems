@@ -14,14 +14,14 @@ body .container p.lead {
   opacity: 0.8;
 }
 
-.col-sm-6 :first {
+.col-sm-6:first {
   margin: auto;
   width: 35%;
 }
 
-.col-sm-6 :nth-child(1){
+.col-sm-6:nth-child(1){
   width: 50%;
-  margin: 0 auto; 
+  margin: 10 auto; 
 }
 
 .col-sm-6 p {
