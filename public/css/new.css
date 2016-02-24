@@ -8,5 +8,11 @@
   position: absolute; 
   top:50px; 
   bottom:50px; 
-  width:60%;
+  width:40%;
+  float:left;
+}
+
+.data-table{
+  float:right;
+  clear:both;
 }

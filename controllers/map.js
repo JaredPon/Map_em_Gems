@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 exports.show = function(req, res) {
   res.render('map', {
     title: 'Map'
-    
   });
 };
 
@@ -14,16 +13,8 @@ exports.postSearch = function(req, res) {
   var clientNum = +req.query.clientnum;
   var TNRNMBRD = +req.query.TNRNMBRD;
   var TNRTPDSCRP = req.query.TNRTPDSCRP;
-  var GDTDT = req.query.GDTDT;
+  var GDTDT = req.query.GDTDT+'000000';
   var ownerName = req.query.ownerName;
-
-  console.log(clientNum);
-  console.log(TNRNMBRD);
-  // console.log(TNRTPDSCRP);
-  // console.log(GDTDT);
-  // console.log(ownerName);
-
-
 
   // mongoose.model('Claim').find({'properties.clientnum': clientNum}, {_id: 0}, function(err, claims){
   //     res.json(claims);
@@ -40,11 +31,11 @@ exports.postSearch = function(req, res) {
   if (TNRTPDSCRP !== "")
   array.push({ 'properties.TNRTPDSCRP': TNRTPDSCRP });
 
-  if (GDTDT !== "")
-  array.push({ 'properties.GDTDT': GDTDT });
+  if (GDTDT !== "000000")
+  array.push({ 'properties.GDTDT': { $lt: GDTDT }});
 
   if (ownerName !== "")
-  array.push({ 'properties.owner_name': ownerName });
+  array.push({ 'properties.OWNER_NAME': ownerName });
   
   console.log(array);
 

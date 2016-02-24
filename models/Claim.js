@@ -24,7 +24,7 @@ var claimSchema = new Schema({
       num_owners: Number,
       clientnum: Number,
       issue_date: String,
-      protected: String,
+      "protected": String,
       pdtsrd: String,
       pdttmstmp: String,
       tnrtpdscrp: String,

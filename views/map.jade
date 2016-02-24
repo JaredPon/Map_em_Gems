@@ -11,21 +11,32 @@ block content
       div.input
         span.label TNRNMBRD
         input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-      div.input
-        span.label TNRTPDSCRP
-        input(type="text", id="TNRTPDSCRP", name="TNRTPDSCRP", placeholder="TNRTPDSCRP")
+      select(name="TNRTPDSCRP", id='TNRTPDSCRP')
+        option(value="") TNRTPDSCRP
+        option(value="Coal") Coal
+        option(value="Mineral") Mineral
+        option(value="Placer") Placer
       div.input
         span.label GDTDT
-        input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT")
+        input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
       div.input
         span.label ownerName
         input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
       div.actions
         input(type="submit", value="Search")    
 
-  script.
+  .data-table
+    table#data
+      thead
+        tr
+          th Client Number
+          th TNRNMBRD
+          th TNRTPDSCRP
+          th Expiration Date
+          th Owner Name
+      tbody
 
-    //- Update map markers with search
+  script.
     $(function() {
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
@@ -41,9 +52,21 @@ block content
           GDTDT: $('#GDTDT').val(),
           ownerName: $('#ownerName').val()
         },
-        function(result){
-          map.featureLayer.setGeoJSON(result);
-          console.log("result from server", result);
+        function(results){
+          map.featureLayer.setGeoJSON(results);
+          console.log("results from server", results);
+
+
+          var table = $("#data").find('tbody');
+          results.forEach(function(result) { 
+            var tr = $("<tr>").appendTo(table);
+            $("<td>").appendTo(tr).text(result.properties.CLIENTNUM);
+            $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
+            $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
+            $("<td>").appendTo(tr).text(result.properties.GDTDT);
+            $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
+          });
+
         });
       });
     });
@@ -55,8 +78,8 @@ block content
             .setView([49.72902, -121.43253], 12);
     
 
-    //- var geojson = $.getJSON('/claims/placer',function(result){
+    //- var geojson = $.getJSON('/claims/placer',function(results){
     //-         L.mapbox.map('map', 'mapbox.outdoors')
     //-         .setView([49.72902, -121.43253], 12)
-    //-         .featureLayer.setGeoJSON(result);
+    //-         .featureLayer.setGeoJSON(results);
     //-     });
