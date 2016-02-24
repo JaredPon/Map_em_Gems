@@ -1,23 +1,96 @@
 extends layout
 
 block content
-  .page-header
-    h3 Here is the Map Dude.
-    p hello
-    p hey whats going on
-    #map
+  #map
 
+  .search-bar
+    form(id="searchForm", name="claim_search")
+      div.input
+        span.label ClientNum
+        input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+      div.input
+        span.label TNRNMBRD
+        input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+      select(name="TNRTPDSCRP", id='TNRTPDSCRP')
+        option(value="") TNRTPDSCRP
+        option(value="Coal") Coal
+        option(value="Mineral") Mineral
+        option(value="Placer") Placer
+      div.input
+        span.label GDTDT
+        input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+      div.input
+        span.label ownerName
+        input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
+      div.actions
+        input(type="submit", value="Search")   
 
+  .results-count 
+
+  .data-table
+    table#data
+      thead
+        tr
+          th Client Number
+          th TNRNMBRD
+          th TNRTPDSCRP
+          th Expiration Date
+          th Owner Name
+      tbody
 
   script.
+    $(function() {
+      $("#searchForm").on('submit',function(e){
+        e.preventDefault();
+        if (typeof featureLayer !== "undefined"){
+          map.removeLayer(featureLayer);          
+        };
+
+        $(".results-count").empty();
+
+        //- Pass in clientid: ClientNum into getJSON
+        $.getJSON('/map/search', {
+          clientnum: $('#ClientNum').val(),
+          TNRNMBRD: $('#TNRNMBRD').val(),
+          TNRTPDSCRP: $('#TNRTPDSCRP').val(),
+          GDTDT: $('#GDTDT').val(),
+          ownerName: $('#ownerName').val()
+        },
+        function(results){
+          map.featureLayer.setGeoJSON(results);
+          $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
+
+          var table = $("#data").find('tbody').empty();
+          results.forEach(function(result) { 
+            var tr = $("<tr>").appendTo(table);
+            $("<td>").appendTo(tr).text(result.properties.CLIENTNUM);
+            $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
+            $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
+            $("<td>").appendTo(tr).text(result.properties.GDTDT);
+            $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
+          });
+
+        });
+      });
+    });
+
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
     
-    //- var geojson = mongoose.model('Claim').find({'properties.CLIENTNUM': 278107});
-     var geojson = $.getJSON('/claims/nick',function(result){
-            return result;
-        });
-    L.mapbox.map('map', 'mapbox.outdoors')
-      .featureLayer.setGeoJSON(geojson);
+    //- Map initialize
+    var map = L.mapbox.map('map', 'mapbox.outdoors')
+            .setView([49.72902, -121.43253], 12);
+
+    //- //- Map update
+    //- L.mapbox.map('map', 'mapbox.outdoors')
+    //-   .featureLayer.setGeoJSON(geojson);
+
+    //- var geojson = $.getJSON('/claims/placer',function(results){
+    //-         L.mapbox.map('map', 'mapbox.outdoors')
+    //-         .setView([49.72902, -121.43253], 12)
+    //-         .featureLayer.setGeoJSON(results);
+    //-     });
+
+
 
   .sidebar-controls
   div(style='margin:10px')
@@ -54,3 +127,4 @@ block content
           strong 28
           |  daily lookups remaining. 
           a.nw(href='/signup') Need more?
+
