@@ -5,8 +5,18 @@ body {
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px; 
 }
 
+body#home {
+  background-image: url(http://i.imgur.com/YJr7XzT.jpg?1);
+}
+
 body .container p.lead {
   color: #FFFFFF;
+}
+
+.btn btn-primary btn-lg active{
+    float: left;
+    position: relative;
+    left: 50%;
 }
 
 .col-sm-6 {
