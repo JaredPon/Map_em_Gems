@@ -34,14 +34,6 @@ body .container p.lead {
  padding-top: 150px
 }
 
-/*#map {
- position: absolute; 
- top: 50px; 
- bottom: 100px;
- width: 60%;
- margin-right: 10%;
-}*/
-
 .sidebar-controls {
   position: relative;
   float: right;
@@ -50,11 +42,6 @@ body .container p.lead {
   width: 20%;
 }
 
-.search-bar{
-  float:right;
-  width:30%;
-  padding-top: 150px
-}
 
 #map {
   position: absolute; 
@@ -64,24 +51,34 @@ body .container p.lead {
   float:left;
 }
 
+/*DATA TABLE*/
 .data-table{
   float:right;
+  min-width: 250px;
   max-width: 530px;
   clear: both;
   margin-top: 10px;
-}
-
-.data-table th{
-}
-
-.data-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.data-table th {
-  padding: 10px;
+  background-color: white;
+  padding-left: 20px;
 }
 
 .results-count{
   float:right;
+}
+
+.each_result_table{
+  display: none;
+  color: red;
+}
+
+.accordion-toggle {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible{
+  display: inline;
 }

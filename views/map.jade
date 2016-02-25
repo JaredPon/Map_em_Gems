@@ -28,15 +28,6 @@ block content
   .results-count 
 
   .data-table
-    table#data
-      thead
-        tr
-          th Client Number
-          th TNRNMBRD
-          th TNRTPDSCRP
-          th Expiration Date
-          th Owner Name
-      tbody
 
   script.
     $(function() {
@@ -46,9 +37,7 @@ block content
           map.removeLayer(featureLayer);          
         };
 
-        $(".results-count").empty();
-
-        //- Pass in clientid: ClientNum into getJSON
+        //- Take form data and pass to server
         $.getJSON('/map/search', {
           clientnum: $('#ClientNum').val(),
           TNRNMBRD: $('#TNRNMBRD').val(),
@@ -57,19 +46,28 @@ block content
           ownerName: $('#ownerName').val()
         },
         function(results){
+          //- Pass results to the mapbox map.
           map.featureLayer.setGeoJSON(results);
+          $(".results-count").empty();
           $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
 
-          var table = $("#data").find('tbody').empty();
-          results.forEach(function(result) { 
-            var tr = $("<tr>").appendTo(table);
-            $("<td>").appendTo(tr).text(result.properties.CLIENTNUM);
-            $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
-            $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
-            $("<td>").appendTo(tr).text(result.properties.GDTDT);
-            $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
-          });
+          var table = $(".data-table").empty();
 
+          results.forEach(function(result) {
+
+            $("<h4>").appendTo(table).addClass('accordion-toggle').text("Client Number: " + result.properties.CLIENTNUM);
+            var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+            $("<p>").appendTo(div_result).text("Client Number: " + result.properties.CLIENTNUM);
+            $("<p>").appendTo(div_result).text("Owner Name: " + result.properties.OWNER_NAME);
+            $("<p>").appendTo(div_result).text("Tenure Number: " + result.properties.TNRNMBRD);
+            $("<p>").appendTo(div_result).text("Type: " + result.properties.TNRTPDSCRP);
+            $("<p>").appendTo(div_result).text("Expiration Date: " + result.properties.GDTDT);
+
+            table.find('.accordion-toggle').on('click', function(){
+              $(this).next().addClass('visible');
+              $(".each_result_table").not($(this).next()).removeClass('visible');
+            });
+          })
         });
       });
     });
@@ -79,17 +77,6 @@ block content
     //- Map initialize
     var map = L.mapbox.map('map', 'mapbox.outdoors')
             .setView([49.72902, -121.43253], 12);
-
-    //- //- Map update
-    //- L.mapbox.map('map', 'mapbox.outdoors')
-    //-   .featureLayer.setGeoJSON(geojson);
-
-    //- var geojson = $.getJSON('/claims/placer',function(results){
-    //-         L.mapbox.map('map', 'mapbox.outdoors')
-    //-         .setView([49.72902, -121.43253], 12)
-    //-         .featureLayer.setGeoJSON(results);
-    //-     });
-
 
 
   .sidebar-controls
