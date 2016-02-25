@@ -28,11 +28,6 @@ body .container p.lead {
   color: #FFFFFF;
 }
 
-.search-bar{
- float: right;
- width: 30%;
- padding-top: 150px
-}
 
 .sidebar-controls {
   position: relative;
@@ -42,16 +37,66 @@ body .container p.lead {
   width: 20%;
 }
 
+.search-bar{
+  /*float:right;*/
+  width:100%;
+  /*padding-top: 50px*/
+}
+
+#searchForm span{
+  width: 30%;
+  color: black;
+
+}
+
+.label {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+  height: 30px;
+  line-height: 45px;
+  font-size: .8em;
+}
+
+#TNRTPDSCRP {
+  height: 30px;
+  width: 60%;
+  margin-left: 26px;
+  line-height: 45px;
+}
+
+select {
+  display: inline;
+}
+
+input, select {
+  width: 100px;
+  height: 30px;
+  border: 1px;
+  vertical-align: top;
+}
+
+input, select, option {
+  box-sizing: border-box;
+}
+
+#searchForm input{
+  width: 60%;
+  float:right;
+  height: 30px;
+}
+
 
 #map {
-  position: absolute; 
+  /*position: absolute; */
   top:50px; 
   height: 700px; 
-  width:600px;
-  float:left;
+  width:100%;
+  /*float:left;*/
 }
 
 /*DATA TABLE*/
+
 .data-table{
   float:right;
   min-width: 250px;

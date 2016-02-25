@@ -1,33 +1,40 @@
 extends layout
 
 block content
-  #map
 
-  .search-bar
-    form(id="searchForm", name="claim_search")
-      div.input
-        span.label ClientNum
-        input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
-      div.input
-        span.label TNRNMBRD
-        input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-      select(name="TNRTPDSCRP", id='TNRTPDSCRP')
-        option(value="") TNRTPDSCRP
-        option(value="Coal") Coal
-        option(value="Mineral") Mineral
-        option(value="Placer") Placer
-      div.input
-        span.label GDTDT
-        input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
-      div.input
-        span.label ownerName
-        input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
-      div.actions
-        input(type="submit", value="Search")   
+  .row 
+    .col-sm-9
+      #map
 
-  .results-count 
+    .col-sm-3
+      .search-bar
+        form(id="searchForm", name="claim_search")
+          div.input
+            span.label ClientNum
+            input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+          div.input
+            span.label Tenure No.
+            input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+          div.input
+            span.label Type
+            select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
+              option(value="") TNRTPDSCRP
+              option(value="Coal") Coal
+              option(value="Mineral") Mineral
+              option(value="Placer") Placer
+          div.input
+            span.label GDTDT
+            input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+          div.input
+            span.label Owner Name
+            input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
+          div.actions
+            input(type="submit", value="Search")   
 
-  .data-table
+      .results-count 
+
+      .data-table
+
 
   script.
     $(function() {
@@ -51,10 +58,10 @@ block content
           $(".results-count").empty();
           $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
 
+
           var table = $(".data-table").empty();
 
           results.forEach(function(result) {
-
             $("<h4>").appendTo(table).addClass('accordion-toggle').text("Client Number: " + result.properties.CLIENTNUM);
             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
             $("<p>").appendTo(div_result).text("Client Number: " + result.properties.CLIENTNUM);
@@ -70,6 +77,8 @@ block content
           })
         });
       });
+
+
     });
 
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
