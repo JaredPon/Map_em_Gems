@@ -3,13 +3,6 @@ extends layout
 block content
 
   .row 
-   #id='menu'
-        input(id='basic' type='radio' name='rtoggle' value='basic' checked='checked')
-        label(for='basic') basic
-        input(id='dark' type='radio' name='rtoggle' value='dark')
-        label(for='dark') dark
-        input(id='satellite' type='radio' name='rtoggle' value='satellite')
-        label(for='satellite') satellite
     .col-sm-9
       #map
 
@@ -74,20 +67,6 @@ block content
                     }
             }
         }).addTo(map);
-
-        //- // Switch Map Type
-        //- var layerList = document.getElementById('menu');
-        //- var inputs = layerList.getElementsByTagName('input');
-
-        //- function switchLayer(layer) {
-        //-     var layerId = layer.target.id;
-        //-     console.log(layer);
-        //-     map.setStyle('mapbox://styles/mapbox/' + layerId + '-v8');
-        //- }
-
-        //- for (var i = 0; i < inputs.length; i++) {
-        //-     inputs[i].onclick = switchLayer;
-        //- }
 
 
           $(".results-count").empty();
