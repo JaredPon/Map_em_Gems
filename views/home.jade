@@ -1,28 +1,33 @@
 extends layout
 
 block content
-  h1 Map Em Gems
-  p.lead Responsive Map for B.C. Mining Cliams Data
-  hr
-  .row
-
-  #home
-    div(style='background-image:url(http://i.imgur.com/YJr7XzT.jpg?1)')
+  .background-image-home
     br
-    a.btn.btn-primary.btn-lg.active(href='/map', role='button') Map
-    a.btn.btn-secondary.btn-lg.active(href='/contact') Contact
-    br
-    .col-sm-6
-      h2 Background
-      p Map Em Gems wants to provide users an app that is responsive with up-to-date mining cliam data. The beautiful map with shaded mining areas polygons is easy to navaigate. Mineral Titles Online (MTO) & Data B.C. sites are outdated designs with slow response times. You will get your mining claim data easily on Map Em Gems!
-      p
-        a.btn.btn-default(href='/map', role='button') View Map »
-    
-    .col-sm-6
-      h2 Future Features
-      p -Watch list for users
-      p -Email notification of claim expiraton
-      p -Map download & other features
-      p
-        a.btn.btn-default(href='/map', role='button') View Map »
+    h1 Map Em Gems
+    p.lead Responsive Map for B.C. Mining Cliams Data
+    hr
+    .row
 
+    #home
+      br
+      a.button.btn.btn-primary.btn-lg.btn-block(href='/map', type='button') Button 1
+      a.button.btn.btn-default.btn-lg.btn-block(href='/contact', type='button') Button 2
+  
+      a.btn.btn-primary.btn-lg.active(href='/map', role='button') Map
+      a.btn.btn-secondary.btn-lg.active(href='/contact') Contact
+      br
+      .col-sm-6
+        h2 Background
+        p Map Em Gems wants to provide users an app that is responsive with up-to-date mining cliam data. The beautiful map with shaded mining areas polygons is easy to navaigate. Mineral Titles Online (MTO) & Data B.C. sites are outdated designs with slow response times. You will get your mining claim data easily on Map Em Gems!
+        p
+          a.btn.btn-default(href='/map', role='button') View Map »
+      
+      .col-sm-6
+        h2 Future Features
+        p -Watch list for users
+        p -Email notification of claim expiraton
+        p -Map download & other features
+        p
+          a.btn.btn-default(href='/map', role='button') View Map »
+      br
+      #map

@@ -1,39 +1,39 @@
 extends layout
 
 block content
+  .background-img-regular
+    .row 
+      .col-sm-9
+        #map
 
-  .row 
-    .col-sm-9
-      #map
+      .col-sm-3.info-pane
+        .search-bar
+          form(id="searchForm", name="claim_search")
+            div.input
+              span.label ClientNum
+              input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+            div.input
+              span.label Tenure No.
+              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+            div.input
+              span.label Type
+              select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
+                option(value="") TNRTPDSCRP
+                option(value="Coal") Coal
+                option(value="Mineral") Mineral
+                option(value="Placer") Placer
+            div.input
+              span.label GDTDT
+              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+            div.input
+              span.label Owner Name
+              input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="ownerName")
+            div.actions
+              input(type="submit", class="btn btn-primary", value="Search")   
 
-    .col-sm-3.info-pane
-      .search-bar
-        form(id="searchForm", name="claim_search")
-          div.input
-            span.label ClientNum
-            input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
-          div.input
-            span.label Tenure No.
-            input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-          div.input
-            span.label Type
-            select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
-              option(value="") TNRTPDSCRP
-              option(value="Coal") Coal
-              option(value="Mineral") Mineral
-              option(value="Placer") Placer
-          div.input
-            span.label GDTDT
-            input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
-          div.input
-            span.label Owner Name
-            input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="ownerName")
-          div.actions
-            input(type="submit", class="btn btn-primary", value="Search")   
+        .results-count 
 
-      .results-count 
-
-      .data-table
+        .data-table
 
 
   script.
