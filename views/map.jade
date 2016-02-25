@@ -6,15 +6,15 @@ block content
     .col-sm-9
       #map
 
-    .col-sm-3
+    .col-sm-3.info-pane
       .search-bar
         form(id="searchForm", name="claim_search")
           div.input
             span.label ClientNum
-            input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+            input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
           div.input
             span.label Tenure No.
-            input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+            input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
           div.input
             span.label Type
             select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
@@ -24,12 +24,12 @@ block content
               option(value="Placer") Placer
           div.input
             span.label GDTDT
-            input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+            input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
           div.input
             span.label Owner Name
-            input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
+            input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="ownerName")
           div.actions
-            input(type="submit", value="Search")   
+            input(type="submit", class="btn btn-primary", value="Search")   
 
       .results-count 
 
@@ -77,8 +77,6 @@ block content
           })
         });
       });
-
-
     });
 
     L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
@@ -87,40 +85,4 @@ block content
     var map = L.mapbox.map('map', 'mapbox.outdoors')
             .setView([49.72902, -121.43253], 12);
 
-
-  .sidebar-controls
-  div(style='margin:10px')
-    fieldset#lookup(style='opacity: 1;')
-      select#lookup_from.form-control.info-primary
-        option(value='sc', selected='selected') South Central (Kamloops)
-        option(value='sw') Southwest (Vancouver/Victoria)
-        option(value='se') Southeast (Cranbrook)
-        option(value='nw') Northwest (Smithers)
-        option(value='ne') Northeast/Central (Prince George)
-      textarea#lookup_data_lsd.form-control.lookup_data.tt-left(rows='1', data-container='body', data-toggle='tooltip', title='', style='display: none;', data-original-title='<p><strong>From LSD or quartersection</strong><p>Convert and map one or more LSDs (legal subdivision, also known as domain land survey, Alberta township system) or quartersections, e.g.:</p><ul><li>4-29-024-01 W5</li><li>SW-28-13-22 W3</li><li>9-34-123-5 W2</li><li>4-32-14-15 W1</li><li>NE-30-11-3 E1</li><li>3-9-87-9 E2</li></ul><p>To convert multiple LSDs, enter them on separate lines. Then click Look up.</p>')
-      textarea#lookup_data_nts.form-control.lookup_data.tt-left(rows='1', data-container='body', data-toggle='tooltip', title='', style='display: inline-block;', data-original-title='<p><strong>From NTS</strong><p>Convert and map one or more NTS BC grid locations, e.g.:</p><ul><li>A 8-C / 094 A 07</li><li>B 21-C / 093 P 16</li><li>D 62-L / 092 I 15</li></ul><p>To convert multiple NTS locations, enter them on separate lines. Then click Look up.</p>')
-      textarea#lookup_data_latlng.form-control.lookup_data.tt-left(rows='1', data-container='body', data-toggle='tooltip', title='', style='display:none', data-original-title='<p><strong>From latitude longitude</strong></p></p>Convert from one or more latitude/longitude pairs in decimal degrees, e.g.:</p><ul><li>51.06881 -114.116207</li></ul><p>Then click Look up.</p>')
-      textarea#lookup_data_uwi.form-control.lookup_data.tt-left(rows='1', data-container='body', data-toggle='tooltip', title='', style='display: none;', data-original-title='<p><strong>From UWI</strong></p><p>Convert and map one or more UWIs (unique well identifiers), e.g.:</p><ul><li>102 01-13-077-06 W4 01</li><li>204 A 42-C / 094 A 07 02</li></ul><p>To convert multiple UWIs, enter them on separate lines. Then click Look up.</p>')
-      textarea#lookup_data_address.form-control.lookup_data.tt-left(rows='1', data-container='body', data-toggle='tooltip', title='', style='display:none', data-original-title='<p><strong>From street address</strong></p><p>Convert from one or more street addresses, e.g.:</p><ul><li>1816 Crowchild Trail NW, Calgary, AB</li><li>1 Infinite Loop, Cupertino, CA</li></ul><p>Then click Look up. (Note: Geocoding addresses takes a little longer. Also, be sure to include the city and province/state, separated by commas as illustrated in the example above.)</p>')
-      textarea#lookup_data_utm.form-control.lookup_data.tt-left(rows='1', data-container='body', data-toggle='tooltip', title='', style='display:none', data-original-title='<p><strong>From UTM</strong></p></p>Convert from one or more UTM (universal transverse mercator) coordinates, e.g.:</p><ul><li>11N 702037E 5661434N</li><li>14N 630591E 5535227N</li></ul><p>Then click Look up.</p>')
-      .clearfix
-        .btn-group.pull-left
-          button#my-location.btn.cmd-my-location.active(type='button', data-toggle='button')
-            i.fa.fa-location-arrow
-            span.hidden-phone
-          button#hide-labels.btn.cmd-labels(type='button', data-toggle='button')
-            i.fa.fa-flag
-            span.hidden-phone
-        .btn-group.pull-right
-          button.btn.cmd-clear(type='button')
-            i.fa.fa-trash-o
-            span.hidden-phone
-          button.btn.cmd-lookup(type='button')
-            i.fa.fa-search
-            span.hidden-phone Look up
-      .clearfix(style='margin-top:7px')
-        small#lookups.muted
-          strong 28
-          |  daily lookups remaining. 
-          a.nw(href='/signup') Need more?
 

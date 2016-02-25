@@ -29,24 +29,28 @@ body .container p.lead {
 }
 
 
-.sidebar-controls {
-  position: relative;
-  float: right;
-  padding-left: 5%;
-/*  margin-left: 5%;*/    
-  width: 20%;
+/*SEARCH PANEL CSS*/
+
+.info-pane{
+  background: rgba(192,192,192,0.4);
+  height: 700px  
 }
 
 .search-bar{
   /*float:right;*/
   width:100%;
-  /*padding-top: 50px*/
+  padding-top: 30px
 }
 
 #searchForm span{
   width: 30%;
   color: black;
+}
 
+#searchForm input{
+  width: 60%;
+  float:right;
+  height: 30px;
 }
 
 .label {
@@ -80,21 +84,6 @@ input, select, option {
   box-sizing: border-box;
 }
 
-#searchForm input{
-  width: 60%;
-  float:right;
-  height: 30px;
-}
-
-
-#map {
-  /*position: absolute; */
-  top:50px; 
-  height: 700px; 
-  width:100%;
-  /*float:left;*/
-}
-
 /*DATA TABLE*/
 
 .data-table{
@@ -109,6 +98,7 @@ input, select, option {
 
 .results-count{
   float:right;
+  margin-top:20px;
 }
 
 .each_result_table{
@@ -127,3 +117,16 @@ input, select, option {
 .visible{
   display: inline;
 }
+
+
+
+#map {
+  /*position: absolute; */
+  /*top:50px; */
+  height: 700px; 
+  width:100%;
+  /*float:left;*/
+}
+
+
+
