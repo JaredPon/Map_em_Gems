@@ -3,6 +3,13 @@ extends layout
 block content
 
   .row 
+   #id='menu'
+        input(id='basic' type='radio' name='rtoggle' value='basic' checked='checked')
+        label(for='basic') basic
+        input(id='dark' type='radio' name='rtoggle' value='dark')
+        label(for='dark') dark
+        input(id='satellite' type='radio' name='rtoggle' value='satellite')
+        label(for='satellite') satellite
     .col-sm-9
       #map
 
@@ -35,7 +42,8 @@ block content
 
       .data-table
 
-
+     script(src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js')
+    link(rel='stylesheet', href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css')
   script.
     $(function() {
       $("#searchForm").on('submit',function(e){
@@ -52,9 +60,36 @@ block content
           GDTDT: $('#GDTDT').val(),
           ownerName: $('#ownerName').val()
         },
+
+
         function(results){
           //- Pass results to the mapbox map.
-          map.featureLayer.setGeoJSON(results);
+          //- map.featureLayer.setGeoJSON(results);
+          L.geoJson(results, {
+            style: function (feature) {
+                switch (feature.properties.TNRTPDSCRP) {
+                    case 'Placer': return {color: "yellow"};
+                    case 'Mineral': return {color: "blue"};
+                    case 'Coal':   return {color: "black"};
+                    }
+            }
+        }).addTo(map);
+
+        //- // Switch Map Type
+        //- var layerList = document.getElementById('menu');
+        //- var inputs = layerList.getElementsByTagName('input');
+
+        //- function switchLayer(layer) {
+        //-     var layerId = layer.target.id;
+        //-     console.log(layer);
+        //-     map.setStyle('mapbox://styles/mapbox/' + layerId + '-v8');
+        //- }
+
+        //- for (var i = 0; i < inputs.length; i++) {
+        //-     inputs[i].onclick = switchLayer;
+        //- }
+
+
           $(".results-count").empty();
           $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
 
@@ -68,10 +103,12 @@ block content
 
             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
             $("<p>").appendTo(div_result).text("Client Number: " + result.properties.CLIENTNUM);
+            $("<p>").appendTo(div_result).text("Claim Name: " + result.properties.CLAIM_NAME);
             $("<p>").appendTo(div_result).text("Owner Name: " + result.properties.OWNER_NAME);
             $("<p>").appendTo(div_result).text("Tenure Number: " + result.properties.TNRNMBRD);
             $("<p>").appendTo(div_result).text("Type: " + result.properties.TNRTPDSCRP);
             $("<p>").appendTo(div_result).text("Expiration Date: " + result.properties.GDTDT);
+            $("<p>").appendTo(div_result).text("Issue Date: " + result.properties.ISSUE_DATE);
 
             table.find('.accordion-toggle').on('click', function(){
               $(this).next().addClass('visible');
@@ -86,6 +123,8 @@ block content
     
     //- Map initialize
     var map = L.mapbox.map('map', 'mapbox.outdoors')
-            .setView([49.72902, -121.43253], 12);
-
-
+            .setView([49.72902, -121.43253], 12)
+            .on('ready', function() {
+        new L.Control.MiniMap(L.mapbox.tileLayer('mapbox.streets'))
+            .addTo(map);
+             });

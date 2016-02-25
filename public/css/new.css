@@ -103,7 +103,9 @@ input, select, option {
 
 .each_result_table{
   display: none;
-  color: red;
+  color: #00892b;
+  border: 2px;
+border-color: black;
 }
 
 .accordion-toggle {
