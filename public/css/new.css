@@ -33,7 +33,9 @@ body .container p.lead {
 
 .info-pane{
   background: rgba(192,192,192,0.4);
-  height: 700px  
+  height: 700px;
+  overflow: scroll;
+  max-height: 700px;  
 }
 
 .search-bar{
@@ -110,9 +112,6 @@ input, select, option {
   cursor: pointer;
 }
 
-.hidden {
-  display: none;
-}
 
 .visible{
   display: inline;

@@ -27,7 +27,7 @@ block content
             input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
           div.input
             span.label Owner Name
-            input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="ownerName")
+            input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
           div.actions
             input(type="submit", class="btn btn-primary", value="Search")   
 
@@ -38,6 +38,8 @@ block content
 
   script.
     $(function() {
+      var row = "start";
+
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
         if (typeof featureLayer !== "undefined"){
@@ -52,6 +54,7 @@ block content
           GDTDT: $('#GDTDT').val(),
           ownerName: $('#ownerName').val()
         },
+        
         function(results){
           //- Pass results to the mapbox map.
           map.featureLayer.setGeoJSON(results);
@@ -62,18 +65,34 @@ block content
           var table = $(".data-table").empty();
 
           results.forEach(function(result) {
-            $("<h4>").appendTo(table).addClass('accordion-toggle').text("Client Number: " + result.properties.CLIENTNUM);
+            $("<h4>").appendTo(table).addClass('accordion-toggle').text("Tenure Number: " + result.properties.TNRNMBRD);
             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
             $("<p>").appendTo(div_result).text("Client Number: " + result.properties.CLIENTNUM);
             $("<p>").appendTo(div_result).text("Owner Name: " + result.properties.OWNER_NAME);
             $("<p>").appendTo(div_result).text("Tenure Number: " + result.properties.TNRNMBRD);
             $("<p>").appendTo(div_result).text("Type: " + result.properties.TNRTPDSCRP);
             $("<p>").appendTo(div_result).text("Expiration Date: " + result.properties.GDTDT);
+          });
 
-            table.find('.accordion-toggle').on('click', function(){
-              $(this).next().addClass('visible');
-              $(".each_result_table").not($(this).next()).removeClass('visible');
-            });
+          table.find('.accordion-toggle').on('click', function(){ 
+            
+            if(row === "start"){
+              $(this).next().addClass('visible')
+              row = $(this).text();
+            }
+
+            else{
+              $(this).next().addClass('visible')
+              $( "h4:contains(" + row + ")").next().removeClass('visible')
+              row = $(this).text();
+            }
+
+          console.log(row);
+
+            //- table.find('.accordion-toggle').on('click', function(){ 
+            //-   $(this).next().addClass('visible');
+            //-   $(".each_result_table").not($(this).next()).removeClass('visible');
+            //- });
           })
         });
       });
