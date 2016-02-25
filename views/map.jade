@@ -62,7 +62,10 @@ block content
           var table = $(".data-table").empty();
 
           results.forEach(function(result) {
-            $("<h4>").appendTo(table).addClass('accordion-toggle').text("Client Number: " + result.properties.CLIENTNUM);
+            var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
+            $("<h4>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+             $("<h4>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
+
             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
             $("<p>").appendTo(div_result).text("Client Number: " + result.properties.CLIENTNUM);
             $("<p>").appendTo(div_result).text("Owner Name: " + result.properties.OWNER_NAME);

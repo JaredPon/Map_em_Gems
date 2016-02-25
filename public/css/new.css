@@ -32,7 +32,7 @@ body .container p.lead {
 /*SEARCH PANEL CSS*/
 
 .info-pane{
-  background: rgba(192,192,192,0.4);
+  background: rgba(192,192,192,0.7);
   height: 700px  
 }
 
@@ -126,6 +126,13 @@ input, select, option {
   height: 700px; 
   width:100%;
   /*float:left;*/
+}
+
+.list {
+border: 2px;
+border-color: black;
+margin: 3px;
+padding: 2px;
 }
 
 
