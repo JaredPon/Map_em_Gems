@@ -1,10 +1,9 @@
 #mapss{
-  background-color: red;
-  /*float:right;*/
+
 }
 
 #info{
-  background-color: blue;
+
 }
 
 body {
@@ -62,21 +61,46 @@ body .container p.lead {
 
 #searchForm span{
   width: 30%;
-  background-color: yellow;
+  color: black;
+
+}
+
+.label {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+  height: 30px;
+  line-height: 45px;
+  font-size: .8em;
+}
+
+#TNRTPDSCRP {
+  height: 30px;
+  width: 60%;
+  margin-left: 26px;
+  line-height: 45px;
+}
+
+select {
+  display: inline;
+}
+
+input, select {
+  width: 100px;
+  height: 30px;
+  border: 1px;
+  vertical-align: top;
+}
+
+input, select, option {
+  box-sizing: border-box;
 }
 
 #searchForm input{
   width: 60%;
-  background-color: pink;
   float:right;
+  height: 30px;
 }
-
-.hello{
-  clear:both;
-  float:right;
-}
-
-
 
 #map {
   /*position: absolute; */

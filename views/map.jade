@@ -12,10 +12,11 @@ block content
             span.label ClientNum
             input(type="text", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
           div.input
-            span.label TNRNMBRD
+            span.label Tenure No.
             input(type="text", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-          div.hello
-            select(name="TNRTPDSCRP", id='TNRTPDSCRP')
+          div.input
+            span.label Type
+            select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
               option(value="") TNRTPDSCRP
               option(value="Coal") Coal
               option(value="Mineral") Mineral
@@ -24,7 +25,7 @@ block content
             span.label GDTDT
             input(type="text", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
           div.input
-            span.label ownerName
+            span.label Owner Name
             input(type="text", id="ownerName", name="ownerName", placeholder="ownerName")
           div.actions
             input(type="submit", value="Search")   
