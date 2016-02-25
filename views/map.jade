@@ -10,20 +10,20 @@ block content
       .search-bar
         form(id="searchForm", name="claim_search")
           div.input
-            span.label ClientNum
+            span.label FMC No.
             input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
           div.input
             span.label Tenure No.
             input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
           div.input
-            span.label Type
+            span.label Claim Type
             select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
-              option(value="") TNRTPDSCRP
+              option(value="") Claim Type
               option(value="Coal") Coal
               option(value="Mineral") Mineral
               option(value="Placer") Placer
           div.input
-            span.label GDTDT
+            span.label Good To Date
             input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
           div.input
             span.label Owner Name
@@ -86,7 +86,7 @@ block content
             $("<p>").appendTo(div_result).text("Owner Name: " + result.properties.OWNER_NAME);
             $("<p>").appendTo(div_result).text("Tenure Number: " + result.properties.TNRNMBRD);
             $("<p>").appendTo(div_result).text("Type: " + result.properties.TNRTPDSCRP);
-            $("<p>").appendTo(div_result).text("Expiration Date: " + result.properties.GDTDT);
+            $("<p>").appendTo(div_result).text("Good To Date: " + result.properties.GDTDT);
             $("<p>").appendTo(div_result).text("Issue Date: " + result.properties.ISSUE_DATE);
 
             table.find('.accordion-toggle').on('click', function(){

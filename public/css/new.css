@@ -45,6 +45,16 @@ body .container p.lead {
 #searchForm span{
   width: 30%;
   color: black;
+  font-size: 12px;
+  font-weight: bold;
+    text-shadow: 2px 2px 1px #FFF,
+              -2px -2px 1px #FFF,
+              -2px 2px 1px #FFF,
+              2px -2px 1px #FFF,
+              2px 0 1px #FFF,
+              -2px 0 1px #FFF,
+              0 2px 1px #FFF,
+              0 -2px 1px #FFF;
 }
 
 #searchForm input{
@@ -59,7 +69,6 @@ body .container p.lead {
   text-align: right;
   height: 30px;
   line-height: 45px;
-  font-size: .8em;
 }
 
 #TNRTPDSCRP {
