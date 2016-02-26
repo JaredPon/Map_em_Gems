@@ -30,9 +30,7 @@ block content
             input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
           div.actions
             input(type="submit", class="btn btn-primary", value="Search")   
-
       .results-count 
-
       .data-table
 
      script(src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js')
@@ -64,7 +62,7 @@ block content
          mapPoints = L.geoJson(results, {
             style: function (feature) {
                 switch (feature.properties.TNRTPDSCRP) {
-                    case 'Placer': return {color: "yellow"};
+                    case 'Placer': return {color: '#FDD017'};
                     case 'Mineral': return {color: "blue"};
                     case 'Coal':   return {color: "black"};
                     }
