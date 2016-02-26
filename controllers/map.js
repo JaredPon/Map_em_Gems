@@ -37,13 +37,14 @@ exports.postSearch = function(req, res) {
   if (ownerName !== "")
   array.push({ 'properties.OWNER_NAME': ownerName });
   
-  console.log(array);
+  // console.log(array);
 
 
   mongoose.model('Claim').find({
     $and:array
     }, function(err, claims){
       res.json(claims);
+      // console.log(claims);
     });
 };
 
