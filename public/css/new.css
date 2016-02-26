@@ -28,60 +28,123 @@ body .container p.lead {
   color: #FFFFFF;
 }
 
-.search-bar{
- float: right;
- width: 30%;
- padding-top: 150px
-}
 
-/*#map {
- position: absolute; 
- top: 50px; 
- bottom: 100px;
- width: 60%;
- margin-right: 10%;
-}*/
+/*SEARCH PANEL CSS*/
 
-.sidebar-controls {
-  position: relative;
-  float: right;
-  padding-left: 5%;
-/*  margin-left: 5%;*/    
-  width: 20%;
+.info-pane{
+
+  height: 700px;
+  overflow: scroll;
+  max-height: 700px;  
+  background: rgba(192,192,192,0.7);
 }
 
 .search-bar{
+  /*float:right;*/
+  width:100%;
+  padding-top: 30px
+}
+
+#searchForm span{
+  width: 30%;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+    text-shadow: 2px 2px 1px #FFF,
+              -2px -2px 1px #FFF,
+              -2px 2px 1px #FFF,
+              2px -2px 1px #FFF,
+              2px 0 1px #FFF,
+              -2px 0 1px #FFF,
+              0 2px 1px #FFF,
+              0 -2px 1px #FFF;
+}
+
+#searchForm input{
+  width: 60%;
   float:right;
-  width:30%;
-  padding-top: 150px
+  height: 30px;
 }
 
-#map {
-  position: absolute; 
-  top:50px; 
-  height: 700px; 
-  width:600px;
-  float:left;
+.label {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+  height: 30px;
+  line-height: 45px;
 }
+
+#TNRTPDSCRP {
+  height: 30px;
+  width: 60%;
+  margin-left: 26px;
+  line-height: 45px;
+}
+
+select {
+  display: inline;
+}
+
+input, select {
+  width: 100px;
+  height: 30px;
+  border: 1px;
+  vertical-align: top;
+}
+
+input, select, option {
+  box-sizing: border-box;
+}
+
+/*DATA TABLE*/
 
 .data-table{
   float:right;
+  min-width: 250px;
   max-width: 530px;
   clear: both;
   margin-top: 10px;
-}
-
-.data-table th{
-}
-
-.data-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.data-table th {
-  padding: 10px;
+  background-color: white;
+  padding-left: 20px;
 }
 
 .results-count{
   float:right;
+  margin-top:20px;
 }
+
+.each_result_table{
+  display: none;
+  color: #00892b;
+  border: 2px;
+border-color: black;
+}
+
+.accordion-toggle {
+  cursor: pointer;
+}
+
+
+.visible{
+  display: inline;
+}
+
+
+
+#map {
+  /*position: absolute; */
+  /*top:50px; */
+  height: 700px; 
+  width:100%;
+  /*float:left;*/
+}
+
+.list {
+border: 2px;
+border-color: black;
+margin: 3px;
+padding: 2px;
+}
+
+
+

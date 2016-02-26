@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .page-header
+    h3 Here is the Map Dude.
+    p hello
+    p hey whats going on
+    #map
+
+
+
+  script.
+    L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
+    
+    var geojson = $.getJSON('/claims/placer',function(result){
+            L.mapbox.map('map', 'mapbox.outdoors')
+            .setView([49.72902, -121.43253], 12)
+            .featureLayer.setGeoJSON(result);
+
+        });

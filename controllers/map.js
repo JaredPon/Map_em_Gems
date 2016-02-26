@@ -44,6 +44,7 @@ exports.postSearch = function(req, res) {
     $and:array
     }, function(err, claims){
       res.json(claims);
+      console.log(claims);
     });
 };
 
