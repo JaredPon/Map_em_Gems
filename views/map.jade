@@ -40,11 +40,12 @@ block content
   script.
     $(function() {
       var row = "start";
+      var mapPoints
 
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
-        if (typeof featureLayer !== "undefined"){
-          map.removeLayer(featureLayer);          
+        if (typeof mapPoints !== "undefined"){
+          map.removeLayer(mapPoints);          
         };
 
         //- Take form data and pass to server
@@ -60,7 +61,7 @@ block content
         function(results){
           //- Pass results to the mapbox map.
           //- map.featureLayer.setGeoJSON(results);
-          L.geoJson(results, {
+         mapPoints = L.geoJson(results, {
             style: function (feature) {
                 switch (feature.properties.TNRTPDSCRP) {
                     case 'Placer': return {color: "yellow"};
@@ -96,7 +97,6 @@ block content
           });
 
           table.find('.accordion-toggle').on('click', function(){ 
-            
             if(row === "start"){
               $(this).next().addClass('visible')
               row = $(this).text();
