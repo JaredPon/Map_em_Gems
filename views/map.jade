@@ -6,6 +6,7 @@ block content
       .col-sm-9
         #map
 
+<<<<<<< HEAD
     .col-sm-3.info-pane
       .search-bar
         form(id="searchForm", name="claim_search")
@@ -34,17 +35,47 @@ block content
         .results-count 
 
         .data-table
+=======
+      .col-sm-3.info-pane
+        .search-bar
+          form(id="searchForm", name="claim_search")
+            div.input
+              span.label FMC No.
+              input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+            div.input
+              span.label Tenure No.
+              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+            div.input
+              span.label Claim Type
+              select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
+                option(value="") Claim Type
+                option(value="Coal") Coal
+                option(value="Mineral") Mineral
+                option(value="Placer") Placer
+            div.input
+              span.label Good To Date
+              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+            div.input
+              span.label Owner Name
+              input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
+            div.actions
+              input(type="submit", class="btn btn-primary", value="Search")   
+        .results-count 
+        .data-table
+
+>>>>>>> cb51e056b1ad2790981773945a7cd82ab30a56a8
 
      script(src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js')
     link(rel='stylesheet', href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css')
   script.
     $(function() {
       var row = "start";
+      var mapPoints
 
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
-        if (typeof featureLayer !== "undefined"){
-          map.removeLayer(featureLayer);          
+        if (typeof mapPoints !== "undefined"){
+          map.removeLayer(mapPoints);          
         };
 
         //- Take form data and pass to server
@@ -60,10 +91,10 @@ block content
         function(results){
           //- Pass results to the mapbox map.
           //- map.featureLayer.setGeoJSON(results);
-          L.geoJson(results, {
+         mapPoints = L.geoJson(results, {
             style: function (feature) {
                 switch (feature.properties.TNRTPDSCRP) {
-                    case 'Placer': return {color: "yellow"};
+                    case 'Placer': return {color: '#FDD017'};
                     case 'Mineral': return {color: "blue"};
                     case 'Coal':   return {color: "black"};
                     }
@@ -96,7 +127,6 @@ block content
           });
 
           table.find('.accordion-toggle').on('click', function(){ 
-            
             if(row === "start"){
               $(this).next().addClass('visible')
               row = $(this).text();

@@ -26,9 +26,13 @@ h1 {
 
 .col-sm-6 {
   background-color: #f0f8ff;
+<<<<<<< HEAD
   opacity: 0.6;
   height: 40%;
 
+=======
+  opacity: 0.8;
+>>>>>>> cb51e056b1ad2790981773945a7cd82ab30a56a8
 }
 
 .col-sm-6:first {
@@ -156,6 +160,11 @@ border-color: black;
   /*float:left;*/
 }
 
+
+.container.text-center p{
+  margin: 10px;
+}
+
 .list {
 border: 2px;
 border-color: black;
@@ -167,8 +176,15 @@ padding: 2px;
   margin: 10px;
 }
 
+<<<<<<< HEAD
 .container-fluid {
   margin: 0 auto;
   width: 45%;
   /*width: 550px;   */
+=======
+
+.button.btn.btn-primary.btn-lg.btn-block {
+  padding: 14px 24px;
+  border: 0 none;
+>>>>>>> cb51e056b1ad2790981773945a7cd82ab30a56a8
 }

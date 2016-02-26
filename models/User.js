@@ -6,6 +6,8 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
 
+  CLIENTNUM: {type:Number, default:-1},
+  
   facebook: String,
   twitter: String,
   google: String,
@@ -14,6 +16,8 @@ var userSchema = new mongoose.Schema({
   linkedin: String,
   steam: String,
   tokens: Array,
+
+
 
   profile: {
     name: { type: String, default: '' },
