@@ -154,6 +154,11 @@ border-color: black;
   /*float:left;*/
 }
 
+
+.container.text-center p{
+  margin: 10px;
+}
+
 .list {
 border: 2px;
 border-color: black;
