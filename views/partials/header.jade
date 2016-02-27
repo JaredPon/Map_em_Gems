@@ -15,8 +15,9 @@
           a(href='/') Home
         li(class=title=='Map'?'active':undefined)
           a(href='/map') Map
-        //- li(class=title=='API Examples'?'active':undefined)
-        //-   a(href='/map') Map
+        if user
+          li(class=title=='Client Claims'?'active':undefined)
+            a(href='/clientclaims') Client Claims
         li(class=title=='Contact'?'active':undefined)
           a(href='/contact') Contact
       ul.nav.navbar-nav.navbar-right

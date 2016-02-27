@@ -153,7 +153,8 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 // EDIT NEW ROUTES HERE!!!!
 app.get('/map', mapController.show);
 app.get('/map/search', mapController.postSearch);
-
+app.get('/clientclaims',  passportConf.isAuthenticated,userController.getClaims);
+app.get('/clientclaims/search', userController.getUserClaims);
 
 
 /**

@@ -4,6 +4,27 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
+var mongoose = require('mongoose');
+
+/**
+ * GET /clientclaims
+ * Client Claims page.
+ */
+exports.getClaims = function(req, res) {
+  res.render('account/clientclaims', {
+    title: 'Client Claims'
+  });
+};
+
+
+exports.getUserClaims = function(req, res) {
+  var clientNum = +req.query.clientnum;
+
+  mongoose.model('Claim').find({'properties.CLIENTNUM': clientNum}, function(err, claims){
+      res.json(claims);
+    });
+};
+
 
 /**
  * GET /login

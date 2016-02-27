@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+
+  h3 Client Claims
+
+  h5#client-number #{user.CLIENTNUM}
+
+  .client-claims-table
+    //- Data table to append results to.
+    table.table
+      thead
+        tr
+          th Client Number
+          th TNRNMBRD
+          th TNRTPDSCRP
+          th Expiration Date
+          th Owner Name
+      tbody
+
+
+  script.
+    $(function() {
+      var clientNumber = $('#client-number').text()
+      
+      console.log($('#client-number').text());
+      console.log(clientNumber);
+
+      $.getJSON('/clientclaims/search', {
+        clientnum: clientNumber
+      },
+
+
+      function(results){
+        console.log(results);
+        //- Put data in table
+        var table = $(".client-claims-table").find('tbody');
+        
+        results.forEach(function(result) {
+          var tr = $("<tr>").appendTo(table);
+          $("<td>").appendTo(tr).text(result.properties.CLIENTNUM);
+          $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
+          $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
+          $("<td>").appendTo(tr).text(result.properties.GDTDT);
+          $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
+        });
+      });
+    });
