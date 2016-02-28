@@ -6,7 +6,6 @@ block content
       .col-sm-9
         #map
 
-<<<<<<< HEAD
     .col-sm-3.info-pane
       .search-bar
         form(id="searchForm", name="claim_search")
@@ -35,35 +34,6 @@ block content
         .results-count 
 
         .data-table
-=======
-      .col-sm-3.info-pane
-        .search-bar
-          form(id="searchForm", name="claim_search")
-            div.input
-              span.label FMC No.
-              input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
-            div.input
-              span.label Tenure No.
-              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-            div.input
-              span.label Claim Type
-              select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
-                option(value="") Claim Type
-                option(value="Coal") Coal
-                option(value="Mineral") Mineral
-                option(value="Placer") Placer
-            div.input
-              span.label Good To Date
-              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
-            div.input
-              span.label Owner Name
-              input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
-            div.actions
-              input(type="submit", class="btn btn-primary", value="Search")   
-        .results-count 
-        .data-table
-
->>>>>>> cb51e056b1ad2790981773945a7cd82ab30a56a8
 
      script(src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js')
     link(rel='stylesheet', href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css')
@@ -151,3 +121,9 @@ block content
         new L.Control.MiniMap(L.mapbox.tileLayer('mapbox.streets'))
             .addTo(map);
              });
+
+    var ne_lat = map.getBounds().getNorthEast().lat
+    var ne_lng = map.getBounds().getNorthEast().lng
+    var sw_lat = map.getBounds().getSouthWest().lat
+    var sw_lng = map.getBounds().getSouthWest().lng
+    console.log(ne_lng + ", " + ne_lat);

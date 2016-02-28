@@ -39,7 +39,6 @@ exports.postSearch = function(req, res) {
   
   // console.log(array);
 
-
   mongoose.model('Claim').find({
     $and:array
     }, function(err, claims){
