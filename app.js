@@ -24,6 +24,7 @@ var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, 'uploads') });
 var fs = require('fs');
 var request = require("request");
+var handlebars = require('handlebars');
 
 
 /**

@@ -8,10 +8,17 @@
 .background-image-home {
   background-image: url(http://i.imgur.com/YJr7XzT.jpg?1);
   background-repeat: no-repeat;
+  height: 770px;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 body .container p.lead {
   color: #483d8b;
+  padding-left: 10%;
 }
 
 .btn btn-primary btn-lg active{
@@ -20,8 +27,9 @@ body .container p.lead {
     left: 50%;
 }
 
-h1 {
-  padding: 30px;
+h1.title {
+  padding: 30px 30px 30px 10%;
+  font-size: 3.5em;
 }
 
 .col-sm-6 {
@@ -171,4 +179,27 @@ padding: 2px;
 .button.btn.btn-primary.btn-lg.btn-block {
   padding: 14px 24px;
   border: 0 none;
+}
+
+
+body {
+  padding-bottom: 35px
+}
+
+.btn-group.btn-group-justified{
+  margin-left:20%;
+}
+
+.btn.btn-default.home {
+  /*margin-left: 45%;*/
+  max-width: 175px;
+  height: 40px;
+}
+
+.future-feature{
+  height: 100%;
+}
+
+.background-text{
+  height: 100%;
 }
