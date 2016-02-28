@@ -3,10 +3,26 @@ extends layout
 block content
   .col-sm-12.background-image-home
     br
-    h1.title Map Em Gems
+    h1.title Mining Claims Mapping
     p.lead Responsive Map for B.C. Mining Cliams Data
     //- hr
-
+    //- a.col-sm-6.button.btn.btn-primary.btn-lg.btn-block(href='/map', type='button') Button 1
+    //- a.col-sm-6.button.btn.btn-default.btn-lg.btn-block(href='/contact', type='button') Button 2
+    //- a.btn.btn-primary.btn-lg.active(href='/map', role='button') Map
+    //- a.btn.btn-secondary.btn-lg.active(href='/contact') Contact
+    br
+    .row.front-info
+      .col-sm-6.background-text
+        h2 Background
+        p.center Map Em Gems is a responsive up-to-date mining claim data map. The beautiful map with shaded mining area polygons is easy to navaigate. This map is easier to look up mining claim details than Mineral Titles Online (MTO) & Data B.C. sites.
+        //- p
+        //-   a.btn.btn-default(href='/map', role='button') View Map »
+      
+      .col-sm-6.future-features
+        h2 Future Features
+        p.center -Watch list of claims
+        p.center -Email notification of claim expiration
+        p.center -Map download & more!
 
     br
     .row
@@ -16,26 +32,7 @@ block content
         //- .btn-group(role='group')
         //-   button.btn.btn-default(type='button') Middle
         .btn-group(role='group')
-          button.btn.btn-default.home(type='button') View Map »
-
-      //- a.col-sm-6.button.btn.btn-primary.btn-lg.btn-block(href='/map', type='button') Button 1
-      //- a.col-sm-6.button.btn.btn-default.btn-lg.btn-block(href='/contact', type='button') Button 2
-  
-    //- a.btn.btn-primary.btn-lg.active(href='/map', role='button') Map
-    //- a.btn.btn-secondary.btn-lg.active(href='/contact') Contact
-    br
-    .row
-      .col-sm-6.background-text
-        h2 Background
-        p.center Map Em Gems is a responsive up-to-date mining claim data map. The beautiful map with shaded mining area polygons is easy to navaigate. This map is easier to look up mining claim details than Mineral Titles Online (MTO) & Data B.C. sites. You are ready to mine some gems with the help of Map Em Gems!
-        //- p
-        //-   a.btn.btn-default(href='/map', role='button') View Map »
-      
-      .col-sm-6.future-features
-        h2 Future Features
-        p.center -Watch list of claims
-        p.center -Email notification of claim expiration
-        p.center -Map download & more!
+          button.btn.btn-default.home(type='button', href='/map', role='button') View Map »
 
 
     //- This is to fix container margins on homepage, fix navbar ect without affecting the layout on the other pages.

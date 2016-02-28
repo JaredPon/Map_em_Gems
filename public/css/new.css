@@ -18,7 +18,7 @@
 
 body .container p.lead {
   color: #483d8b;
-  padding-left: 10%;
+  padding-left: 8%;
 }
 
 .btn btn-primary btn-lg active{
@@ -28,8 +28,9 @@ body .container p.lead {
 }
 
 h1.title {
-  padding: 30px 30px 30px 10%;
+  padding: 30px 30px 30px 8%;
   font-size: 3.5em;
+  color: #008080;
 }
 
 .col-sm-6 {
@@ -187,7 +188,8 @@ body {
 }
 
 .btn-group.btn-group-justified{
-  margin-left:20%;
+  margin-left:13%;
+  margin-top: 20px;
 }
 
 .btn.btn-default.home {
@@ -196,10 +198,8 @@ body {
   height: 40px;
 }
 
-.future-feature{
-  height: 100%;
-}
-
-.background-text{
-  height: 100%;
+.row.front-info{
+  margin-top: 120px;
+  background-color: #f0f8ff;
+  opacity:0.8;
 }
