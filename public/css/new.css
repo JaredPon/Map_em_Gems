@@ -187,6 +187,20 @@ body {
   padding-bottom: 35px
 }
 
+/*.future-features{
+  border-style: solid;
+  border-left-width: 100px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-right-width: 0px; 
+
+  border-color: rgba(51, 51, 51, 51);
+}
+*/
+.background-text{
+
+}
+
 .btn-group.btn-group-justified{
   margin-left:13%;
   margin-top: 20px;

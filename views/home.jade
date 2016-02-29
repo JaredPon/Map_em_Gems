@@ -38,9 +38,5 @@ block content
     //- This is to fix container margins on homepage, fix navbar ect without affecting the layout on the other pages.
     script.
       $(function() {
-        $('.container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '0').css('padding-right', '0');
-
-        $('.navbar-collapse').css('padding-left', '30px').css('padding-right', '30px')
-
-        $('.navbar-brand').css('margin-left', '0')
+        $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '0').css('padding-right', '0');
       });
