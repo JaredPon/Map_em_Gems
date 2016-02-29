@@ -1,9 +1,9 @@
-/*.background-img-regular {
+.background-img-regular {
   background-color: #556:rgba(0, 0, 0, 0.5);
   background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a), linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
   background-size: 80px 140px;
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px; 
-}*/
+}
 
 .background-image-home {
   background-image: url(http://i.imgur.com/YJr7XzT.jpg?1);
@@ -35,23 +35,17 @@ h1.title {
 
 .col-sm-6 {
   background-color: #f0f8ff;
-<<<<<<< HEAD
-  opacity: 0.6;
-  height: 40%;
-
-=======
   opacity: 0.8;
->>>>>>> cb51e056b1ad2790981773945a7cd82ab30a56a8
 }
 
-.col-sm-6:first {
+.col-sm-6 :first {
   margin: auto;
   width: 35%;
 }
 
-.col-sm-6:nth-child(1){
+.col-sm-6 :nth-child(1){
   width: 50%;
-  margin: 10 auto; 
+  margin: 0 auto; 
 }
 
 .col-sm-6 p {
@@ -181,40 +175,16 @@ margin: 3px;
 padding: 2px;
 }
 
-.container .text-center p {
-  margin: 10px;
-}
 
-<<<<<<< HEAD
-.container-fluid {
-  margin: 0 auto;
-  width: 45%;
-  /*width: 550px;   */
-=======
 
 .button.btn.btn-primary.btn-lg.btn-block {
   padding: 14px 24px;
   border: 0 none;
->>>>>>> cb51e056b1ad2790981773945a7cd82ab30a56a8
 }
 
 
 body {
   padding-bottom: 35px
-}
-
-/*.future-features{
-  border-style: solid;
-  border-left-width: 100px;
-  border-top-width: 0px;
-  border-bottom-width: 0px;
-  border-right-width: 0px; 
-
-  border-color: rgba(51, 51, 51, 51);
-}
-*/
-.background-text{
-
 }
 
 .btn-group.btn-group-justified{

@@ -15,10 +15,21 @@ exports.postSearch = function(req, res) {
   var TNRTPDSCRP = req.query.TNRTPDSCRP;
   var GDTDT = req.query.GDTDT+'000000';
   var ownerName = req.query.ownerName;
+  var ne_lat = JSON.parse(req.query.ne_lat);
+  var ne_lng = JSON.parse(req.query.ne_lng);
+  var sw_lat = JSON.parse(req.query.sw_lat);
+  var sw_lng = JSON.parse(req.query.sw_lng);
+  var sw = [sw_lng, sw_lat];
+  var nw = [sw_lng, ne_lat];
+  var ne = [ne_lng, ne_lat];
+  var se = [ne_lng, sw_lat];
 
   // mongoose.model('Claim').find({'properties.clientnum': clientNum}, {_id: 0}, function(err, claims){
   //     res.json(claims);
   //   });
+
+  var geoQuery =
+    {"geometry": {$geoWithin: {$geometry: {type : "Polygon" ,coordinates: [[sw, nw, ne, se, sw]]}}}};
 
   var array = [];
 
@@ -36,9 +47,10 @@ exports.postSearch = function(req, res) {
 
   if (ownerName !== "")
   array.push({ 'properties.OWNER_NAME': ownerName });
-  
-  // console.log(array);
 
+  // Geo Query Stuff (Nick)
+  // if (typeof req.query.sw !== "undefined"){
+    array.push(geoQuery);
 
   mongoose.model('Claim').find({
     $and:array
@@ -46,5 +58,5 @@ exports.postSearch = function(req, res) {
       res.json(claims);
       // console.log(claims);
     });
+// };
 };
-
