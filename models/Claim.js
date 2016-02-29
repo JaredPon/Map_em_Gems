@@ -35,6 +35,6 @@ var claimSchema = new Schema({
       rnhctrs: Number,
       ttltpcd: String},
   geometry: { type: {type: String}, coordinates: []}
-    }, { collection : 'docs4' });
+    }, { collection : 'docs' });
 
 mongoose.model('Claim', claimSchema);

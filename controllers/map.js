@@ -51,9 +51,6 @@ exports.postSearch = function(req, res) {
   // Geo Query Stuff (Nick)
   // if (typeof req.query.sw !== "undefined"){
     array.push(geoQuery);
-  
-  console.log(geoQuery);
-  console.log("search array = " + array[0], array[1]);
 
   mongoose.model('Claim').find({
     $and:array

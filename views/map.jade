@@ -53,10 +53,6 @@ block content
         var ne_lng = map.getBounds().getNorthEast().lng;
         var sw_lat = map.getBounds().getSouthWest().lat;
         var sw_lng = map.getBounds().getSouthWest().lng;
-        //- var sw = sw_lng + ", " + sw_lat;
-        //- var nw = sw_lng + ", " + ne_lat;
-        //- var ne = ne_lng + ", " + ne_lat;
-        //- var se = ne_lng + ", " + sw_lat;
 
         //- Take form data and pass to server
         $.getJSON('/map/search', {
