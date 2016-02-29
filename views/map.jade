@@ -48,13 +48,24 @@ block content
           map.removeLayer(mapPoints);          
         };
 
+        // Geo Query Stuff (Nick)
+        var ne_lat = map.getBounds().getNorthEast().lat;
+        var ne_lng = map.getBounds().getNorthEast().lng;
+        var sw_lat = map.getBounds().getSouthWest().lat;
+        var sw_lng = map.getBounds().getSouthWest().lng;
+        //- var sw = sw_lng + ", " + sw_lat;
+        //- var nw = sw_lng + ", " + ne_lat;
+        //- var ne = ne_lng + ", " + ne_lat;
+        //- var se = ne_lng + ", " + sw_lat;
+
         //- Take form data and pass to server
         $.getJSON('/map/search', {
           clientnum: $('#ClientNum').val(),
           TNRNMBRD: $('#TNRNMBRD').val(),
           TNRTPDSCRP: $('#TNRTPDSCRP').val(),
           GDTDT: $('#GDTDT').val(),
-          ownerName: $('#ownerName').val()
+          ownerName: $('#ownerName').val(),
+          ne_lat, ne_lng, sw_lat, sw_lng
         },
 
 
@@ -122,8 +133,4 @@ block content
             .addTo(map);
              });
 
-    var ne_lat = map.getBounds().getNorthEast().lat
-    var ne_lng = map.getBounds().getNorthEast().lng
-    var sw_lat = map.getBounds().getSouthWest().lat
-    var sw_lng = map.getBounds().getSouthWest().lng
-    console.log(ne_lng + ", " + ne_lat);
+    
