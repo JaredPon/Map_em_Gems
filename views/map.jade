@@ -6,30 +6,30 @@ block content
       .col-sm-9
         #map
 
-    .col-sm-3.info-pane
-      .search-bar
-        form(id="searchForm", name="claim_search")
-          div.input
-            span.label FMC No.
-            input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
-          div.input
-            span.label Tenure No.
-            input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
-          div.input
-            span.label Claim Type
-            select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
-              option(value="") Claim Type
-              option(value="Coal") Coal
-              option(value="Mineral") Mineral
-              option(value="Placer") Placer
-          div.input
-            span.label Good To Date
-            input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
-          div.input
-            span.label Owner Name
-            input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
-          div.actions
-            input(type="submit", class="btn btn-primary", value="Search")   
+      .col-sm-3.info-pane
+        .search-bar
+          form(id="searchForm", name="claim_search")
+            div.input
+              span.label FMC No.
+              input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+            div.input
+              span.label Tenure No.
+              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+            div.input
+              span.label Claim Type
+              select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
+                option(value="") Claim Type
+                option(value="Coal") Coal
+                option(value="Mineral") Mineral
+                option(value="Placer") Placer
+            div.input
+              span.label Good To Date
+              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+            div.input
+              span.label Owner Name
+              input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
+            div.actions
+              input(type="submit", class="btn btn-primary", value="Search")   
 
         .results-count 
 
@@ -52,6 +52,8 @@ block content
     <p>{{good_until}}</p>
     <p>{{issue_date}}</p>
 
+  script.
+    $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '0').css('padding-right', '0');
 
   script.
     $(function() {
