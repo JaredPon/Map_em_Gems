@@ -9,9 +9,9 @@
 /*FRONT PAGE*/
 
 .background-image-home {
-  background-image: url(http://i.imgur.com/YJr7XzT.jpg?1);
+  background-image: url(/images/mining_home_crop.jpg);
   background-repeat: no-repeat;
-  height: 425px;
+  height: 450px;
   width: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -19,66 +19,67 @@
   background-size: cover;
 }
 
-.background-text{
-  width: 50%;
-  margin: auto; 
-}
-.background-text p{
-   color: #008080;
-}
-
-.btn-group.btn-group-justified{
-  margin-left:13%;
-  margin-top: 20px;
+h1.title {
+  padding: 65px 30px 0px 25%;
+  font-size: 3.5em;
+  color: #b35900;
+  font-family: 'Sintony', sans-serif;
+  font-weight: bold;
 }
 
-.btn.btn-default.home {
-  /*margin-left: 45%;*/
-  max-width: 175px;
-  height: 40px;
+body .container p.lead {
+  color: #E0E6F8;
+  padding-left: 27%;
+  padding-top: 70px;
+  /*font-weight: bold;*/
+  font-family: 'Oswald', sans-serif;
+}
+
+.btn-groups{
+  margin-left:31%;
+}
+
+.btn.home {
+  width: 120px;
+  height: 50px;
+  border-radius: 10%;
+  margin-right: 10%;
+  font-size: 120%;
+  padding-top: 10px;
 }
 
 .row.front-info{
-  margin-top: 120px;
-  background-color: #f0f8ff;
-  opacity:0.8;
+  margin-top: 50px;
 }
 
 .description{
   background-color: white;
-  height: 700px;
+  min-height: 725px;
+}
+
+.background-text{
+  width: 50%;
+  margin-left:20%;
+  text-align: center;
+}
+
+.background-text h1 {
+ color: black;
+}
+
+.background-text p{
+   color: #008080;
+   margin-top: 30px;
 }
 
 
-
-body .container p.lead {
-  color: #483d8b;
-  padding-left: 8%;
+.screen-shot{
+  background-image: url(/images/screen-shot2.png);
+  height: 400px;
+  width: 600px;
+  margin-left: 24%;
+  margin-top: 30px;
 }
-
-
-h1.title {
-  padding: 30px 30px 30px 8%;
-  font-size: 3.5em;
-  color: #008080;
-}
-
-.col-sm-6 {
-  background-color: #f0f8ff;
-  opacity: 0.6;
-  height: 40%;
-
-}
-
-.col-sm-6:first {
-  margin: auto;
-  width: 35%;
-}
-
-.col-sm-6:nth-child(1){
-
-}
-
 
 
 /*SEARCH PANEL CSS*/
