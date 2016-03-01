@@ -10,27 +10,23 @@ block content
         //- .search-bar
         #header
           form(id="searchForm", name="claim_search")
-            div.input
+            div
                 h2 Search For Claims
               input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
-            div.input
-              //- span.label Tenure No.
+            div
               input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="Tenure Number")
-            div.input
-              //- span.label Claim Type
-              select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
+            div
+              select(name="TNRTPDSCRP", class='dropSearch', id='TNRTPDSCRP')
                 option(value="") Claim Type
                 option(value="Coal") Coal
                 option(value="Mineral") Mineral
                 option(value="Placer") Placer
-            div.input
-              //- span.label Good To Date
+            div
               input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="Expiring Before (YYMMDD)")
-            div.input
-              //- span.label Owner Name
+            div
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
-            div.actions
-              input(type="submit", class="btn btn-primary", value="Search")   
+            div
+              input(type="submit", class="actions", value="Search")   
 
         .results-count 
 
@@ -100,7 +96,7 @@ block content
 
 
           $(".results-count").empty();
-          $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
+          $("<h3>").appendTo(".results-count").text("Results Count: " + results.length);
 
 
           var table = $(".data-table").empty();
@@ -109,8 +105,8 @@ block content
 
               //- This is the header for each of the results
             var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
-            $("<h4>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
-            $("<h4>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+            $("<h2>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+            $("<h2>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
             
 
             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
