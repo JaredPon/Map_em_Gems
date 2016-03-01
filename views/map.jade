@@ -7,26 +7,27 @@ block content
         #map
 
       .col-sm-3.info-pane
-        .search-bar
+        //- .search-bar
+        #header
           form(id="searchForm", name="claim_search")
             div.input
-              span.label FMC No.
+                h2 Search For Claims
               input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
             div.input
-              span.label Tenure No.
-              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="TNRNMBRD")
+              //- span.label Tenure No.
+              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="Tenure Number")
             div.input
-              span.label Claim Type
+              //- span.label Claim Type
               select(name="TNRTPDSCRP", class='input', id='TNRTPDSCRP')
                 option(value="") Claim Type
                 option(value="Coal") Coal
                 option(value="Mineral") Mineral
                 option(value="Placer") Placer
             div.input
-              span.label Good To Date
-              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="GDTDT (YYMMDD)")
+              //- span.label Good To Date
+              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="Expiring Before (YYMMDD)")
             div.input
-              span.label Owner Name
+              //- span.label Owner Name
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
             div.actions
               input(type="submit", class="btn btn-primary", value="Search")   
