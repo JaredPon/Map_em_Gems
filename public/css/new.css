@@ -49,7 +49,7 @@ body .container p.lead {
   padding-top: 10px;
 }
 
-.row.front-info{
+.front-info{
   margin-top: 50px;
 }
 
@@ -65,17 +65,26 @@ body .container p.lead {
 }
 
 .background-text h1 {
- color: black;
+  color: black;
+  font-family: 'Sintony', sans-serif;
 }
 
-.background-text p{
-   color: #008080;
-   margin-top: 30px;
+.background-text h2 {
+  color: black;
+  font-family: 'Sintony', sans-serif;
+}
+
+.background-text h4{
+  color: #b35900;
+  margin-top: 30px;
+  font-family: 'Oswald', sans-serif;
+  line-height: 160%;
+  font-size: 1.25em;
 }
 
 
 .screen-shot{
-  background-image: url(/images/screen-shot2.png);
+  background-image: url(/images/screen-shot3.png);
   height: 400px;
   width: 600px;
   margin-left: 24%;

@@ -99,7 +99,7 @@ block content
                 popupOptions = {maxWidth: 200};
                 layer.bindPopup("<b>Type: </b>" + feature.properties.TNRTPDSCRP +
                     "<br><b>Tenure Number:</b> " + feature.properties.CLIENTNUM +
-                    "<br><b>Good Until: </b>" + feature.properties.GDTDT +
+                    "<br><b>Good Until: </b>" + moment(feature.properties.GDTDT).format('MMM DD, YYYY')+
                     "<br><b>Owner Name: </b>" + feature.properties.OWNER_NAME
                     ,popupOptions);
             }
