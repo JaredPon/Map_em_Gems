@@ -52,14 +52,15 @@ block content
     <p>{{good_until}}</p>
     <p>{{issue_date}}</p>
 
+
   script.
-    $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '0').css('padding-right', '0');
+    $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '20').css('padding-right', '20');
 
   script.
     $(function() {
-      //- var row for hiding and showing results details
+      //- row and mapPoints for hiding and showing results details
       var row = "start";
-      var mapPoints
+      var mapPoints 
 
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
@@ -83,30 +84,38 @@ block content
           ne_lat, ne_lng, sw_lat, sw_lng
         },
 
-
+        //- results from getJSON
         function(results){
+
+
+
           //- Pass results to the mapbox map.
-          //- map.featureLayer.setGeoJSON(results);
-         mapPoints = L.geoJson(results, {
+          mapPoints = L.geoJson(results, {
             style: function (feature) {
                 switch (feature.properties.TNRTPDSCRP) {
                     case 'Placer': return {color: '#FDD017'};
                     case 'Mineral': return {color: "blue"};
                     case 'Coal':   return {color: "black"};
                     }
+            },
+            onEachFeature: function (feature, layer) {
+                popupOptions = {maxWidth: 200};
+                layer.bindPopup("<b>Type: </b>" + feature.properties.TNRTPDSCRP +
+                    "<br><b>Tenure Number:</b> " + feature.properties.CLIENTNUM +
+                    "<br><b>Good Until: </b>" + feature.properties.GDTDT +
+                    "<br><b>Owner Name: </b>" + feature.properties.OWNER_NAME
+                    ,popupOptions);
             }
-        }).addTo(map);
+          }).addTo(map);
 
 
           $(".results-count").empty();
           $("<p>").appendTo(".results-count").text("Results Count: " + results.length);
-
-
           var table = $(".data-table").empty();
 
           results.forEach(function(result) {
 
-              //- This is the header for each of the results
+              //- This is the header for each of the results of query
             var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
             $("<h4>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
             $("<h4>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
@@ -122,7 +131,7 @@ block content
             var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
             var context = {
-            clinum: "Client Number" + result.properties.CLIENTNUM, 
+            clinum: "Client Number: " + result.properties.CLIENTNUM, 
             claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
             owner_name: "Owner Name: " + result.properties.OWNER_NAME,
             tenure: "Tenure Number: " + result.properties.TNRNMBRD,
@@ -150,11 +159,15 @@ block content
             }
           })
         });
-      });
-    });
+      }); //- Ends the on submit click handler
 
-    L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';
-    
+
+
+    }); //-ends document ready.
+
+
+
+    L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';    
     //- Map initialize
     var map = L.mapbox.map('map', 'mapbox.outdoors')
             .setView([49.72902, -121.43253], 12)
@@ -162,5 +175,8 @@ block content
         new L.Control.MiniMap(L.mapbox.tileLayer('mapbox.streets'))
             .addTo(map);
              });
+
+
+     
 
     
