@@ -118,6 +118,8 @@ block content
               //- handlebars templating for displaying claim details
             var source   = $("#entry-template").html();
             var template = Handlebars.compile(source);
+            var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+            var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
             var context = {
             clinum: "Client Number" + result.properties.CLIENTNUM, 
@@ -125,8 +127,8 @@ block content
             owner_name: "Owner Name: " + result.properties.OWNER_NAME,
             tenure: "Tenure Number: " + result.properties.TNRNMBRD,
             type: "Type: " + result.properties.TNRTPDSCRP,
-            good_until: "Good To Date: " + result.properties.GDTDT,
-            issue_date: "Issue Date: " + result.properties.ISSUE_DATE
+            good_until: "Good To Date: " + gtd,
+            issue_date: "Issue Date: " + issue
             }
 
             var el_html = template(context);

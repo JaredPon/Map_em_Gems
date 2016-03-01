@@ -18,7 +18,6 @@ block content
           th Owner Name
       tbody
 
-
   script.
     $(function() {
       var clientNumber = $('#client-number').text()
@@ -32,7 +31,6 @@ block content
 
 
       function(results){
-        console.log(results);
         //- Put data in table
         var table = $(".client-claims-table").find('tbody');
         
@@ -41,7 +39,8 @@ block content
           $("<td>").appendTo(tr).text(result.properties.CLIENTNUM);
           $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
           $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
-          $("<td>").appendTo(tr).text(result.properties.GDTDT);
+          var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY'); 
+          $("<td>").appendTo(tr).text(gtd);
           $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
         });
       });
