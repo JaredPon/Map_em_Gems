@@ -5,10 +5,13 @@
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px; 
 }*/
 
+
+/*FRONT PAGE*/
+
 .background-image-home {
   background-image: url(http://i.imgur.com/YJr7XzT.jpg?1);
   background-repeat: no-repeat;
-  height: 770px;
+  height: 425px;
   width: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -16,16 +19,43 @@
   background-size: cover;
 }
 
+.background-text{
+  width: 50%;
+  margin: auto; 
+}
+.background-text p{
+   color: #008080;
+}
+
+.btn-group.btn-group-justified{
+  margin-left:13%;
+  margin-top: 20px;
+}
+
+.btn.btn-default.home {
+  /*margin-left: 45%;*/
+  max-width: 175px;
+  height: 40px;
+}
+
+.row.front-info{
+  margin-top: 120px;
+  background-color: #f0f8ff;
+  opacity:0.8;
+}
+
+.description{
+  background-color: white;
+  height: 700px;
+}
+
+
+
 body .container p.lead {
   color: #483d8b;
   padding-left: 8%;
 }
 
-.btn btn-primary btn-lg active{
-    float: left;
-    position: relative;
-    left: 50%;
-}
 
 h1.title {
   padding: 30px 30px 30px 8%;
@@ -46,13 +76,9 @@ h1.title {
 }
 
 .col-sm-6:nth-child(1){
-  width: 50%;
-  margin: 10 auto; 
+
 }
 
-.col-sm-6 p {
-  color: #008080;
-}
 
 
 /*SEARCH PANEL CSS*/
@@ -198,33 +224,4 @@ body {
   padding-bottom: 35px
 }
 
-/*.future-features{
-  border-style: solid;
-  border-left-width: 100px;
-  border-top-width: 0px;
-  border-bottom-width: 0px;
-  border-right-width: 0px; 
 
-  border-color: rgba(51, 51, 51, 51);
-}
-*/
-.background-text{
-
-}
-
-.btn-group.btn-group-justified{
-  margin-left:13%;
-  margin-top: 20px;
-}
-
-.btn.btn-default.home {
-  /*margin-left: 45%;*/
-  max-width: 175px;
-  height: 40px;
-}
-
-.row.front-info{
-  margin-top: 120px;
-  background-color: #f0f8ff;
-  opacity:0.8;
-}
