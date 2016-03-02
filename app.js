@@ -21,8 +21,8 @@ var mongoose = require('mongoose');
 /**
  * Connect to MongoDB.
  */
-//mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
-mongoose.connect('mongodb://mining:claims@127.0.0.1/claims');
+mongoose.connect(process.env.MONGODB || process.env.MONGO_URL);
+// mongoose.connect('mongodb://mining:claims@127.0.0.1/claims');
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
