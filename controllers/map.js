@@ -51,12 +51,14 @@ exports.postSearch = function(req, res) {
   // Geo Query Stuff (Nick)
   // if (typeof req.query.sw !== "undefined"){
     array.push(geoQuery);
+    console.log(array);
+    console.log(TNRNMBRD);
 
   mongoose.model('Claim').find({
     $and:array
     }, function(err, claims){
       res.json(claims);
-      // console.log(claims);
+      console.log(claims);
     });
 // };
 };

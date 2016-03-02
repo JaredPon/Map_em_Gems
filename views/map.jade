@@ -98,9 +98,10 @@ block content
             onEachFeature: function (feature, layer) {
                 popupOptions = {maxWidth: 200};
                 layer.bindPopup("<b>Type: </b>" + feature.properties.TNRTPDSCRP +
-                    "<br><b>Tenure Number:</b> " + feature.properties.CLIENTNUM +
+                    "<br><b>Tenure Number:</b> " + feature.properties.TNRNMBRD +
                     "<br><b>Good Until: </b>" + moment(feature.properties.GDTDT).format('MMM DD, YYYY')+
-                    "<br><b>Owner Name: </b>" + feature.properties.OWNER_NAME
+                    "<br><b>Owner Name: </b>" + feature.properties.OWNER_NAME +
+                    "<br><b>Area:</b> " + feature.properties.RNHCTRS + " ha"
                     ,popupOptions);
             }
           }).addTo(map);
