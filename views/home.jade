@@ -13,8 +13,10 @@ block content
       .btn-groups
         
         // Indicates a successful or positive action
-        a.btn.btn-success.home(href='/signup', type='button') Sign Up
         a.btn.btn-primary.btn-map.home(href='/map',type='button') View Map »
+        if !user
+          a.btn.btn-success.home(href='/signup', type='button') Sign Up
+        
 
       //- .btn-group.btn-group-justified(role='group', aria-label='...')
       //-   .btn-group(role='group')

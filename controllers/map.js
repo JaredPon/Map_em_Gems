@@ -28,9 +28,22 @@ exports.postSearch = function(req, res) {
   //     res.json(claims);
   //   });
 
+
+  // Make current date in yyyymmdd format
+  Date.prototype.yyyymmdd = function() {
+   var yyyy = (this.getFullYear() -1).toString();
+   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = this.getDate().toString();
+   return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
+  };
+
+  d = new Date();
+  var oneYearAgo = d.yyyymmdd() + "000000";
+
   var geoQuery =
     {"geometry": {$geoWithin: {$geometry: {type : "Polygon" ,coordinates: [[sw, nw, ne, se, sw]]}}}};
 
+    // Build an array to use in the query
   var array = [];
 
   if (clientNum !== 0)
@@ -44,21 +57,22 @@ exports.postSearch = function(req, res) {
 
   if (GDTDT !== "000000")
   array.push({ 'properties.GDTDT': { $lt: GDTDT }});
+  array.push({ 'properties.GDTDT': { $gt: oneYearAgo }});
 
   if (ownerName !== "")
   array.push({ 'properties.OWNER_NAME': ownerName });
 
+
   // Geo Query Stuff (Nick)
   // if (typeof req.query.sw !== "undefined"){
-    array.push(geoQuery);
-    console.log(array);
-    console.log(TNRNMBRD);
+  array.push(geoQuery);
+    
+
 
   mongoose.model('Claim').find({
     $and:array
     }, function(err, claims){
       res.json(claims);
-      console.log(claims);
     });
 // };
 };
