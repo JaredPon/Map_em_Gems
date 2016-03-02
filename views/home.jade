@@ -4,14 +4,14 @@ block content
   .col-sm-12.background-image-home
     br
     h1.title Mining Claims Mapping
-    p.lead Responsive Map for B.C. Mining Claims Data
+    .lead 
+      span Responsive Map for B.C. Mining Claims Data
     br
 
 
     br
     .row
       .btn-groups
-        
         // Indicates a successful or positive action
         a.btn.btn-primary.btn-map.home(href='/map',type='button') View Map »
         if !user
@@ -27,11 +27,14 @@ block content
     .col-sm-12.description
       .row.front-info
         .col-sm-6.background-text
-          h2 Better Mapping for 
-          h1 Your Claims
-          h4.center Mining Claims Mapping is a responsive up-to-date mining claim data map.  Our app simplifies the process of searching claim details on the Mineral Titles Online (MTO) & Data B.C. sites.
+          .big Better Mapping for Your Claims
+          h2.center Mining Claims Mapping is a responsive up-to-date mining claim data map.  Our app simplifies the process of searching claim details on the Mineral Titles Online (MTO) & Data B.C. sites.
       .row
-        .col-sm-12.screen-shot
+        .col-sm-11.screen-shot
+          img(src='/images/Screen_Satellite.png')
+          img(src='/images/screen-shot3_square.png')
+          img(src='/images/dark.png') 
+          img(src='/images/screen-shot1_square.png')
 
 
 

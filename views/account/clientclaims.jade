@@ -42,10 +42,10 @@ block content
           $("<td>").appendTo(tr).text(result.properties.CLAIM_NAME);
           $("<td>").appendTo(tr).text(result.properties.PRCNTOWNER); 
           $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
-          var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY'); 
-          $("<td>").appendTo(tr).text(gtd);
           var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
           $("<td>").appendTo(tr).text(issue);
+          var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY'); 
+          $("<td>").appendTo(tr).text(gtd);
           $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
           $("<td>").appendTo(tr).text(result.properties.RNHCTRS);   
         });
