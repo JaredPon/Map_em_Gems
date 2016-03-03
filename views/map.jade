@@ -3,7 +3,7 @@ extends layout
 block content
   .background-img-regular
     .row 
-      .col-sm-9
+      .col-sm-9.map
         #map
 
       .col-sm-3.info-pane
@@ -11,7 +11,7 @@ block content
         #header
           form(id="searchForm", name="claim_search")
             div
-                h2 Search For Claims
+              h2.search_box_title Search For Claims
               input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
             div
               input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="Tenure Number")
@@ -109,7 +109,7 @@ block content
 
           $(".results-count").empty();
 
-          $("<h3>").appendTo(".results-count").text("Results Count: " + results.length);
+          $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
 
 
           var table = $(".data-table").empty();
@@ -118,8 +118,8 @@ block content
 
               //- This is the header for each of the results of query
             var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
-            $("<h2>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
-            $("<h2>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
+            $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+            $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
             
 
             var div_result = $("<div>").addClass("each_result_table").appendTo(table);

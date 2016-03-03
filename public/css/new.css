@@ -22,143 +22,139 @@
 }
 
 h1.title {
-  padding: 65px 30px 0px ;
-  font-size: 3.5em;
+  padding: 40px 30px 0px ;
+  font-size: 4.5em;
   color: #b35900;
   font-family: 'Sintony', sans-serif;
   font-weight: bold;
-  /*text-shadow: 0 5px 8px #000;*/
-
+  /*font-family: "Avenir Next W01","Avenir Next W00","Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
+  text-shadow:
+    -1px -1px 0 #8b4500,  
+    1px -1px 0 #8b4500,
+    -1px 1px 0 #8b4500,
+    1px 1px 0 #8b4500;
 }
 
 body .container .lead {
   color: #E0E6F8;
   padding-top: 25px;
-  font-size: 2.5em;
+  font-size: 2em;
   font-family: 'Oswald', sans-serif;
-  
+  /*font-family: 'Sintony', sans-serif;*/
+  /*font-family: "Avenir Next W01","Avenir Next W00","Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
 }
 
 .lead span {
   text-shadow:
-     -1px -1px 2px #333333,  
-      1px -1px 2px #333333,
-      -1px 1px 2px #333333,
-       1px 1px 2px #333333,
-       0 5px 8px #000;
+     -1px -1px 2px #474747,  
+      1px -1px 2px #474747,
+      -1px 1px 2px #474747,
+       1px 1px 2px #474747;
+       /*0 5px 8px #000;*/
 }
 
 .btn-groups{
   margin-left:5%;
+  margin-top: 80px;
 }
 
-.home {
-  border-radius: 25px;
+.btn.home {
+  border-radius: 12px;
   margin-right: 10%;
-  font-size: 2em;
-  padding: 20px;
+  font-size: 1.5em;
+  padding: 13px;
+  min-width: 137px;
 }
 
 .front-info{
   margin-top: 50px;
 }
 
-.description{
-  background-color: white;
-  min-height: 725px;
-}
 
 .background-text{
   width: 50%;
-/*  margin-left:20%;*/
   text-align: center;
 }
 
-.background-text h1 {
+.background-text h3 {
   color: black;
   font-family: 'Sintony', sans-serif;
+  line-height: 155%;
+  font-weight: lighter;
+  margin-bottom: 32px;
 }
 
-.background-text h2 {
-  color: black;
-  font-family: 'Sintony', sans-serif;
+.big {
+  font-size: 2.75em;
+  color: #007ac2;
+  font-family: "Avenir Next W01","Avenir Next W00","Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.background-text h4{
-  color: #b35900;
-  margin-top: 30px;
-  font-family: 'Oswald', sans-serif;
-  line-height: 160%;
-  font-size: 1.25em;
+.big.bigger {
+  font-size: 3.5em;
+  margin-top: 10px;
 }
 
 .screen-shot {
   float: none;
-    margin: 0 auto;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  text-align: center;
 }
+
 .screen-shot img{
   /*background-image: url(/images/screen-shot3.png);*/
   /*height: 400px;*/
-  width: 400px;
-  height: 400px;
+  width: 250px;
+  height: 250px;
   margin-top: 30px;
   margin-left: 50px;7
   margin-right: 50px;
   border-radius: 50%;
-
-
 }
 
-/*SEARCH PANEL CSS*/
+
+/*Map page div*/
+.map{
+  padding-right: 0px;
+}
+
+#map {
+  height: 90vh;
+  width:100%;
+  margin-top: 5px;
+}
+
+/*SEARCH PANEL on map page */
 
 .info-pane{
-
   overflow: scroll;
   max-height: 90vh;
   height: 95%;  
-  /*background: rgba(192,192,192,0.7);*/
 }
 
-/* Stuff for search area */
 
 #header {
 width: 100%;
 right:0;
 border:1px solid #d8d8d8;
-margin:15px;
-padding:20px 40px;
+margin:5px;
+padding:15px 15px;
 border-radius:3px;
-box-shadow:0 0 8px gray
+box-shadow:0 0 5px gray
 }
 
-h3 {
-font-family:'Roboto Slab',serif
+h2.search_box_title{
+  margin-top: 0px;
+  font-size: 1.8em;
 }
+
 input[type=text] {
-margin-top:10px;
-padding:6px;
+margin-top:7px;
+padding:4px;
 width:100%;
-height: 40px;
-font-size:20px;
-border-radius:2px;
-border:3px solid #98d0f1
-}
-h4 {
-font-size:15px
-}
-div#title {
-position:absolute;
-top:300px;
-left:650px
-}
-.dropSearch {
-background: transparent;
-color: #555555dar;
-margin-top:10px;
-padding:6px;
-width:100%;
-height: 40px;
-font-size:20px;
+height: 27px;
+font-size:15px;
 border-radius:2px;
 border:3px solid #98d0f1
 }
@@ -166,113 +162,107 @@ border:3px solid #98d0f1
 select option {
     margin:40px;
     background: darkgray;
-    font-size:20px;
+    font-size:15px;
     color:#fff;
     text-shadow:0 1px 0 rgba(0,0,0,0.4);
 }
 
+
+
+div#title {
+position:absolute;
+top:300px;
+left:650px
+}
+
+.dropSearch {
+background: transparent;
+color: #555555dar;
+margin-top:10px;
+padding:6px;
+width:100%;
+height: 27px;
+font-size:15px;
+border-radius:2px;
+border:3px solid #98d0f1
+}
+
+
+
 .actions {
 margin-top:10px;
 background:#00892b;
-border:none;
+border: 1px solid black;
 color:#fff;
-width:100%;
-font-size:22px;
+width:33%;
+min-width: 80px;
+font-size:18px;
 font-weight:bolder;
-padding:8px 0;
+padding:4px 0;
 border-radius:3px;
 cursor:pointer;
+margin-left: 33%;
 }
 
-/*DATA TABLE*/
+
+/*Results DATA TABLE*/
 
 .data-table{
   float:right;
   width: 100%;
   clear: both;
-  margin-top: 10px;
-  padding-left: 20px;
+  /*margin-top: 10px;*/
+  /*padding-left: 20px;*/
 }
 
 .results-count{
   float:right;
-  margin-top:20px;
 }
 
+/*Each Result Header*/
+
+.list {
+/*border: 2px;*/
+/*border-color: black;*/
+/*margin: 3px;*/
+/*padding: 2px;*/
+margin-bottom: 15px;
+}
+
+.list h3{
+  font-size: 1.3em;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*Each Result Details*/
+
 .each_result_table{
-  margin-top: 25px;
-  font-size: 20px;
   display: none;
-  font-size:20px;
   color: #00892b;
- /* border: 2px;
-  border-color: black;*/
-  background-color: blue;
+  /*border: 2px;*/
+  /*border-color: black;*/
+  /*background-color: blue;*/
 }
 
 .each_result_table p{
   color: #00892b;
   border-bottom:1px dotted #d8d8d8;
-  padding-bottom:10px;
-  font-size: 20px;
 }
 
+/*For showing and hiding the result details*/
 .accordion-toggle {
   cursor: pointer;
 }
-
 
 .visible{
   display: inline;
 }
 
-
-
-#map {
-  /*position: absolute; */
-  /*top:50px; */
- /* height: 700px; */
-  height: 90vh;
-  width:100%;
-  /*float:left;*/
-}
-
-
-.container.text-center p{
-  margin: 10px;
-}
-
-.list {
-border: 2px;
-border-color: black;
-margin: 3px;
-padding: 2px;
-}
-
-.container .text-center p {
-  margin: 10px;
-}
-
-
-.container-fluid {
-  margin: 0 auto;
-  width: 45%;
-  /*width: 550px;   */
-}
-
-.button.btn.btn-primary.btn-lg.btn-block {
-  padding: 14px 24px;
-  border: 0 none;
-}
-
-
+/*Add some whitespace for footer*/
 body {
   padding-bottom: 35px
 }
 
-.big {
-  font-size: 3.5em;
-  color: #007ac2;
-  font-family: "Avenir Next W01","Avenir Next W00","Avenir Next",Avenir,"Helvetica Neue",Helvetica,Arial,sans-serif;
-}
+
 
