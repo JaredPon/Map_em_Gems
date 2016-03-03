@@ -13,10 +13,21 @@ var errorHandler = require('errorhandler');
 var lusca = require('lusca');
 var methodOverride = require('method-override');
 var dotenv = require('dotenv');
-var MongoStore = require('connect-mongo/es5')(session);
+var MongoStore = require('connect-mongo/es5')(session); 
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
+
+/**
+ * Connect to MongoDB.
+ */
+mongoose.connect(process.env.MONGODB || process.env.MONGO_URL);
+// mongoose.connect('mongodb://mining:claims@127.0.0.1/claims');
+mongoose.connection.on('error', function() {
+  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
+  process.exit(1);
+});
+
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var sass = require('node-sass-middleware');
@@ -54,17 +65,6 @@ var passportConf = require('./config/passport');
  * Create Express server.
  */
 var app = express();
-
-/**
- * Connect to MongoDB.
- */
-// mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI);
-mongoose.connect('mongodb://127.0.0.1/claims'); 
-mongoose.connection.on('error', function() {
-  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
-  process.exit(1);
-});
-
 //load models folder
   // Added by Nick
 fs.readdirSync(__dirname + '/models').forEach(function(filename){
@@ -95,7 +95,7 @@ app.use(session({
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
-    url: process.env.MONGODB || process.env.MONGOLAB_URI,
+    mongooseConnection: mongoose.connection,
     autoReconnect: true
   })
 }));
