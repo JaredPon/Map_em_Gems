@@ -1,0 +1,205 @@
+.background-img-regular {
+  background-color: #556:rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a), linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px; 
+}
+
+.background-image-home {
+  background-image: url(http://i.imgur.com/YJr7XzT.jpg?1);
+  background-repeat: no-repeat;
+  height: 770px;
+  width: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body .container p.lead {
+  color: #483d8b;
+  padding-left: 8%;
+}
+
+.btn btn-primary btn-lg active{
+    float: left;
+    position: relative;
+    left: 50%;
+}
+
+h1.title {
+  padding: 30px 30px 30px 8%;
+  font-size: 3.5em;
+  color: #008080;
+}
+
+.col-sm-6 {
+  background-color: #f0f8ff;
+  opacity: 0.8;
+}
+
+.col-sm-6 :first {
+  margin: auto;
+  width: 35%;
+}
+
+.col-sm-6 :nth-child(1){
+  width: 50%;
+  margin: 0 auto; 
+}
+
+.col-sm-6 p {
+  color: #008080;
+}
+
+
+/*SEARCH PANEL CSS*/
+
+.info-pane{
+
+  height: 700px;
+  overflow: scroll;
+  max-height: 700px;  
+  background: rgba(192,192,192,0.7);
+}
+
+.search-bar{
+  /*float:right;*/
+  width:100%;
+  padding-top: 30px
+}
+
+#searchForm span{
+  width: 30%;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 2px 2px 1px #FFF,
+            -2px -2px 1px #FFF,
+            -2px 2px 1px #FFF,
+            2px -2px 1px #FFF,
+            2px 0 1px #FFF,
+            -2px 0 1px #FFF,
+            0 2px 1px #FFF,
+            0 -2px 1px #FFF;
+}
+
+#searchForm input{
+  width: 60%;
+  float:right;
+  height: 30px;
+}
+
+.label {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+  height: 30px;
+  line-height: 45px;
+}
+
+#TNRTPDSCRP {
+  height: 30px;
+  width: 60%;
+  margin-left: 26px;
+  line-height: 45px;
+}
+
+select {
+  display: inline;
+}
+
+input, select {
+  width: 100px;
+  height: 30px;
+  border: 1px;
+  vertical-align: top;
+}
+
+input, select, option {
+  box-sizing: border-box;
+}
+
+/*DATA TABLE*/
+
+.data-table{
+  float:right;
+  min-width: 250px;
+  max-width: 530px;
+  clear: both;
+  margin-top: 10px;
+  background-color: white;
+  padding-left: 20px;
+}
+
+.results-count{
+  float:right;
+  margin-top:20px;
+}
+
+.each_result_table{
+  display: none;
+  color: #00892b;
+  border: 2px;
+border-color: black;
+}
+
+.accordion-toggle {
+  cursor: pointer;
+}
+
+
+.visible{
+  display: inline;
+}
+
+
+
+#map {
+  /*position: absolute; */
+  /*top:50px; */
+  height: 700px; 
+  width:100%;
+  /*float:left;*/
+}
+
+
+.container.text-center p{
+  margin: 10px;
+}
+
+.list {
+border: 2px;
+border-color: black;
+margin: 3px;
+padding: 2px;
+}
+
+
+
+.button.btn.btn-primary.btn-lg.btn-block {
+  padding: 14px 24px;
+  border: 0 none;
+}
+
+
+body {
+  padding-bottom: 35px
+}
+
+.btn-group.btn-group-justified{
+  margin-left:13%;
+  margin-top: 20px;
+}
+
+.btn.btn-default.home {
+  /*margin-left: 45%;*/
+  max-width: 175px;
+  height: 40px;
+}
+
+.row.front-info{
+  margin-top: 120px;
+  background-color: #f0f8ff;
+  opacity:0.8;
+}
