@@ -118,65 +118,73 @@ block content
                 'source': 'poly',
                 'layout': {},
                 'paint': {
+                    
+                    //- 'paint': function (feature) {
+                    //-     switch (feature.properties.TNRTPDSCRP) {
+                    //-     case 'Placer': return {'fill-color': '#cc00cc'};
+                    //-     case 'Mineral': return {'fill-color': "blue"};
+                    //-     case 'Coal':   return {'fill-color': "black"};
+                    //-     }
+                    //- },
                     'fill-color': '#088',
-                    'fill-opacity': 0.8
+                    'fill-opacity': 0.5,
+                    'fill-outline-color': '#003333' 
                 }
             });
          
 
+          $(".results-count").empty();
 
-          //- $(".results-count").empty();
-
-          //- $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
+          $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
 
 
-          //- var table = $(".data-table").empty();
+          var table = $(".data-table").empty();
 
-          //- results.forEach(function(result) {
+          results.forEach(function(result) {
 
-          //-     //- This is the header for each of the results of query
-          //-   var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
-          //-   $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
-          //-   $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
+              //- This is the header for each of the results of query
+            var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
+            $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+            $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
             
 
-          //-   var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+            var div_result = $("<div>").addClass("each_result_table").appendTo(table);
 
 
-          //-     //- handlebars templating for displaying claim details
-          //-   var source   = $("#entry-template").html();
-          //-   var template = Handlebars.compile(source);
-          //-   var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
-          //-   var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+              //- handlebars templating for displaying claim details
+            var source   = $("#entry-template").html();
+            var template = Handlebars.compile(source);
+            var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+            var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
-          //-   var context = {
-          //-   clinum: "Client Number: " + result.properties.CLIENTNUM, 
-          //-   claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
-          //-   owner_name: "Owner Name: " + result.properties.OWNER_NAME,
-          //-   tenure: "Tenure Number: " + result.properties.TNRNMBRD,
-          //-   type: "Type: " + result.properties.TNRTPDSCRP,
-          //-   good_until: "Good To Date: " + gtd,
-          //-   issue_date: "Issue Date: " + issue
-          //-   }
+            var context = {
+            clinum: "Client Number: " + result.properties.CLIENTNUM, 
+            claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+            owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+            tenure: "Tenure Number: " + result.properties.TNRNMBRD,
+            type: "Type: " + result.properties.TNRTPDSCRP,
+            good_until: "Good To Date: " + gtd,
+            issue_date: "Issue Date: " + issue
+            }
 
-          //-   var el_html = template(context);
+            var el_html = template(context);
 
-          //-   div_result.html(el_html);
-          //- });
+            div_result.html(el_html);
+          });
 
           //- Handles the show and hide of the results details
-          //- table.find('.accordion-toggle').on('click', function(){ 
-          //-   if(row === "start"){
-          //-     $(this).next().addClass('visible')
-          //-     row = $(this).text();
-          //-   }
+          table.find('.accordion-toggle').on('click', function(){ 
+            if(row === "start"){
+              $(this).next().addClass('visible')
+              row = $(this).text();
+            }
 
-          //-   else{
-          //-     $(this).next().addClass('visible')
-          //-     $( "div:contains(" + row + ")").next().removeClass('visible')
-          //-     row = $(this).text();
-          //-   }
-          //- })
+            else{
+              $(this).next().addClass('visible')
+              $( "div:contains(" + row + ")").next().removeClass('visible')
+              row = $(this).text();
+            }
+          })
         });
        //Ends the on submit click handler
       });
@@ -203,5 +211,3 @@ block content
         center: [-120.79433441162108, 49.49935027965388], // starting position
         zoom: 12 // starting zoom
     });
-
-    
