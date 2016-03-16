@@ -32,12 +32,14 @@ block content
 
         .data-table
 
-  script(src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js')
-
     //- Handlebars cdn
   script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js')
 
   link(rel='stylesheet', href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css')
+
+  //- GeoJson Vector Tils Script
+  script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
+  link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
 
   //- Handlebars template
   script#entry-template(type='text/x-handlebars-template').
@@ -81,103 +83,125 @@ block content
           ne_lat, ne_lng, sw_lat, sw_lng
         },
 
+    
         //- results from getJSON
+
         function(results){
 
 
-
           //- Pass results to the mapbox map.
-          mapPoints = L.geoJson(results, {
-            style: function (feature) {
-                switch (feature.properties.TNRTPDSCRP) {
-                    case 'Placer': return {color: '#cc00cc'};
-                    case 'Mineral': return {color: "blue"};
-                    case 'Coal':   return {color: "black"};
-                    }
-            },
-            onEachFeature: function (feature, layer) {
-                popupOptions = {maxWidth: 200};
-                layer.bindPopup("<b>Type: </b>" + feature.properties.TNRTPDSCRP +
-                    "<br><b>Tenure Number:</b> " + feature.properties.TNRNMBRD +
-                    "<br><b>Good Until: </b>" + moment(feature.properties.GDTDT).format('MMM DD, YYYY')+
-                    "<br><b>Owner Name: </b>" + feature.properties.OWNER_NAME +
-                    "<br><b>Area:</b> " + feature.properties.RNHCTRS + " ha"
-                    ,popupOptions);
-            }
-          }).addTo(map);
+          //- mapPoints = L.geoJson(results, {
+          //-   style: function (feature) {
+          //-       switch (feature.properties.TNRTPDSCRP) {
+          //-           case 'Placer': return {color: '#cc00cc'};
+          //-           case 'Mineral': return {color: "blue"};
+          //-           case 'Coal':   return {color: "black"};
+          //-           }
+          //-   },
+          //-   onEachFeature: function (feature, layer) {
+          //-       popupOptions = {maxWidth: 200};
+          //-       layer.bindPopup("<b>Type: </b>" + feature.properties.TNRTPDSCRP +
+          //-           "<br><b>Tenure Number:</b> " + feature.properties.TNRNMBRD +
+          //-           "<br><b>Good Until: </b>" + moment(feature.properties.GDTDT).format('MMM DD, YYYY')+
+          //-           "<br><b>Owner Name: </b>" + feature.properties.OWNER_NAME +
+          //-           "<br><b>Area:</b> " + feature.properties.RNHCTRS + " ha"
+          //-           ,popupOptions);
+          //-   }
+          //- }).addTo(map);
+
+          //- if map.removeSource('poly');  // remove
+          var poly = new mapboxgl.GeoJSONSource({ data: results });
+            map.addSource('poly', poly); // add
+            map.addLayer({
+                'id': 'poly',
+                'type': 'fill',
+                'source': 'poly',
+                'layout': {},
+                'paint': {
+                    'fill-color': '#088',
+                    'fill-opacity': 0.8
+                }
+            });
+         
 
 
-          $(".results-count").empty();
+          //- $(".results-count").empty();
 
-          $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
+          //- $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
 
 
-          var table = $(".data-table").empty();
+          //- var table = $(".data-table").empty();
 
-          results.forEach(function(result) {
+          //- results.forEach(function(result) {
 
-              //- This is the header for each of the results of query
-            var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
-            $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
-            $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
+          //-     //- This is the header for each of the results of query
+          //-   var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
+          //-   $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+          //-   $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
             
 
-            var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+          //-   var div_result = $("<div>").addClass("each_result_table").appendTo(table);
 
 
-              //- handlebars templating for displaying claim details
-            var source   = $("#entry-template").html();
-            var template = Handlebars.compile(source);
-            var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
-            var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+          //-     //- handlebars templating for displaying claim details
+          //-   var source   = $("#entry-template").html();
+          //-   var template = Handlebars.compile(source);
+          //-   var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+          //-   var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
-            var context = {
-            clinum: "Client Number: " + result.properties.CLIENTNUM, 
-            claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
-            owner_name: "Owner Name: " + result.properties.OWNER_NAME,
-            tenure: "Tenure Number: " + result.properties.TNRNMBRD,
-            type: "Type: " + result.properties.TNRTPDSCRP,
-            good_until: "Good To Date: " + gtd,
-            issue_date: "Issue Date: " + issue
-            }
+          //-   var context = {
+          //-   clinum: "Client Number: " + result.properties.CLIENTNUM, 
+          //-   claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+          //-   owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+          //-   tenure: "Tenure Number: " + result.properties.TNRNMBRD,
+          //-   type: "Type: " + result.properties.TNRTPDSCRP,
+          //-   good_until: "Good To Date: " + gtd,
+          //-   issue_date: "Issue Date: " + issue
+          //-   }
 
-            var el_html = template(context);
+          //-   var el_html = template(context);
 
-            div_result.html(el_html);
-          });
+          //-   div_result.html(el_html);
+          //- });
 
           //- Handles the show and hide of the results details
-          table.find('.accordion-toggle').on('click', function(){ 
-            if(row === "start"){
-              $(this).next().addClass('visible')
-              row = $(this).text();
-            }
+          //- table.find('.accordion-toggle').on('click', function(){ 
+          //-   if(row === "start"){
+          //-     $(this).next().addClass('visible')
+          //-     row = $(this).text();
+          //-   }
 
-            else{
-              $(this).next().addClass('visible')
-              $( "div:contains(" + row + ")").next().removeClass('visible')
-              row = $(this).text();
-            }
-          })
+          //-   else{
+          //-     $(this).next().addClass('visible')
+          //-     $( "div:contains(" + row + ")").next().removeClass('visible')
+          //-     row = $(this).text();
+          //-   }
+          //- })
         });
-      }); //- Ends the on submit click handler
-
+       //Ends the on submit click handler
+      });
 
 
     }); //-ends document ready.
 
 
 
-    L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';    
+    L.mapbox.accessToken = 'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A';   
     //- Map initialize
-    var map = L.mapbox.map('map', 'mapbox.outdoors')
-            .setView([49.49935027965388, -120.79433441162108], 12)
-            .on('ready', function() {
-        new L.Control.MiniMap(L.mapbox.tileLayer('mapbox.streets'))
-            .addTo(map);
-             });
+    //- var map = L.mapbox.map('map', 'mapbox.outdoors')
+    //-         .setView([49.49935027965388, -120.79433441162108], 12)
+    //-         .on('ready', function() {
+    //-     //- new L.Control.MiniMap(L.mapbox.tileLayer('mapbox.streets'))
+    //-     //-     .addTo(map);
+    //-          });
 
+     mapboxgl.accessToken =  'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A'; 
 
-     
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+        center: [-120.79433441162108, 49.49935027965388], // starting position
+        zoom: 12 // starting zoom
+    });
 
     
