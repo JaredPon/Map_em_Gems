@@ -37,7 +37,7 @@ block content
 
   link(rel='stylesheet', href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css')
 
-  //- GeoJson Vector Tils Script
+  //- GeoJson Vector Tiles Script
   script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
   link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
 
@@ -109,7 +109,10 @@ block content
           //-   }
           //- }).addTo(map);
 
-          //- if map.removeSource('poly');  // remove
+        // Remove existing source if present 
+        if (map.getSource('poly')) {
+            map.removeSource('poly');
+        }
           var poly = new mapboxgl.GeoJSONSource({ data: results });
             map.addSource('poly', poly); // add
             map.addLayer({
@@ -118,14 +121,7 @@ block content
                 'source': 'poly',
                 'layout': {},
                 'paint': {
-                    
-                    //- 'paint': function (feature) {
-                    //-     switch (feature.properties.TNRTPDSCRP) {
-                    //-     case 'Placer': return {'fill-color': '#cc00cc'};
-                    //-     case 'Mineral': return {'fill-color': "blue"};
-                    //-     case 'Coal':   return {'fill-color': "black"};
-                    //-     }
-                    //- },
+                
                     'fill-color': '#088',
                     'fill-opacity': 0.5,
                     'fill-outline-color': '#003333' 
@@ -210,4 +206,11 @@ block content
         style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
         center: [-120.79433441162108, 49.49935027965388], // starting position
         zoom: 12 // starting zoom
+    });
+
+    map.on('style.load', function () {
+        map.addSource('terrain-data', {
+            type: 'vector',
+            url: 'mapbox://mapbox.mapbox-terrain-v2'
+        });
     });
