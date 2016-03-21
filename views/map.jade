@@ -43,10 +43,10 @@ block content
 
   //- Handlebars template
   script#entry-template(type='text/x-handlebars-template').
+    <h2>{{tenure}}</h2>
     <p>{{clinum}}</p>
     <p>{{claim_name}}</p>
     <p>{{owner_name}}</p>
-    <p>{{tenure}}</p>
     <p>{{type}}</p>
     <p>{{good_until}}</p>
     <p>{{issue_date}}</p>
@@ -91,39 +91,39 @@ block content
             $(".results-count").empty();
             $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
 
-            var table = $(".data-table").empty();
+            //- var table = $(".data-table").empty();
 
-            results.forEach(function(result) {
+            //- results.forEach(function(result) {
 
-                  //- This is the header for each of the results of query
-                var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
-                $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
-                $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
+            //-       //- This is the header for each of the results of query
+            //-     var div = $("<div>").appendTo(table).addClass('accordion-toggle').addClass('list');
+            //-     $("<h3>").appendTo(div).text("Tenure: " + result.properties.TNRNMBRD);
+            //-     $("<h3>").appendTo(div).text("Type: " + result.properties.TNRTPDSCRP);
                 
 
-                var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+            //-     var div_result = $("<div>").addClass("each_result_table").appendTo(table);
 
 
-                  //- handlebars templating for displaying claim details
-                var source   = $("#entry-template").html();
-                var template = Handlebars.compile(source);
-                var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
-                var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+            //-       //- handlebars templating for displaying claim details
+            //-     var source   = $("#entry-template").html();
+            //-     var template = Handlebars.compile(source);
+            //-     var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+            //-     var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
-                var context = {
-                clinum: "Client Number: " + result.properties.CLIENTNUM, 
-                claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
-                owner_name: "Owner Name: " + result.properties.OWNER_NAME,
-                tenure: "Tenure Number: " + result.properties.TNRNMBRD,
-                type: "Type: " + result.properties.TNRTPDSCRP,
-                good_until: "Good To Date: " + gtd,
-                issue_date: "Issue Date: " + issue
-                }
+            //-     var context = {
+            //-     clinum: "Client Number: " + result.properties.CLIENTNUM, 
+            //-     claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+            //-     owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+            //-     tenure: "Tenure Number: " + result.properties.TNRNMBRD,
+            //-     type: "Type: " + result.properties.TNRTPDSCRP,
+            //-     good_until: "Good To Date: " + gtd,
+            //-     issue_date: "Issue Date: " + issue
+            //-     }
 
-                var el_html = template(context);
+            //-     var el_html = template(context);
 
-                div_result.html(el_html);
-            });  //Ends for each function
+            //-     div_result.html(el_html);
+            //- });  //Ends for each function
 
             // Changes format of GeoJSON
             polygons = {
@@ -201,26 +201,49 @@ block content
                      map.setFilter('hover', [ 'all',
                         [ 'in', 'TNRNMBRD' ].concat(ids)
                         ]);
+                    var table = $(".data-table").empty();
+                    features.forEach(function(result) {
+
+                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
 
 
+                          //- handlebars templating for displaying claim details
+                        var source   = $("#entry-template").html();
+                        var template = Handlebars.compile(source);
+                        var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+                        var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+
+                        var context = {
+                        clinum: "Client Number: " + result.properties.CLIENTNUM, 
+                        claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+                        owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+                        tenure: "Tenure: " + result.properties.TNRNMBRD,
+                        type: "Type: " + result.properties.TNRTPDSCRP,
+                        good_until: "Good To Date: " + gtd,
+                        issue_date: "Issue Date: " + issue
+                        }
+
+                        var el_html = template(context);
+
+                        div_result.html(el_html);
+                    });  //Ends for each function
                   });
                 });
 
- 
 
             //- Handles the show and hide of the results details
-            table.find('.accordion-toggle').on('click', function(){ 
-            if(row === "start"){
-              $(this).next().addClass('visible')
-              row = $(this).text();
-            }
+          //-   table.find('.accordion-toggle').on('click', function(){ 
+          //-   if(row === "start"){
+          //-     $(this).next().addClass('visible')
+          //-     row = $(this).text();
+          //-   }
 
-            else{
-              $(this).next().addClass('visible')
-              $( "div:contains(" + row + ")").next().removeClass('visible')
-              row = $(this).text();
-            }
-          })
+          //-   else{
+          //-     $(this).next().addClass('visible')
+          //-     $( "div:contains(" + row + ")").next().removeClass('visible')
+          //-     row = $(this).text();
+          //-   }
+          //- })
         });  // Ends function(results)
       }); // Ends the on submit click handler
     }); //-ends document ready. 

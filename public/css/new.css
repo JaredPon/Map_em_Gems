@@ -224,7 +224,7 @@ select option {
 /*Each Result Details*/
 
 .each_result_table{
-  display: none;
+  display: inline;
   color: #00892b;
 }
 
