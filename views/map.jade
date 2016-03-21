@@ -176,30 +176,24 @@ block content
                         'fill-outline-color': '#800080' 
                     }
                 });
-                //- map.on('style.load', function () {
-                    map.addLayer({
-                        "id": "hover",
-                        "type": "fill",
-                        "source": "poly",
-                        "layout": {},
-                        "paint": {
-                            "fill-color": "#00892b",
-                            "fill-opacity": 1
-                        },
-                        "filter": ["==", "TNRNMBRD", ""]
-                        });
-                //- });
+                map.addLayer({
+                    "id": "hover",
+                    "type": "fill",
+                    "source": "poly",
+                    "layout": {},
+                    "paint": {
+                        "fill-color": "#00892b",
+                        "fill-opacity": 0.8,
+                        'fill-outline-color': '#000' 
+                    },
+                    "filter": ["==", "TNRNMBRD", ""]
+                });
                 map.on("mousemove", function(e) {
                   map.featuresAt(e.point, {
                     radius: 5,  
                     includeGeometry: true 
-                    //- layer: ["Placer"]
                   }, function (err, features) {
-                    //- if (!err && features.length) {
-                    //-     map.setFilter("hover", ["==", "CLAIM_NAME", features[0].properties.CLAIM_NAME]);
-                    //- } else {
-                    //-     map.setFilter("hover", ["==", "CLAIM_NAME", ""]);
-                    //- }
+            
                     if (err) throw err
                     //- console.log(e.point, features);
                      var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
