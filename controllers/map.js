@@ -64,13 +64,8 @@ exports.postSearch = function(req, res) {
 
   mongoose.model('Claim').find({
     $and:array
-    }, function(err, polygons){
-        polygons = {
-          type: "FeatureCollection",
-          features: polygons };
-        fs.writeFile('poly.txt', polygons);
-        // var test = turf.merge(polygons);
-        // fs.writeFile('test.txt', test);
-        res.json(polygons);
+    }, function(err, claims){
+      res.json(claims);
     });
+// };
 };
