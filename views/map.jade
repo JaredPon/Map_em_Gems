@@ -141,12 +141,12 @@ block content
                     'id': 'Coal',
                     'type': 'fill',
                     'source': 'poly',
+                    "interactive": true,
                     'layout': {},
                     "filter": ["==", "TNRTPDSCRP", "Coal"],
                     'paint': {
-                        'fill-antialias': true,
                         'fill-color': '#292929',
-                        'fill-opacity': 0.5,
+                        'fill-opacity': 0.4,
                         'fill-outline-color': '#000' 
                     }
                 });
@@ -154,12 +154,12 @@ block content
                     'id': 'Mineral',
                     'type': 'fill',
                     'source': 'poly',
+                    "interactive": true,
                     'layout': {},
                     "filter": ["==", "TNRTPDSCRP", "Mineral"],
                     'paint': {
-                        'fill-antialias': true,
                         'fill-color': '#0033cc',
-                        'fill-opacity': 0.5,
+                        'fill-opacity': 0.4,
                         'fill-outline-color': '#000c2f' 
                     }
                 });
@@ -167,15 +167,52 @@ block content
                     'id': 'Placer',
                     'type': 'fill',
                     'source': 'poly',
+                    "interactive": true,
                     'layout': {},
                     "filter": ["==", "TNRTPDSCRP", "Placer"],
                     'paint': {
-                        'fill-antialias': true,
                         'fill-color': '#cc00cc',
-                        'fill-opacity': 0.5,
+                        'fill-opacity': 0.4,
                         'fill-outline-color': '#800080' 
                     }
                 });
+                //- map.on('style.load', function () {
+                    map.addLayer({
+                        "id": "hover",
+                        "type": "fill",
+                        "source": "poly",
+                        "layout": {},
+                        "paint": {
+                            "fill-color": "#00892b",
+                            "fill-opacity": 1
+                        },
+                        "filter": ["==", "TNRNMBRD", ""]
+                        });
+                //- });
+                map.on("mousemove", function(e) {
+                  map.featuresAt(e.point, {
+                    radius: 5,  
+                    includeGeometry: true 
+                    //- layer: ["Placer"]
+                  }, function (err, features) {
+                    //- if (!err && features.length) {
+                    //-     map.setFilter("hover", ["==", "CLAIM_NAME", features[0].properties.CLAIM_NAME]);
+                    //- } else {
+                    //-     map.setFilter("hover", ["==", "CLAIM_NAME", ""]);
+                    //- }
+                    if (err) throw err
+                    //- console.log(e.point, features);
+                     var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
+                     console.log(ids);
+                     map.setFilter('hover', [ 'all',
+                        [ 'in', 'TNRNMBRD' ].concat(ids)
+                        ]);
+
+
+                  });
+                });
+
+ 
 
             //- Handles the show and hide of the results details
             table.find('.accordion-toggle').on('click', function(){ 
@@ -197,30 +234,8 @@ block content
      mapboxgl.accessToken =  'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A'; 
 
     var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-        center: [-120.79433441162108, 49.49935027965388], // starting position
-        zoom: 12 // starting zoom
+        container: 'map',
+        style: '/outdoors-v8.json',
+        center: [-120.79433441162108, 49.49935027965388],
+        zoom: 12
     });
-
-
-//-     // the logarithmic scale we'll use
-//- switch (feature.properties.TNRTPDSCRP) {
-//-     case 'Placer': return {color: '#cc00cc'};
-//-     case 'Mineral': return {color: "blue"};
-//-     case 'Coal':   return {color: "black"};
-//-     }]
-
-//- map.addLayer({
-//-     "id": "quakes-0",
-//-     "type": "circle",
-//-     "source": "quakes",
-//-     "filter": ["all", [">=", "mag", 0], ["<", "mag", 1]],
-//-     "paint": {
-//-         "circle-radius": 10,
-//-         "circle-color": "#ff0000",
-//-         "circle-opacity": {
-//-             "stops": [[3, 0.2], [15,0.8]] // Gives us interpolated values between 0.2 and 0.8
-//-         }
-//-     }
-//-  });
