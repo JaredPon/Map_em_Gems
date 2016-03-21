@@ -136,19 +136,46 @@ block content
             }
             var poly = new mapboxgl.GeoJSONSource({ data: polygons });
                 map.addSource('poly', poly); // add
+
                 map.addLayer({
-                    'id': 'poly',
+                    'id': 'Coal',
                     'type': 'fill',
                     'source': 'poly',
                     'layout': {},
+                    "filter": ["==", "TNRTPDSCRP", "Coal"],
                     'paint': {
-                    
-                        'fill-color': '#088',
+                        'fill-antialias': true,
+                        'fill-color': '#292929',
                         'fill-opacity': 0.5,
-                        'fill-outline-color': '#003333' 
+                        'fill-outline-color': '#000' 
                     }
                 });
-             
+                map.addLayer({
+                    'id': 'Mineral',
+                    'type': 'fill',
+                    'source': 'poly',
+                    'layout': {},
+                    "filter": ["==", "TNRTPDSCRP", "Mineral"],
+                    'paint': {
+                        'fill-antialias': true,
+                        'fill-color': '#0033cc',
+                        'fill-opacity': 0.5,
+                        'fill-outline-color': '#000c2f' 
+                    }
+                });
+                map.addLayer({
+                    'id': 'Placer',
+                    'type': 'fill',
+                    'source': 'poly',
+                    'layout': {},
+                    "filter": ["==", "TNRTPDSCRP", "Placer"],
+                    'paint': {
+                        'fill-antialias': true,
+                        'fill-color': '#cc00cc',
+                        'fill-opacity': 0.5,
+                        'fill-outline-color': '#800080' 
+                    }
+                });
 
             //- Handles the show and hide of the results details
             table.find('.accordion-toggle').on('click', function(){ 
@@ -175,3 +202,25 @@ block content
         center: [-120.79433441162108, 49.49935027965388], // starting position
         zoom: 12 // starting zoom
     });
+
+
+//-     // the logarithmic scale we'll use
+//- switch (feature.properties.TNRTPDSCRP) {
+//-     case 'Placer': return {color: '#cc00cc'};
+//-     case 'Mineral': return {color: "blue"};
+//-     case 'Coal':   return {color: "black"};
+//-     }]
+
+//- map.addLayer({
+//-     "id": "quakes-0",
+//-     "type": "circle",
+//-     "source": "quakes",
+//-     "filter": ["all", [">=", "mag", 0], ["<", "mag", 1]],
+//-     "paint": {
+//-         "circle-radius": 10,
+//-         "circle-color": "#ff0000",
+//-         "circle-opacity": {
+//-             "stops": [[3, 0.2], [15,0.8]] // Gives us interpolated values between 0.2 and 0.8
+//-         }
+//-     }
+//-  });
