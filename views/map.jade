@@ -95,9 +95,11 @@ block content
               features: results };
 
             // Remove existing map data if present 
-            if (map.getSource('poly')) {
-                map.removeSource('poly');
-            }
+            if (map.getSource('poly')) { map.removeSource('poly') };
+            if (map.getLayer('Coal')) { map.removeLayer('Coal') };
+            if (map.getLayer('Mineral')) { map.removeLayer('Mineral') };
+            if (map.getLayer('Placer')) { map.removeLayer('Placer') };
+
             var poly = new mapboxgl.GeoJSONSource({ data: polygons });
                 map.addSource('poly', poly); // add
 
