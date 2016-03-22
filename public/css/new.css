@@ -131,7 +131,6 @@ body .container .lead {
 /*SEARCH PANEL on map page */
 
 .info-pane{
-  overflow: scroll;
   max-height: 90vh;
   height: 95%;  
 }
@@ -143,7 +142,9 @@ body .container .lead {
   margin:5px;
   padding:15px 15px;
   border-radius:3px;
-  box-shadow:0 0 5px gray
+  box-shadow:0 0 5px gray;
+  position: relative;
+  overflow: hidden;
 }
 
 h2.search_box_title{
@@ -203,6 +204,7 @@ select option {
   float:right;
   width: 100%;
   clear: both;
+  overflow: scroll;
 }
 
 .results-count{
@@ -247,5 +249,33 @@ body {
   padding-bottom: 35px
 }
 
+/*Legend Stuff*/
+.legend-container {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px;
+    margin-bottom: 30px;
+    z-index: 1;
+}
 
+.legend {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+}
+
+.legend h4 {
+    margin: 0 0 10px;
+}
+
+.legend-key {
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
 

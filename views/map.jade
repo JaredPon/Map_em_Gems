@@ -5,9 +5,11 @@ block content
     .row 
       .col-sm-9.map
         #map
-
+        //- .legend-container
+        //-     #legend.legend
+        //-         h4 Claim Types
+  
       .col-sm-3.info-pane
-        //- .search-bar
         #header
           form(id="searchForm", name="claim_search")
             div
@@ -35,9 +37,7 @@ block content
     //- Handlebars cdn
   script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js')
 
-  link(rel='stylesheet', href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css')
-
-  //- GeoJson Vector Tiles Script
+  //- Mapbox GL JS Script
   script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
   link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
 
@@ -57,15 +57,13 @@ block content
 
   script.
     $(function() {
-      //- row and mapPoints for hiding and showing results details
-      var row = "start";
-      var mapPoints 
+
+      var headerHide = "nope";
 
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
-        if (typeof mapPoints !== "undefined"){
-          map.removeLayer(mapPoints);          
-        };
+
+        var headerHide = "hideable";
 
         // Geo Query Stuff (Nick)
         var ne_lat = map.getBounds().getNorthEast().lat;
@@ -150,10 +148,11 @@ block content
                     "paint": {
                         "fill-color": "#00892b",
                         "fill-opacity": 0.8,
-                        'fill-outline-color': '#000' 
+                        'fill-outline-color': '#fff' 
                     },
                     "filter": ["==", "TNRNMBRD", ""]
                 });
+
                 map.on("mousemove", function(e) {
                   map.featuresAt(e.point, {
                     radius: 5,  
@@ -161,9 +160,15 @@ block content
                   }, function (err, features) {
             
                     if (err) throw err
-                    //- console.log(e.point, features);
+                    if (features && (headerHide === "hideable")) {
+                    $('#header').animate({"height": "50px"}, 1500, function() {
+                            $('.search_box_title').text("Click for Search");
+                            headerHide = "nope";
+                        });
+                    };
                      var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
-                     console.log(ids);
+                     console.log("ID:", ids);
+                     console.log("Header", headerHide);
                      map.setFilter('hover', [ 'all',
                         [ 'in', 'TNRNMBRD' ].concat(ids)
                         ]);
@@ -194,10 +199,18 @@ block content
                         div_result.html(el_html);
                     });  //Ends for each function
                   });
-                });
-
+                }); // Ends Hover Function (mousemove)
         });  // Ends function(results)
       }); // Ends the on submit click handler
+
+      // Search box re-appear function
+      $('.search_box_title').on('click', function(){
+            headerHide = "nope";
+            $(this).text("Search for Claims");
+            //- $('#header').css({"background-color": "blue"});
+            $('#header').animate({"height": "280px"},"fast");
+        });
+
     }); //-ends document ready. 
 
      mapboxgl.accessToken =  'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A'; 
@@ -206,5 +219,5 @@ block content
         container: 'map',
         style: '/outdoors-v8.json',
         center: [-120.79433441162108, 49.49935027965388],
-        zoom: 12
+        zoom: 7.8
     });
