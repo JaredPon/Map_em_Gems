@@ -279,3 +279,12 @@ body {
     margin-right: 5px;
 }
 
+/*Map Controls*/
+ #menu {
+        position: relative;
+        background: #fff;
+        padding: 10px;
+        font-family: 'Open Sans', sans-serif;
+    right: 5px; /*newly added*/
+    top: 5px;/*newly added*/
+    }

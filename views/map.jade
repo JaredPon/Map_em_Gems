@@ -4,11 +4,17 @@ block content
   .background-img-regular
     .row 
       .col-sm-9.map
+        #menu
+              input#streets(type='radio', name='rtoggle', value='streets')
+              label(for='streets') streets
+              input#dark(type='radio', name='rtoggle', value='dark')
+              label(for='dark') dark
+              input#satellite(type='radio', name='rtoggle', value='satellite')
+              label(for='satellite') satellite
+              input#outdoors(type='radio', name='rtoggle', value='outdoors')
+              label(for='outdoors') outdoors
         #map
-        //- .legend-container
-        //-     #legend.legend
-        //-         h4 Claim Types
-  
+
       .col-sm-3.info-pane
         #header
           form(id="searchForm", name="claim_search")
@@ -222,3 +228,19 @@ block content
         center: [-120.79433441162108, 49.49935027965388],
         zoom: 7.8
     });
+
+    var layerList = document.getElementById('menu');
+    var inputs = layerList.getElementsByTagName('input');
+
+    function switchLayer(layer) {
+        var layerId = layer.target.id;
+        if (layerId === 'outdoors') {
+            map.setStyle('/outdoors-v8.json');
+        } else {
+        map.setStyle('mapbox://styles/mapbox/' + layerId + '-v8');
+        }
+    }
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].onclick = switchLayer;
+    }
