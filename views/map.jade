@@ -153,6 +153,13 @@ block content
                     "filter": ["==", "TNRNMBRD", ""]
                 });
 
+                // Search box re-appear function
+                $('.search_box_title').on('click', function(){
+                    $(this).text("Search for Claims");
+                    $('#header').animate({"height": "280px"}, 1000);
+                    console.log("clicked");
+                });
+
                 map.on("mousemove", function(e) {
                   map.featuresAt(e.point, {
                     radius: 5,  
@@ -161,11 +168,11 @@ block content
             
                     if (err) throw err
                     if (features && (headerHide === "hideable")) {
-                    $('#header').animate({"height": "50px"}, 1500, function() {
-                            $('.search_box_title').text("Click for Search");
-                            headerHide = "nope";
-                        });
-                    };
+                        $('#header').animate({"height": "50px"}, 1000, function() {
+                                $('.search_box_title').text("Click for Search");
+                                headerHide = "nope";
+                            });
+                        };
                      var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
                      console.log("ID:", ids);
                      console.log("Header", headerHide);
@@ -202,14 +209,6 @@ block content
                 }); // Ends Hover Function (mousemove)
         });  // Ends function(results)
       }); // Ends the on submit click handler
-
-      // Search box re-appear function
-      $('.search_box_title').on('click', function(){
-            headerHide = "nope";
-            $(this).text("Search for Claims");
-            //- $('#header').css({"background-color": "blue"});
-            $('#header').animate({"height": "280px"},"fast");
-        });
 
     }); //-ends document ready. 
 
