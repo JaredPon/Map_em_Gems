@@ -62,6 +62,7 @@ exports.postSearch = function(req, res) {
   // Geo Query Stuff (Nick)
   array.push(geoQuery);
 
+
   mongoose.model('Claim').find({
     $and:array
     }, function(err, claims){

@@ -119,13 +119,31 @@ body .container .lead {
 
 /*  CSS FOR THE MAP PAGE*/
 .map{
-  padding-right: 0px;
+  margin-right: 0px;
 }
+
+/*Map Controls*/
+ #menu {
+    position: absolute;
+    padding: 4px;
+    padding-right: 20px;
+    font-family: 'Open Sans', sans-serif;
+    right: 5px;
+    top: 5px;
+    background-color: rgba(140, 244, 181, 0.23);
+    border-radius: 20px;
+    }
 
 #map {
   height: 90vh;
   width:100%;
   margin-top: 5px;
+  position: absolute;
+}
+
+input[type="radio"]{
+  margin-left: 20px;
+  margin-right: 5px;
 }
 
 /*SEARCH PANEL on map page */
@@ -278,13 +296,3 @@ body {
     height: 10px;
     margin-right: 5px;
 }
-
-/*Map Controls*/
- #menu {
-        position: relative;
-        background: #fff;
-        padding: 10px;
-        font-family: 'Open Sans', sans-serif;
-    right: 5px; /*newly added*/
-    top: 5px;/*newly added*/
-    }
