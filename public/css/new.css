@@ -154,7 +154,8 @@ input[type="radio"]{
 
 .info-pane{
   max-height: 90vh;
-  height: 95%;  
+  height: 95%;
+  overflow: scroll;
 }
 
 #header {

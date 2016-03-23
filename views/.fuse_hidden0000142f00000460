@@ -151,7 +151,7 @@ block content
                     $('#header').animate({"height": "280px"}, 1000);
                     console.log("clicked");
                 });
-                var clicked = false;
+
                 map.on("mousemove", function(e) {
                   map.featuresAt(e.point, {
                     radius: 5,  
@@ -167,16 +167,11 @@ block content
                         };
                      var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
                      console.log("ID:", ids);
-                     //- console.log("Header", headerHide);
+                     console.log("Header", headerHide);
                      map.setFilter('hover', [ 'all',
                         [ 'in', 'TNRNMBRD' ].concat(ids)
                         ]);
-                    map.on('click', function () {
-                        clicked = ((clicked === true) ? false : true)
-                    });
-                    if (clicked != true) {
-                        var table = $(".data-table").empty();
-                    };
+                    var table = $(".data-table").empty();
                     features.forEach(function(result) {
 
                         var div_result = $("<div>").addClass("each_result_table").appendTo(table);
