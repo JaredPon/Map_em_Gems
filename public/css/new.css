@@ -119,21 +119,43 @@ body .container .lead {
 
 /*  CSS FOR THE MAP PAGE*/
 .map{
-  padding-right: 0px;
+  margin-right: 0px;
 }
+
+/*Map Controls*/
+ #menu {
+    position: absolute;
+    padding: 4px;
+    padding-right: 20px;
+    font-family: 'Open Sans', sans-serif;
+    right: 5px;
+    top: 5px;
+    background-color: rgba(245, 245, 245, 0.6);
+    border-radius: 20px;
+    }
 
 #map {
   height: 90vh;
   width:100%;
   margin-top: 5px;
+  position: absolute;
+}
+
+.mapboxgl-canvas {
+  padding-right: 15px;
+}
+
+input[type="radio"]{
+  margin-left: 20px;
+  margin-right: 5px;
 }
 
 /*SEARCH PANEL on map page */
 
 .info-pane{
-  overflow: scroll;
   max-height: 90vh;
-  height: 95%;  
+  height: 95%;
+  overflow: scroll;
 }
 
 #header {
@@ -143,7 +165,9 @@ body .container .lead {
   margin:5px;
   padding:15px 15px;
   border-radius:3px;
-  box-shadow:0 0 5px gray
+  box-shadow:0 0 5px gray;
+  position: relative;
+  overflow: hidden;
 }
 
 h2.search_box_title{
@@ -203,6 +227,7 @@ select option {
   float:right;
   width: 100%;
   clear: both;
+  overflow: scroll;
 }
 
 .results-count{
@@ -224,7 +249,7 @@ select option {
 /*Each Result Details*/
 
 .each_result_table{
-  display: none;
+  display: inline;
   color: #00892b;
 }
 
@@ -247,5 +272,44 @@ body {
   padding-bottom: 35px
 }
 
+/*Legend Stuff*/
+.legend-container {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    padding: 0 10px;
+    margin-bottom: 30px;
+    z-index: 1;
+}
 
+.legend {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+}
 
+.legend h4 {
+    margin: 0 0 10px;
+}
+
+.legend-key {
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
+
+/*Loading Icon*/
+.se-pre-con {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: url(/images/Preloader_3.gif) center no-repeat rgba(245, 245, 245, 0.6);
+}

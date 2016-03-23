@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var turf = require('turf');
+var fs = require('fs');
 
 exports.show = function(req, res) {
   res.render('map', {
@@ -24,12 +26,6 @@ exports.postSearch = function(req, res) {
   var ne = [ne_lng, ne_lat];
   var se = [ne_lng, sw_lat];
 
-  // mongoose.model('Claim').find({'properties.clientnum': clientNum}, {_id: 0}, function(err, claims){
-  //     res.json(claims);
-  //   });
-
-
-  // Make current date in yyyymmdd format
   Date.prototype.yyyymmdd = function() {
    var yyyy = (this.getFullYear() -1).toString();
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -64,9 +60,7 @@ exports.postSearch = function(req, res) {
 
 
   // Geo Query Stuff (Nick)
-  // if (typeof req.query.sw !== "undefined"){
   array.push(geoQuery);
-    
 
 
   mongoose.model('Claim').find({
