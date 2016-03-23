@@ -10,10 +10,11 @@ block content
               label(for='streets') streets
               input#dark(type='radio', name='rtoggle', value='dark')
               label(for='dark') dark
-              input#satellite(type='radio', name='rtoggle', value='satellite')
+              input#satellite-hybrid(type='radio', name='rtoggle', value='satellite')
               label(for='satellite') satellite
               input#outdoors(type='radio', name='rtoggle', value='outdoors')
               label(for='outdoors') outdoors
+        .se-pre-con
 
       .col-sm-3.info-pane
         #header
@@ -47,6 +48,9 @@ block content
   script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
   link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
 
+  //- Script for loading image
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+
   //- Handlebars template
   script#entry-template(type='text/x-handlebars-template').
     <h2>{{tenure}}</h2>
@@ -63,12 +67,16 @@ block content
 
   script.
     $(function() {
-
       var headerHide = "nope";
+
+      //- $(window).load(function() {
+        //- $(".se-pre-con").fadeOut("slow");
+        //- });
 
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
 
+        $(".se-pre-con").css("display", "inline-block");
         var headerHide = "hideable";
 
         // Geo Query Stuff (Nick)
@@ -160,6 +168,8 @@ block content
                     },
                     "filter": ["==", "TNRNMBRD", ""]
                 });
+
+                $(".se-pre-con").fadeOut("slow");
 
                 // Search box re-appear function
                 $('.search_box_title').on('click', function(){
