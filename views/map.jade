@@ -149,6 +149,7 @@ block content
                 $('.search_box_title').on('click', function(){
                     $(this).text("Search for Claims");
                     $('#header').animate({"height": "280px"}, 1000);
+                    setTimeout(function(){ headerHide = "hideable" }, 8000);
                     console.log("clicked");
                 });
                 var clicked = false;
@@ -173,6 +174,7 @@ block content
                         ]);
                     map.on('click', function () {
                         clicked = ((clicked === true) ? false : true)
+                        console.log("Map Freeze Clicked");
                     });
                     if (clicked != true) {
                         var table = $(".data-table").empty();
