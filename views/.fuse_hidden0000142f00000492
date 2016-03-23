@@ -1,0 +1,263 @@
+extends layout
+
+block content
+  .background-img-regular
+    .row 
+      .col-sm-9.map
+        #map
+        #menu
+              input#streets(type='radio', name='rtoggle', value='streets')
+              label(for='streets') streets
+              input#dark(type='radio', name='rtoggle', value='dark')
+              label(for='dark') dark
+              input#satellite-hybrid(type='radio', name='rtoggle', value='satellite')
+              label(for='satellite') satellite
+              input#outdoors(type='radio', name='rtoggle', value='outdoors')
+              label(for='outdoors') outdoors
+        .se-pre-con
+
+      .col-sm-3.info-pane
+        #header
+          form(id="searchForm", name="claim_search")
+            div
+              h2.search_box_title Search For Claims
+              input(type="text", class="form-control", id="ClientNum", name="CLIENTNUM", placeholder="Client Number")
+            div
+              input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="Tenure Number")
+            div
+              select(name="TNRTPDSCRP", class='dropSearch', id='TNRTPDSCRP')
+                option(value="") Claim Type
+                option(value="Coal") Coal
+                option(value="Mineral") Mineral
+                option(value="Placer") Placer
+            div
+              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="Expiring Before (YYMMDD)")
+            div
+              input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
+            div
+              input(type="submit", class="actions", value="Search")   
+
+        .results-count 
+
+        .data-table
+
+    //- Handlebars cdn
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js')
+
+  //- Mapbox GL JS Script
+  script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
+  link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
+
+  //- Script for loading image
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+
+  //- Handlebars template
+  script#entry-template(type='text/x-handlebars-template').
+    <h2>{{tenure}}</h2>
+    <p>{{clinum}}</p>
+    <p>{{claim_name}}</p>
+    <p>{{owner_name}}</p>
+    <p>{{type}}</p>
+    <p>{{good_until}}</p>
+    <p>{{issue_date}}</p>
+
+
+  script.
+    $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '20').css('padding-right', '20');
+
+  script.
+
+    $(function() {
+      var geoData;
+      var test;
+      var headerHide = "nope";
+
+      function loadData(results){
+
+            $(".results-count").empty();
+            $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
+
+            // Changes format of GeoJSON
+            polygons = {
+              type: "FeatureCollection",
+              features: results };
+
+            // Remove existing map data if present 
+            if (map.getSource('poly')) { map.removeSource('poly') };
+            if (map.getLayer('Coal')) { map.removeLayer('Coal') };
+            if (map.getLayer('Mineral')) { map.removeLayer('Mineral') };
+            if (map.getLayer('Placer')) { map.removeLayer('Placer') };
+
+            var poly = new mapboxgl.GeoJSONSource({ data: polygons });
+                map.addSource('poly', poly); // add
+
+                map.addLayer({
+                    'id': 'Coal',
+                    'type': 'fill',
+                    'source': 'poly',
+                    "interactive": true,
+                    'layout': {},
+                    "filter": ["==", "TNRTPDSCRP", "Coal"],
+                    'paint': {
+                        'fill-color': '#292929',
+                        'fill-opacity': 0.4,
+                        'fill-outline-color': '#000' 
+                    }
+                }, 'water');
+                map.addLayer({
+                    'id': 'Mineral',
+                    'type': 'fill',
+                    'source': 'poly',
+                    "interactive": true,
+                    'layout': {},
+                    "filter": ["==", "TNRTPDSCRP", "Mineral"],
+                    'paint': {
+                        'fill-color': '#0033cc',
+                        'fill-opacity': 0.4,
+                        'fill-outline-color': '#000c2f' 
+                    }
+                }, 'water');
+                map.addLayer({
+                    'id': 'Placer',
+                    'type': 'fill',
+                    'source': 'poly',
+                    "interactive": true,
+                    'layout': {},
+                    "filter": ["==", "TNRTPDSCRP", "Placer"],
+                    'paint': {
+                        'fill-color': '#cc00cc',
+                        'fill-opacity': 0.4,
+                        'fill-outline-color': '#800080' 
+                    }
+                }, 'water');
+                map.addLayer({
+                    "id": "hover",
+                    "type": "fill",
+                    "source": "poly",
+                    "layout": {},
+                    "paint": {
+                        "fill-color": "#00892b",
+                        "fill-opacity": 0.8,
+                        'fill-outline-color': '#fff' 
+                    },
+                    "filter": ["==", "TNRNMBRD", ""]
+                });
+
+                $(".se-pre-con").fadeOut("slow");
+
+                // Search box re-appear function
+                $('.search_box_title').on('click', function(){
+                    $(this).text("Search for Claims");
+                    $('#header').animate({"height": "280px"}, 1000);
+                    console.log("clicked");
+                });
+
+                map.on("mousemove", function(e) {
+                  map.featuresAt(e.point, {
+                    radius: 5,  
+                    includeGeometry: true 
+                  }, function (err, features) {
+            
+                    if (err) throw err
+                    if (features && (headerHide === "hideable")) {
+                        $('#header').animate({"height": "50px"}, 1000, function() {
+                                $('.search_box_title').text("Click for Search");
+                                headerHide = "nope";
+                            });
+                        };
+                     var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
+                     console.log("ID:", ids);
+                     console.log("Header", headerHide);
+                     map.setFilter('hover', [ 'all',
+                        [ 'in', 'TNRNMBRD' ].concat(ids)
+                        ]);
+                    var table = $(".data-table").empty();
+                    features.forEach(function(result) {
+
+                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+
+
+                          //- handlebars templating for displaying claim details
+                        var source   = $("#entry-template").html();
+                        var template = Handlebars.compile(source);
+                        var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+                        var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+
+                        var context = {
+                        clinum: "Client Number: " + result.properties.CLIENTNUM, 
+                        claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+                        owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+                        tenure: "Tenure: " + result.properties.TNRNMBRD,
+                        type: "Type: " + result.properties.TNRTPDSCRP,
+                        good_until: "Good To Date: " + gtd,
+                        issue_date: "Issue Date: " + issue
+                        }
+
+                        var el_html = template(context);
+
+                        div_result.html(el_html);
+                    });  //Ends for each function
+                  });
+                }); // Ends Hover Function (mousemove)
+        };  // Ends function(results)
+
+      $("#searchForm").on('submit',function(e){
+        e.preventDefault();
+
+        $(".se-pre-con").css("display", "inline-block");
+        headerHide = "hideable";
+
+        // Geo Query Stuff (Nick)
+        var ne_lat = map.getBounds().getNorthEast().lat;
+        var ne_lng = map.getBounds().getNorthEast().lng;
+        var sw_lat = map.getBounds().getSouthWest().lat;
+        var sw_lng = map.getBounds().getSouthWest().lng;
+
+        //- Take form data and pass to server
+        $.getJSON('/map/search', {
+          clientnum: $('#ClientNum').val(),
+          TNRNMBRD: $('#TNRNMBRD').val(),
+          TNRTPDSCRP: $('#TNRTPDSCRP').val(),
+          GDTDT: $('#GDTDT').val(),
+          ownerName: $('#ownerName').val(),
+          ne_lat, ne_lng, sw_lat, sw_lng
+        },  
+         //- results from getJSON
+        function(results){ 
+            loadData(results);
+            geoData = results;
+        });
+      }); // Ends the on submit click handler
+
+      // Triggered when `setStyle` is called
+    map.on('style.load', function () {
+      if (geoData) loadData(geoData);
+    });
+
+    }); //-ends document ready. 
+
+     mapboxgl.accessToken =  'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A'; 
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: '/outdoors-v8.json',
+        center: [-120.79433441162108, 49.49935027965388],
+        zoom: 7.8
+    });
+
+    // Stuff for changing the base map
+    var layerList = document.getElementById('menu');
+    var inputs = layerList.getElementsByTagName('input');
+
+    function switchLayer(layer) {
+        var layerId = layer.target.id;
+        if (layerId === 'outdoors') {
+            map.setStyle('/outdoors-v8.json');
+        } else {
+        map.setStyle('mapbox://styles/mapbox/' + layerId + '-v8');
+        }
+    }
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].onclick = switchLayer;
+    }
