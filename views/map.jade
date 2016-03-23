@@ -67,38 +67,10 @@ block content
 
   script.
     $(function() {
+      var test;
       var headerHide = "nope";
 
-      //- $(window).load(function() {
-        //- $(".se-pre-con").fadeOut("slow");
-        //- });
-
-      $("#searchForm").on('submit',function(e){
-        e.preventDefault();
-
-        $(".se-pre-con").css("display", "inline-block");
-        var headerHide = "hideable";
-
-        // Geo Query Stuff (Nick)
-        var ne_lat = map.getBounds().getNorthEast().lat;
-        var ne_lng = map.getBounds().getNorthEast().lng;
-        var sw_lat = map.getBounds().getSouthWest().lat;
-        var sw_lng = map.getBounds().getSouthWest().lng;
-
-        //- Take form data and pass to server
-        $.getJSON('/map/search', {
-          clientnum: $('#ClientNum').val(),
-          TNRNMBRD: $('#TNRNMBRD').val(),
-          TNRTPDSCRP: $('#TNRTPDSCRP').val(),
-          GDTDT: $('#GDTDT').val(),
-          ownerName: $('#ownerName').val(),
-          ne_lat, ne_lng, sw_lat, sw_lng
-        },
-
-    
-        //- results from getJSON
-
-        function(results){
+      function loadData(results){
 
             $(".results-count").empty();
             $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
@@ -225,7 +197,33 @@ block content
                     });  //Ends for each function
                   });
                 }); // Ends Hover Function (mousemove)
-        });  // Ends function(results)
+        };  // Ends function(results)
+
+      $("#searchForm").on('submit',function(e){
+        e.preventDefault();
+
+        $(".se-pre-con").css("display", "inline-block");
+        headerHide = "hideable";
+
+        // Geo Query Stuff (Nick)
+        var ne_lat = map.getBounds().getNorthEast().lat;
+        var ne_lng = map.getBounds().getNorthEast().lng;
+        var sw_lat = map.getBounds().getSouthWest().lat;
+        var sw_lng = map.getBounds().getSouthWest().lng;
+
+        //- Take form data and pass to server
+        $.getJSON('/map/search', {
+          clientnum: $('#ClientNum').val(),
+          TNRNMBRD: $('#TNRNMBRD').val(),
+          TNRTPDSCRP: $('#TNRTPDSCRP').val(),
+          GDTDT: $('#GDTDT').val(),
+          ownerName: $('#ownerName').val(),
+          ne_lat, ne_lng, sw_lat, sw_lng
+        },  
+         //- results from getJSON
+        function(results){ 
+            loadData(results);
+        });
       }); // Ends the on submit click handler
 
     }); //-ends document ready. 
