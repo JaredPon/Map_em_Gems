@@ -66,7 +66,9 @@ block content
     $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '20').css('padding-right', '20');
 
   script.
+
     $(function() {
+      var geoData;
       var test;
       var headerHide = "nope";
 
@@ -223,8 +225,14 @@ block content
          //- results from getJSON
         function(results){ 
             loadData(results);
+            geoData = results;
         });
       }); // Ends the on submit click handler
+
+      // Triggered when `setStyle` is called
+    map.on('style.load', function () {
+      if (geoData) loadData(geoData);
+    });
 
     }); //-ends document ready. 
 
