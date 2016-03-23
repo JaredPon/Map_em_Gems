@@ -804,7 +804,7 @@
       ],
       "paint": {
         "line-color": "#000",
-        "line-width": 1.2,
+        "line-width": 1.4,
         "line-opacity": {
           "stops": [
             [
@@ -846,16 +846,16 @@
       ],
       "paint": {
         "line-color": "#000",
-        "line-width": 1.2,
+        "line-width": 1.4,
         "line-opacity": {
           "stops": [
             [
               11,
-              0.05
+              0.2
             ],
             [
               12,
-              0.1
+              0.4
             ]
           ]
         }
