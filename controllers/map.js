@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var turf = require('turf');
-var fs = require('fs');
 
 exports.show = function(req, res) {
   res.render('map', {
