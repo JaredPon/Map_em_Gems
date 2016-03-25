@@ -212,8 +212,21 @@ block content
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
 
-        if (map.getZoom() < 6) {
-            alert("You are zoomed out too much")
+        // Search Parameters
+        var clientnum = $('#ClientNum').val();
+        var TNRNMBRD = $('#TNRNMBRD').val();
+        var TNRTPDSCRP = $('#TNRTPDSCRP').val();
+        var GDTDT = $('#GDTDT').val();
+        var ownerName = $('#ownerName').val();
+
+        // Geo Query Stuff (Nick)
+        var ne_lat = map.getBounds().getNorthEast().lat;
+        var ne_lng = map.getBounds().getNorthEast().lng;
+        var sw_lat = map.getBounds().getSouthWest().lat;
+        var sw_lng = map.getBounds().getSouthWest().lng;
+
+        if ((map.getZoom() < 6) && (!clientnum) && (!TNRNMBRD) && (!ownerName)) {
+            alert("Too much data, zoom in more or choose a more specific query.")
         } else {
 
         $(".se-pre-con").css("display", "inline-block");
