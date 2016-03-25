@@ -153,6 +153,7 @@ block content
                     console.log("clicked");
                 });
                 var clicked = false;
+                
                 map.on("mousemove", function(e) {
                   map.featuresAt(e.point, {
                     radius: 5,  
@@ -211,6 +212,10 @@ block content
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
 
+        if (map.getZoom() < 6) {
+            alert("You are zoomed out too much")
+        } else {
+
         $(".se-pre-con").css("display", "inline-block");
         headerHide = "hideable";
 
@@ -234,6 +239,7 @@ block content
             loadData(results);
             geoData = results;
         });
+        }; // Ends Zoom if condition
       }); // Ends the on submit click handler
 
       // Triggered when `setStyle` is called
