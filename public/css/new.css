@@ -303,7 +303,7 @@ body {
 }
 
 /*Loading Icon*/
-.se-pre-con {
+.preloaderRubixCube {
   display: none;
   position: fixed;
   left: 0;

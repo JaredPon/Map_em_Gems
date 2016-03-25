@@ -14,7 +14,7 @@ block content
               label(for='satellite') satellite
               input#outdoors(type='radio', name='rtoggle', value='outdoors')
               label(for='outdoors') outdoors
-        .se-pre-con
+        .preloaderRubixCube
 
       .col-sm-3.info-pane
         #header
@@ -143,7 +143,7 @@ block content
                     "filter": ["==", "TNRNMBRD", ""]
                 });
 
-                $(".se-pre-con").fadeOut("slow");
+                $(".preloaderRubixCube").fadeOut("slow");
 
                 // Search box re-appear function
                 $('.search_box_title').on('click', function(){
@@ -229,22 +229,16 @@ block content
             alert("Too much data, zoom in more or choose a more specific query.")
         } else {
 
-        $(".se-pre-con").css("display", "inline-block");
+        $(".preloaderRubixCube").css("display", "inline-block");
         headerHide = "hideable";
-
-        // Geo Query Stuff (Nick)
-        var ne_lat = map.getBounds().getNorthEast().lat;
-        var ne_lng = map.getBounds().getNorthEast().lng;
-        var sw_lat = map.getBounds().getSouthWest().lat;
-        var sw_lng = map.getBounds().getSouthWest().lng;
 
         //- Take form data and pass to server
         $.getJSON('/map/search', {
-          clientnum: $('#ClientNum').val(),
-          TNRNMBRD: $('#TNRNMBRD').val(),
-          TNRTPDSCRP: $('#TNRTPDSCRP').val(),
-          GDTDT: $('#GDTDT').val(),
-          ownerName: $('#ownerName').val(),
+          clientnum: clientnum,
+          TNRNMBRD: TNRNMBRD,
+          TNRTPDSCRP: TNRTPDSCRP,
+          GDTDT: GDTDT,
+          ownerName: ownerName,
           ne_lat, ne_lng, sw_lat, sw_lng
         },  
          //- results from getJSON
