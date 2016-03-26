@@ -57,7 +57,7 @@ block content
 
   //- Handlebars template
   script#entry-template(type='text/x-handlebars-template').
-    <h2>{{tenure}}</h2>
+    <h3>{{tenure}}</h3>
     <p>{{clinum}}</p>
     <p>{{claim_name}}</p>
     <p>{{owner_name}}</p>
@@ -85,7 +85,7 @@ block content
       function loadData(results){
 
             $(".results-count").empty();
-            $("<h4>").appendTo(".results-count").text("Results Count: " + results.length);
+            $("<h6>").appendTo(".results-count").text("Results Count: " + results.length);
 
             // Changes format of GeoJSON
             polygons = {
@@ -156,12 +156,12 @@ block content
                 $(".preloaderRubixCube").fadeOut("slow");
 
                 // Search box re-appear function
-                $('.search_box_title').on('click', function(){
-                    $(this).text("Search for Claims");
-                    $('#header').animate({"height": "280px"}, 1000);
-                    setTimeout(function(){ headerHide = "hideable" }, 8000);
-                    console.log("Search Box hoverFreezeEngaged");
-                });
+                //- $('.search_box_title').on('click', function(){
+                //-     $(this).text("Search for Claims");
+                //-     $('#header').animate({"height": "280px"}, 1000);
+                //-     setTimeout(function(){ headerHide = "hideable" }, 8000);
+                //-     console.log("Search Box Engaged");
+                //- });
                 var hoverFreezeEngaged = false;
                 
                 map.on("mousemove", function(e) {
@@ -171,12 +171,12 @@ block content
                   }, function (err, features) {
             
                     if (err) throw err
-                    if (features && (headerHide === "hideable")) {
-                        $('#header').animate({"height": "50px"}, 1000, function() {
-                                $('.search_box_title').text("Click for Search");
-                                headerHide = "nope";
-                            });
-                        };
+                    //- if (features && (headerHide === "hideable")) {
+                    //-     $('#header').animate({"height": "50px"}, 1000, function() {
+                    //-             $('.search_box_title').text("Click for Search");
+                    //-             headerHide = "nope";
+                    //-         });
+                    //-     };
                      var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
                      console.log("ID:", ids);
                      //- console.log("Header", headerHide);

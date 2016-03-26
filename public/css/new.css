@@ -227,7 +227,7 @@ select option {
   float:right;
   width: 100%;
   clear: both;
-  overflow: scroll;
+ /* overflow: scroll;*/
 }
 
 .results-count{
@@ -256,6 +256,10 @@ select option {
 .each_result_table p{
   color: #00892b;
   border-bottom:1px dotted #d8d8d8;
+}
+
+.each_result_table h3{
+  margin-top: 0px;
 }
 
 /*For showing and hiding the result details*/
