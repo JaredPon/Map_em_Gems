@@ -235,6 +235,7 @@ block content
         var sw_lat = map.getBounds().getSouthWest().lat;
         var sw_lng = map.getBounds().getSouthWest().lng;
 
+        // Won't allow huge queries
         if ((map.getZoom() < 6) && (!clientnum) && (!TNRNMBRD) && (!ownerName)) {
             alert("Too much data, zoom in more or choose a more specific query.")
         } else {
