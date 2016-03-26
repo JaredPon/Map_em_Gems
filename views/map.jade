@@ -31,7 +31,7 @@ block content
                 option(value="Mineral") Mineral
                 option(value="Placer") Placer
             div
-              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="Expiring Before (YYMMDD)")
+              input(type="text", class="form-control", id="GDTDT", name="GDTDT", placeholder="Choose Expiry Date")
             div
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
             div
@@ -48,8 +48,12 @@ block content
   script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
   link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
 
-  //- Script for loading image
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  //- //- Script for loading image
+  //- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+  
+  //- Calendar Date Picker Script
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.4.0/pikaday.min.js")
+  link(rel='stylesheet', href='http://dbushell.github.io/Pikaday/css/pikaday.css')
 
   //- Handlebars template
   script#entry-template(type='text/x-handlebars-template').
@@ -71,6 +75,12 @@ block content
       var geoData;
       var test;
       var headerHide = "nope";
+
+      // Fancy Calendar Date Picker
+      var picker = new Pikaday({ 
+            field: $('#GDTDT')[0],
+            format: 'YYYYMMDD'
+        });
 
       function loadData(results){
 
@@ -150,9 +160,9 @@ block content
                     $(this).text("Search for Claims");
                     $('#header').animate({"height": "280px"}, 1000);
                     setTimeout(function(){ headerHide = "hideable" }, 8000);
-                    console.log("clicked");
+                    console.log("Search Box hoverFreezeEngaged");
                 });
-                var clicked = false;
+                var hoverFreezeEngaged = false;
                 
                 map.on("mousemove", function(e) {
                   map.featuresAt(e.point, {
@@ -174,10 +184,10 @@ block content
                         [ 'in', 'TNRNMBRD' ].concat(ids)
                         ]);
                     map.on('click', function () {
-                        clicked = ((clicked === true) ? false : true)
+                        hoverFreezeEngaged = ((hoverFreezeEngaged === true) ? false : true)
                         console.log("Map Freeze Clicked");
                     });
-                    if (clicked != true) {
+                    if (hoverFreezeEngaged != true) {
                         var table = $(".data-table").empty();
                     };
                     features.forEach(function(result) {
@@ -205,7 +215,7 @@ block content
 
                         div_result.html(el_html);
                     });  //Ends for each function
-                  });
+                  }); // Ends mousemove calback
                 }); // Ends Hover Function (mousemove)
         };  // Ends function(results)
 
