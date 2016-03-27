@@ -78,6 +78,74 @@ block content
             field: $('#GDTDT')[0],
             format: 'YYYYMMDD'
         });
+        var regions = new mapboxgl.GeoJSONSource({ data: '/BC_mining_regions.geojson' });
+        map.on('style.load', function () {
+            map.addSource('regions', regions); // add
+            map.addLayer({
+                        'id': 'BCregions',
+                        'type': 'fill',
+                        'source': 'regions',
+                        "interactive": true,
+                        'layout': {},
+                        'maxzoom': 6,
+                        'paint': {
+                            'fill-color': '#cc00cc',
+                            'fill-opacity': 0.2,
+                            'fill-outline-color': '#000'
+                        }
+                    }, 'water');
+            map.addLayer({
+                        'id': 'BCregions_hover',
+                        'type': 'fill',
+                        'source': 'regions',
+                        'layout': {},
+                        'maxzoom': 6,
+                        'paint': {
+                            'fill-color': '#cc00cc',
+                            'fill-opacity': 0.8,
+                            'fill-outline-color': '#fff'
+                        },
+                    "filter": ["==", "OBJECTID", ""]
+                    });
+
+            map.on("mousemove", function(e) {
+              map.featuresAt(e.point, {
+                radius: 1,  
+                includeGeometry: true 
+              }, function (err, features) {
+        
+                if (err) throw err
+
+                 var ids = features.map(function (feat) { return feat.properties.OBJECTID });
+                 console.log("ID:", ids);
+                 //- console.log("Header", headerHide);
+                 map.setFilter('BCregions_hover', [ 'all',
+                    [ 'in', 'OBJECTID' ].concat(ids)
+                    ]);
+                var table = $(".data-table").empty();
+                features.forEach(function(result) {
+
+                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+
+                          //- handlebars templating for displaying claim details
+                        var source   = $("#entry-template").html();
+                        var template = Handlebars.compile(source);
+                        var context = {
+                       
+                        tenure: result.properties.REG_NAME,
+       
+                        }
+
+                        var el_html = template(context);
+
+                        div_result.html(el_html);
+                    });  //Ends for each function
+                    map.on('click', function (e) {
+                        console.log(e.properties.REG_NAME);
+                    });
+                })
+            });
+        });
 
       function loadData(results){
 
@@ -145,7 +213,7 @@ block content
                     "paint": {
                         "fill-color": "#00892b",
                         "fill-opacity": 0.8,
-                        'fill-outline-color': '#fff' 
+                        'fill-outline-color': '#fff'
                     },
                     "filter": ["==", "TNRNMBRD", ""]
                 });
@@ -230,7 +298,8 @@ block content
         var GDTDT = $('#GDTDT').val();
         var ownerName = $('#ownerName').val();
 
-        // Geo Query Stuff (Nick)
+        // Geo Query Stuff (Nick) 
+        // The condition is for tenure searches
         if (TNRNMBRD) { 
             // Bounds for all of BC
             var ne_lat = 60.201513365378474;
@@ -290,8 +359,9 @@ block content
     var map = new mapboxgl.Map({
         container: 'map',
         style: '/outdoors-v8.json',
-        center: [-120.79433441162108, 49.49935027965388],
-        zoom: 7.8
+        //- center: [-120.79433441162108, 49.49935027965388],
+        center: [-125.1318637, 54.3356591],
+        zoom: 4
     });
 
     // Stuff for changing the base map
