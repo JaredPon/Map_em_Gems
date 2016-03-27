@@ -37,6 +37,7 @@ block content
             div
               input(type="submit", class="actions", value="Search")   
 
+        .zoomLevel
         .results-count 
 
         .data-table
@@ -78,6 +79,16 @@ block content
             field: $('#GDTDT')[0],
             format: 'YYYYMMDD'
         });
+
+      // Map ZoomLogger
+      var mapZoom = map.getZoom().toFixed(2);
+      $("<h6>").appendTo(".zoomLevel").text("Zoom Level: " + mapZoom);
+      map.on('zoomend', function() {
+        mapZoom = map.getZoom().toFixed(2);
+        $(".zoomLevel").empty();
+        $("<h6>").appendTo(".zoomLevel").text("Zoom Level: " + mapZoom);
+      });
+
         var regions = new mapboxgl.GeoJSONSource({ data: '/BC_mining_regions.geojson' });
         map.on('style.load', function () {
             map.addSource('regions', regions); // add
@@ -118,34 +129,30 @@ block content
 
                  var ids = features.map(function (feat) { return feat.properties.OBJECTID });
                  console.log("ID:", ids);
-                 //- console.log("Header", headerHide);
+
                  map.setFilter('BCregions_hover', [ 'all',
                     [ 'in', 'OBJECTID' ].concat(ids)
                     ]);
                 var table = $(".data-table").empty();
                 features.forEach(function(result) {
-
                         var div_result = $("<div>").addClass("each_result_table").appendTo(table);
-
-                          //- handlebars templating for displaying claim details
-                        var source   = $("#entry-template").html();
-                        var template = Handlebars.compile(source);
-                        var context = {
-                       
-                        tenure: result.properties.REG_NAME,
-       
-                        }
-
-                        var el_html = template(context);
-
-                        div_result.html(el_html);
+                        var context = result.properties.REG_NAME
+                        div_result.html("<h4>"+context+"</h4>");
                     });  //Ends for each function
-                    map.on('click', function (e) {
-                        console.log(e.properties.REG_NAME);
-                    });
                 })
             });
         });
+
+        map.on("click", function(e) {
+              map.featuresAt(e.point, {
+                radius: 1,  
+                includeGeometry: true 
+              }, function (err, features) {
+                    if (err) throw err
+                    var name = features.map(function (feat) { return feat.properties.REG_NAME });
+                    console.log(name);
+                })
+            });
 
       function loadData(results){
 
