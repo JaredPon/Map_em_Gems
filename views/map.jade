@@ -47,9 +47,6 @@ block content
   //- Mapbox GL JS Script
   script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js')
   link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css')
-
-  //- //- Script for loading image
-  //- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
   
   //- Calendar Date Picker Script
   script(src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.4.0/pikaday.min.js")
@@ -162,6 +159,7 @@ block content
                 //-     setTimeout(function(){ headerHide = "hideable" }, 8000);
                 //-     console.log("Search Box Engaged");
                 //- });
+
                 var hoverFreezeEngaged = false;
                 
                 map.on("mousemove", function(e) {
@@ -171,12 +169,15 @@ block content
                   }, function (err, features) {
             
                     if (err) throw err
+
+                    // Search Box Hide Function
                     //- if (features && (headerHide === "hideable")) {
                     //-     $('#header').animate({"height": "50px"}, 1000, function() {
                     //-             $('.search_box_title').text("Click for Search");
                     //-             headerHide = "nope";
                     //-         });
                     //-     };
+
                      var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
                      console.log("ID:", ids);
                      //- console.log("Header", headerHide);
@@ -230,10 +231,18 @@ block content
         var ownerName = $('#ownerName').val();
 
         // Geo Query Stuff (Nick)
-        var ne_lat = map.getBounds().getNorthEast().lat;
-        var ne_lng = map.getBounds().getNorthEast().lng;
-        var sw_lat = map.getBounds().getSouthWest().lat;
-        var sw_lng = map.getBounds().getSouthWest().lng;
+        if (TNRNMBRD) { 
+            // Bounds for all of BC
+            var ne_lat = 60.201513365378474;
+            var ne_lng = -109.21174143971518;
+            var sw_lat = 48.761051460064124;
+            var sw_lng = -135.66274249731282;
+        } else {
+            var ne_lat = map.getBounds().getNorthEast().lat;
+            var ne_lng = map.getBounds().getNorthEast().lng;
+            var sw_lat = map.getBounds().getSouthWest().lat;
+            var sw_lng = map.getBounds().getSouthWest().lng;
+        };
 
         // Won't allow huge queries
         if ((map.getZoom() < 6) && (!clientnum) && (!TNRNMBRD) && (!ownerName)) {
@@ -256,7 +265,16 @@ block content
         function(results){ 
             loadData(results);
             geoData = results;
+
+            if (TNRNMBRD) {
+                map.flyTo({
+                    center: geoData[0].geometry.coordinates[0][0],
+                    zoom: 12,
+                    speed: 0.5
+                });
+            };
         });
+
         }; // Ends Zoom if condition
       }); // Ends the on submit click handler
 
