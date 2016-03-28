@@ -38,9 +38,12 @@ block content
             div
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
             div
-              input(type="submit", class="actions", value="Search")  
+              input(type="submit", class="actions", value="Search") 
 
-        #userClientnum #{user.CLIENTNUM}
+        //- shows user's claims if logged in 
+        - if ( typeof user !== "undefined" )
+          #userClientnum #{user.CLIENTNUM}
+
         .zoomLevel
         .results-count 
 
@@ -80,15 +83,19 @@ block content
 
       // User Claims Dropdown
       var clientNumber = $('#userClientnum').text()
-      $.getJSON('/clientclaims/search', {
-        clientnum: clientNumber
-      },function(results){ 
-        var $dropdown = $("#userClaims");
-        results.forEach(function(result) {
-            var claim = result.properties.TNRNMBRD
-             $dropdown.append(new Option(claim, claim))
-        });  //Ends for each function     
-      });
+      //- shows user's claims if logged in 
+      if (clientNumber) {
+          $("#userClaims").css("display", "inline-block");
+          $.getJSON('/clientclaims/search', {
+            clientnum: clientNumber
+          },function(results){ 
+            var $dropdown = $("#userClaims");
+            results.forEach(function(result) {
+                var claim = result.properties.TNRNMBRD
+                 $dropdown.append(new Option(claim, claim))
+            });  //Ends for each function     
+          });
+        };
 
 
       // Fancy Calendar Date Picker
