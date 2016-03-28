@@ -25,6 +25,9 @@ block content
             div
               input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="Tenure Number")
             div
+              select(name="userClaims", class='dropSearch', id='userClaims')
+                option(value="") My Claims
+            div
               select(name="TNRTPDSCRP", class='dropSearch', id='TNRTPDSCRP')
                 option(value="") Claim Type
                 option(value="Coal") Coal
@@ -35,8 +38,9 @@ block content
             div
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
             div
-              input(type="submit", class="actions", value="Search")   
+              input(type="submit", class="actions", value="Search")  
 
+        #userClientnum #{user.CLIENTNUM}
         .zoomLevel
         .results-count 
 
@@ -73,6 +77,19 @@ block content
       var geoData;
       var test;
       var headerHide = "nope";
+
+      // User Claims Dropdown
+      var clientNumber = $('#userClientnum').text()
+      $.getJSON('/clientclaims/search', {
+        clientnum: clientNumber
+      },function(results){ 
+        var $dropdown = $("#userClaims");
+        results.forEach(function(result) {
+            var claim = result.properties.TNRNMBRD
+             $dropdown.append(new Option(claim, claim))
+        });  //Ends for each function     
+      });
+
 
       // Fancy Calendar Date Picker
       var picker = new Pikaday({ 
@@ -299,8 +316,11 @@ block content
         e.preventDefault();
 
         // Search Parameters
+        var userClaims = $('#userClaims').val();
         var clientnum = $('#ClientNum').val();
-        var TNRNMBRD = $('#TNRNMBRD').val();
+        //- var TNRNMBRD = $('#TNRNMBRD').val();
+        // User claims search option
+        var TNRNMBRD = ((userClaims) ? userClaims : $('#TNRNMBRD').val())
         var TNRTPDSCRP = $('#TNRTPDSCRP').val();
         var GDTDT = $('#GDTDT').val();
         var ownerName = $('#ownerName').val();
@@ -336,7 +356,7 @@ block content
           GDTDT: GDTDT,
           ownerName: ownerName,
           ne_lat, ne_lng, sw_lat, sw_lng
-        },  
+        },
          //- results from getJSON
         function(results){ 
             loadData(results);
