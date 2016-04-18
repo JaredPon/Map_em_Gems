@@ -25,3 +25,9 @@ block content
           button.btn.btn-primary(type='submit')
             i.fa.fa-envelope
             | Send
+
+  //- This is to fix container margins on homepage, fix navbar ect without affecting the layout on the other pages.
+  script.
+    $(function() {
+      $('body > .container').css('margin-left', '0').css('width', '100%').css('margin-right', '0').css('padding-left', '0').css('padding-right', '0');
+    });

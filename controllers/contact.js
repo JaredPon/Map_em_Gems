@@ -2,8 +2,10 @@ var nodemailer = require("nodemailer");
 var transporter = nodemailer.createTransport({
   service: 'SendGrid',
   auth: {
-    user: process.env.SENDGRID_USER,
-    pass: process.env.SENDGRID_PASSWORD
+    user: 'Jaredpon',
+    pass: 'g2P^S8cz4LLNBM84I4cJa?q"^'
+    // user: process.env.SENDGRID_USER,
+    // pass: process.env.SENDGRID_PASSWORD
   }
 });
 
