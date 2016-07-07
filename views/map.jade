@@ -143,40 +143,40 @@ block content
                     "filter": ["==", "OBJECTID", ""]
                     });
 
-            map.on("mousemove", function(e) {
-              map.featuresAt(e.point, {
-                radius: 1,  
-                includeGeometry: true 
-              }, function (err, features) {
+            //- map.on("mousemove", function(e) {
+            //-   map.featuresAt(e.point, {
+            //-     radius: 1,  
+            //-     includeGeometry: true 
+            //-   }, function (err, features) {
         
-                if (err) throw err
+            //-     if (err) throw err
 
-                 var ids = features.map(function (feat) { return feat.properties.OBJECTID });
-                 console.log("ID:", ids);
+            //-      var ids = features.map(function (feat) { return feat.properties.OBJECTID });
+            //-      console.log("ID:", ids);
 
-                 map.setFilter('BCregions_hover', [ 'all',
-                    [ 'in', 'OBJECTID' ].concat(ids)
-                    ]);
-                var table = $(".data-table").empty();
-                features.forEach(function(result) {
-                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
-                        var context = result.properties.REG_NAME
-                        div_result.html("<h4>"+context+"</h4>");
-                    });  //Ends for each function
-                })
-            });
+            //-      map.setFilter('BCregions_hover', [ 'all',
+            //-         [ 'in', 'OBJECTID' ].concat(ids)
+            //-         ]);
+            //-     var table = $(".data-table").empty();
+            //-     features.forEach(function(result) {
+            //-             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+            //-             var context = result.properties.REG_NAME
+            //-             div_result.html("<h4>"+context+"</h4>");
+            //-         });  //Ends for each function
+            //-     })
+            //- });
         });
 
-        map.on("click", function(e) {
-              map.featuresAt(e.point, {
-                radius: 1,  
-                includeGeometry: true 
-              }, function (err, features) {
-                    if (err) throw err
-                    var name = features.map(function (feat) { return feat.properties.REG_NAME });
-                    console.log(name);
-                })
-            });
+        //- map.on("click", function(e) {
+        //-       map.featuresAt(e.point, {
+        //-         radius: 1,  
+        //-         includeGeometry: true 
+        //-       }, function (err, features) {
+        //-             if (err) throw err
+        //-             var name = features.map(function (feat) { return feat.properties.REG_NAME });
+        //-             console.log(name);
+        //-         })
+        //-     });
 
       function loadData(results){
 
@@ -260,63 +260,67 @@ block content
                 //- });
 
                 var hoverFreezeEngaged = false;
-                
-                map.on("mousemove", function(e) {
-                  map.featuresAt(e.point, {
-                    radius: 5,  
-                    includeGeometry: true 
-                  }, function (err, features) {
-            
-                    if (err) throw err
-
-                    // Search Box Hide Function
-                    //- if (features && (headerHide === "hideable")) {
-                    //-     $('#header').animate({"height": "50px"}, 1000, function() {
-                    //-             $('.search_box_title').text("Click for Search");
-                    //-             headerHide = "nope";
-                    //-         });
-                    //-     };
-
-                     var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
-                     console.log("ID:", ids);
-                     //- console.log("Header", headerHide);
-                     map.setFilter('hover', [ 'all',
-                        [ 'in', 'TNRNMBRD' ].concat(ids)
-                        ]);
-                    map.on('click', function () {
+                 map.on('click', function () {
                         hoverFreezeEngaged = ((hoverFreezeEngaged === true) ? false : true)
                         console.log("Map Freeze Clicked");
+                        console.log("hoverFreezeEngaged = " + hoverFreezeEngaged);
                     });
-                    if (hoverFreezeEngaged != true) {
-                        var table = $(".data-table").empty();
-                    };
-                    features.forEach(function(result) {
+               
+                map.on("mousemove", function(e) {
+                 if (hoverFreezeEngaged != true) {
+                    map.featuresAt(e.point, {
+                      radius: 5,  
+                      includeGeometry: true 
+                    }, function (err, features) {
+              
+                      if (err) throw err
 
-                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+                      // Search Box Hide Function
+                      //- if (features && (headerHide === "hideable")) {
+                      //-     $('#header').animate({"height": "50px"}, 1000, function() {
+                      //-             $('.search_box_title').text("Click for Search");
+                      //-             headerHide = "nope";
+                      //-         });
+                      //-     };
+
+                       var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
+                       console.log("ID:", ids);
+                       //- console.log("Header", headerHide);
+                       map.setFilter('hover', [ 'all',
+                          [ 'in', 'TNRNMBRD' ].concat(ids)
+                          ]);
+                      //- 
+                          var table = $(".data-table").empty();
+                      //- };
+                      features.forEach(function(result) {
+
+                          var div_result = $("<div>").addClass("each_result_table").appendTo(table);
 
 
-                          //- handlebars templating for displaying claim details
-                        var source   = $("#entry-template").html();
-                        var template = Handlebars.compile(source);
-                        var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
-                        var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+                            //- handlebars templating for displaying claim details
+                          var source   = $("#entry-template").html();
+                          var template = Handlebars.compile(source);
+                          var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+                          var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
-                        var context = {
-                        clinum: "Client Number: " + result.properties.CLIENTNUM, 
-                        claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
-                        owner_name: "Owner Name: " + result.properties.OWNER_NAME,
-                        tenure: "Tenure: " + result.properties.TNRNMBRD,
-                        type: "Type: " + result.properties.TNRTPDSCRP,
-                        good_until: "Good To Date: " + gtd,
-                        issue_date: "Issue Date: " + issue
-                        }
+                          var context = {
+                          clinum: "Client Number: " + result.properties.CLIENTNUM, 
+                          claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+                          owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+                          tenure: "Tenure: " + result.properties.TNRNMBRD,
+                          type: "Type: " + result.properties.TNRTPDSCRP,
+                          good_until: "Good To Date: " + gtd,
+                          issue_date: "Issue Date: " + issue
+                          }
 
-                        var el_html = template(context);
+                          var el_html = template(context);
 
-                        div_result.html(el_html);
-                    });  //Ends for each function
-                  }); // Ends mousemove calback
+                          div_result.html(el_html);
+                      });  //Ends for each function
+                    }); // Ends mousemove calback
+                  }; // Ends if hoverFreezeEngaged
                 }); // Ends Hover Function (mousemove)
+               
         };  // Ends function(results)
 
       $("#searchForm").on('submit',function(e){
