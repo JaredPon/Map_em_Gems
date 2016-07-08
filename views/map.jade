@@ -81,7 +81,6 @@ block content
       var geoData;
       var test;
       var headerHide = "nope";
-
       // User Claims Dropdown
       var clientNumber = $('#userClientnum').text()
       //- shows user's claims if logged in 
@@ -126,7 +125,7 @@ block content
                         'maxzoom': 6,
                         'paint': {
                             'fill-color': '#cc00cc',
-                            'fill-opacity': 0.2,
+                            'fill-opacity': 0.001,
                             'fill-outline-color': '#000'
                         }
                     }, 'water');
@@ -138,13 +137,14 @@ block content
                         'maxzoom': 6,
                         'paint': {
                             'fill-color': '#cc00cc',
-                            'fill-opacity': 0.8,
+                            'fill-opacity': 0.2,
                             'fill-outline-color': '#fff'
                         },
                     "filter": ["==", "OBJECTID", ""]
                     });
-
             map.on("mousemove", function(e) {
+             if (mapZoom < 6)
+            {
               map.featuresAt(e.point, {
                 radius: 1,  
                 includeGeometry: true 
@@ -165,26 +165,44 @@ block content
                         div_result.html("<h4>"+context+"</h4>");
                     });  //Ends for each function
                 })
+               };
             });
         });
 
         map.on("click", function(e) {
-              map.featuresAt(e.point, {
-                radius: 1,  
-                includeGeometry: true 
-              }, function (err, features) {
-                    if (err) throw err
-                    var name = features.map(function (feat) { return feat.properties.REG_NAME });
-                    console.log(name);
-                    //- if (name == "Skeena Natural Resource Region")
-                    //-   {
-                    //-     map.flyTo({
-                    //-         center: geoData[0].geometry.coordinates[0][0],
-                    //-         zoom: 12,
-                    //-         speed: 0.5
-                    //-     });
-                    //-   }
-                })
+        if (mapZoom < 6) {
+          var regionCoords = [-125.1318637, 54.3356591];
+                map.featuresAt(e.point, {
+                  radius: 1,  
+                  includeGeometry: true 
+                }, function (err, features) {
+                      if (err) throw err
+                      var name = features.map(function (feat) { return feat.properties.REG_NAME });
+                      console.log(name);
+                        if (name == "Skeena Natural Resource Region"){
+                          regionCoords = [-130.31813118, 58.042257144];
+                          } else if (name == "Northeast Natural Resource Region"){
+                            regionCoords = [-122.43451608, 58.042257144];
+                          } else if (name == "Omineca Natural Resource Region"){
+                            regionCoords = [-124.239316366, 55.2793113832];
+                          } else if (name == "West Coast Natural Resource Region"){
+                            regionCoords = [-127.425874897, 51.299160467];
+                          } else if (name == "Cariboo Natural Resource Region"){
+                            regionCoords = [-123.194317228, 53.31422641];
+                           } else if (name == "Thompson-Okanagan Natural Resource Region"){
+                            regionCoords = [-120.1741507076, 50.67931768319];
+                          } else if (name == "Kootenay-Boundary Natural Resource Region"){
+                            regionCoords = [-116.924217684, 50.222019293];
+                          } else if (name == "South Coast Natural Resource Region"){
+                            regionCoords = [-123.313741191, 49.8615097687];
+                          };          
+                            map.flyTo({
+                                center: regionCoords,
+                                zoom: 6.4,
+                                speed: 0.5
+                            });
+                  })
+                };
             });
 
       function loadData(results){
@@ -276,12 +294,14 @@ block content
                     });
                
                 map.on("mousemove", function(e) {
+
                 $(".latLong").empty();
                 var lat = JSON.stringify(e.lngLat.lat);
                 var lng = JSON.stringify(e.lngLat.lng);
                 $("<h6>").appendTo(".latLong").text("Lat: " + lat);
                 $("<h6>").appendTo(".latLong").text("Long: " + lng);
-                 if (hoverFreezeEngaged != true) {
+
+                 if (hoverFreezeEngaged != true && mapZoom > 6) {
                     map.featuresAt(e.point, {
                       radius: 5,  
                       includeGeometry: true 
@@ -299,7 +319,6 @@ block content
 
                        var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
                        console.log("ID:", ids);
-                       //- console.log("Header", headerHide);
                        map.setFilter('hover', [ 'all',
                           [ 'in', 'TNRNMBRD' ].concat(ids)
                           ]);
@@ -411,7 +430,7 @@ block content
         style: '/outdoors-v8.json',
         //- center: [-120.79433441162108, 49.49935027965388],
         center: [-125.1318637, 54.3356591],
-        zoom: 4
+        zoom: 4.75
     });
     // Stuff for changing the base map
     var layerList = document.getElementById('menu');
