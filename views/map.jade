@@ -44,6 +44,7 @@ block content
         - if ( typeof user !== "undefined" )
           #userClientnum #{user.CLIENTNUM}
 
+        .latLong
         .zoomLevel
         .results-count 
 
@@ -88,7 +89,7 @@ block content
           $("#userClaims").css("display", "inline-block");
           $.getJSON('/clientclaims/search', {
             clientnum: clientNumber
-          },function(results){ 
+          },function(results){
             var $dropdown = $("#userClaims");
             results.forEach(function(result) {
                 var claim = result.properties.TNRNMBRD
@@ -143,40 +144,48 @@ block content
                     "filter": ["==", "OBJECTID", ""]
                     });
 
-            //- map.on("mousemove", function(e) {
-            //-   map.featuresAt(e.point, {
-            //-     radius: 1,  
-            //-     includeGeometry: true 
-            //-   }, function (err, features) {
+            map.on("mousemove", function(e) {
+              map.featuresAt(e.point, {
+                radius: 1,  
+                includeGeometry: true 
+              }, function (err, features) {
         
-            //-     if (err) throw err
+                if (err) throw err
 
-            //-      var ids = features.map(function (feat) { return feat.properties.OBJECTID });
-            //-      console.log("ID:", ids);
+                 var ids = features.map(function (feat) { return feat.properties.OBJECTID });
+                 console.log("ID:", ids);
 
-            //-      map.setFilter('BCregions_hover', [ 'all',
-            //-         [ 'in', 'OBJECTID' ].concat(ids)
-            //-         ]);
-            //-     var table = $(".data-table").empty();
-            //-     features.forEach(function(result) {
-            //-             var div_result = $("<div>").addClass("each_result_table").appendTo(table);
-            //-             var context = result.properties.REG_NAME
-            //-             div_result.html("<h4>"+context+"</h4>");
-            //-         });  //Ends for each function
-            //-     })
-            //- });
+                 map.setFilter('BCregions_hover', [ 'all',
+                    [ 'in', 'OBJECTID' ].concat(ids)
+                    ]);
+                var table = $(".data-table").empty();
+                features.forEach(function(result) {
+                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+                        var context = result.properties.REG_NAME
+                        div_result.html("<h4>"+context+"</h4>");
+                    });  //Ends for each function
+                })
+            });
         });
 
-        //- map.on("click", function(e) {
-        //-       map.featuresAt(e.point, {
-        //-         radius: 1,  
-        //-         includeGeometry: true 
-        //-       }, function (err, features) {
-        //-             if (err) throw err
-        //-             var name = features.map(function (feat) { return feat.properties.REG_NAME });
-        //-             console.log(name);
-        //-         })
-        //-     });
+        map.on("click", function(e) {
+              map.featuresAt(e.point, {
+                radius: 1,  
+                includeGeometry: true 
+              }, function (err, features) {
+                    if (err) throw err
+                    var name = features.map(function (feat) { return feat.properties.REG_NAME });
+                    console.log(name);
+                    //- if (name == "Skeena Natural Resource Region")
+                    //-   {
+                    //-     map.flyTo({
+                    //-         center: geoData[0].geometry.coordinates[0][0],
+                    //-         zoom: 12,
+                    //-         speed: 0.5
+                    //-     });
+                    //-   }
+                })
+            });
 
       function loadData(results){
 
@@ -267,6 +276,11 @@ block content
                     });
                
                 map.on("mousemove", function(e) {
+                $(".latLong").empty();
+                var lat = JSON.stringify(e.lngLat.lat);
+                var lng = JSON.stringify(e.lngLat.lng);
+                $("<h6>").appendTo(".latLong").text("Lat: " + lat);
+                $("<h6>").appendTo(".latLong").text("Long: " + lng);
                  if (hoverFreezeEngaged != true) {
                     map.featuresAt(e.point, {
                       radius: 5,  
@@ -389,11 +403,9 @@ block content
     map.on('style.load', function () {
       if (geoData) loadData(geoData);
     });
-
     }); //-ends document ready. 
 
      mapboxgl.accessToken =  'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A'; 
-
     var map = new mapboxgl.Map({
         container: 'map',
         style: '/outdoors-v8.json',
@@ -401,11 +413,9 @@ block content
         center: [-125.1318637, 54.3356591],
         zoom: 4
     });
-
     // Stuff for changing the base map
     var layerList = document.getElementById('menu');
     var inputs = layerList.getElementsByTagName('input');
-
     function switchLayer(layer) {
         var layerId = layer.target.id;
         if (layerId === 'outdoors') {
