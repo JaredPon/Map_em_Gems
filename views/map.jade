@@ -25,6 +25,9 @@ block content
             div
               input(type="text", class="form-control", id="TNRNMBRD", name="TNRNMBRD", placeholder="Tenure Number")
             div
+              select(name="userClaims", class='dropSearch', id='userClaims')
+                option(value="") My Claims
+            div
               select(name="TNRTPDSCRP", class='dropSearch', id='TNRTPDSCRP')
                 option(value="") Claim Type
                 option(value="Coal") Coal
@@ -35,8 +38,14 @@ block content
             div
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
             div
-              input(type="submit", class="actions", value="Search")   
+              input(type="submit", class="actions", value="Search") 
 
+        //- shows user's claims if logged in 
+        - if ( typeof user !== "undefined" )
+          #userClientnum #{user.CLIENTNUM}
+
+        .latLong
+        .zoomLevel
         .results-count 
 
         .data-table
@@ -72,12 +81,129 @@ block content
       var geoData;
       var test;
       var headerHide = "nope";
+      // User Claims Dropdown
+      var clientNumber = $('#userClientnum').text()
+      //- shows user's claims if logged in 
+      if (clientNumber) {
+          $("#userClaims").css("display", "inline-block");
+          $.getJSON('/clientclaims/search', {
+            clientnum: clientNumber
+          },function(results){
+            var $dropdown = $("#userClaims");
+            results.forEach(function(result) {
+                var claim = result.properties.TNRNMBRD
+                 $dropdown.append(new Option(claim, claim))
+            });  //Ends for each function     
+          });
+        };
+
 
       // Fancy Calendar Date Picker
       var picker = new Pikaday({ 
             field: $('#GDTDT')[0],
             format: 'YYYYMMDD'
         });
+
+      // Map ZoomLogger
+      var mapZoom = map.getZoom().toFixed(2);
+      $("<h6>").appendTo(".zoomLevel").text("Zoom Level: " + mapZoom);
+      map.on('zoomend', function() {
+        mapZoom = map.getZoom().toFixed(2);
+        $(".zoomLevel").empty();
+        $("<h6>").appendTo(".zoomLevel").text("Zoom Level: " + mapZoom);
+      });
+
+        var regions = new mapboxgl.GeoJSONSource({ data: '/BC_mining_regions.geojson' });
+        map.on('style.load', function () {
+            map.addSource('regions', regions); // add
+            map.addLayer({
+                        'id': 'BCregions',
+                        'type': 'fill',
+                        'source': 'regions',
+                        "interactive": true,
+                        'layout': {},
+                        'maxzoom': 6,
+                        'paint': {
+                            'fill-color': '#cc00cc',
+                            'fill-opacity': 0.001,
+                            'fill-outline-color': '#000'
+                        }
+                    }, 'water');
+            map.addLayer({
+                        'id': 'BCregions_hover',
+                        'type': 'fill',
+                        'source': 'regions',
+                        'layout': {},
+                        'maxzoom': 6,
+                        'paint': {
+                            'fill-color': '#cc00cc',
+                            'fill-opacity': 0.2,
+                            'fill-outline-color': '#fff'
+                        },
+                    "filter": ["==", "OBJECTID", ""]
+                    });
+            map.on("mousemove", function(e) {
+             if (mapZoom < 6)
+            {
+              map.featuresAt(e.point, {
+                radius: 1,  
+                includeGeometry: true 
+              }, function (err, features) {
+        
+                if (err) throw err
+
+                 var ids = features.map(function (feat) { return feat.properties.OBJECTID });
+                 console.log("ID:", ids);
+
+                 map.setFilter('BCregions_hover', [ 'all',
+                    [ 'in', 'OBJECTID' ].concat(ids)
+                    ]);
+                var table = $(".data-table").empty();
+                features.forEach(function(result) {
+                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+                        var context = result.properties.REG_NAME
+                        div_result.html("<h4>"+context+"</h4>");
+                    });  //Ends for each function
+                })
+               };
+            });
+        });
+
+        map.on("click", function(e) {
+        if (mapZoom < 6) {
+          var regionCoords = [-125.1318637, 54.3356591];
+                map.featuresAt(e.point, {
+                  radius: 1,  
+                  includeGeometry: true 
+                }, function (err, features) {
+                      if (err) throw err
+                      var name = features.map(function (feat) { return feat.properties.REG_NAME });
+                      console.log(name);
+                        if (name == "Skeena Natural Resource Region"){
+                          regionCoords = [-130.31813118, 58.042257144];
+                          } else if (name == "Northeast Natural Resource Region"){
+                            regionCoords = [-122.43451608, 58.042257144];
+                          } else if (name == "Omineca Natural Resource Region"){
+                            regionCoords = [-124.239316366, 55.2793113832];
+                          } else if (name == "West Coast Natural Resource Region"){
+                            regionCoords = [-127.425874897, 51.299160467];
+                          } else if (name == "Cariboo Natural Resource Region"){
+                            regionCoords = [-123.194317228, 53.31422641];
+                           } else if (name == "Thompson-Okanagan Natural Resource Region"){
+                            regionCoords = [-120.1741507076, 50.67931768319];
+                          } else if (name == "Kootenay-Boundary Natural Resource Region"){
+                            regionCoords = [-116.924217684, 50.222019293];
+                          } else if (name == "South Coast Natural Resource Region"){
+                            regionCoords = [-123.313741191, 49.8615097687];
+                          };          
+                            map.flyTo({
+                                center: regionCoords,
+                                zoom: 6.4,
+                                speed: 0.5
+                            });
+                  })
+                };
+            });
 
       function loadData(results){
 
@@ -145,7 +271,7 @@ block content
                     "paint": {
                         "fill-color": "#00892b",
                         "fill-opacity": 0.8,
-                        'fill-outline-color': '#fff' 
+                        'fill-outline-color': '#fff'
                     },
                     "filter": ["==", "TNRNMBRD", ""]
                 });
@@ -161,76 +287,90 @@ block content
                 //- });
 
                 var hoverFreezeEngaged = false;
-                
-                map.on("mousemove", function(e) {
-                  map.featuresAt(e.point, {
-                    radius: 5,  
-                    includeGeometry: true 
-                  }, function (err, features) {
-            
-                    if (err) throw err
-
-                    // Search Box Hide Function
-                    //- if (features && (headerHide === "hideable")) {
-                    //-     $('#header').animate({"height": "50px"}, 1000, function() {
-                    //-             $('.search_box_title').text("Click for Search");
-                    //-             headerHide = "nope";
-                    //-         });
-                    //-     };
-
-                     var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
-                     console.log("ID:", ids);
-                     //- console.log("Header", headerHide);
-                     map.setFilter('hover', [ 'all',
-                        [ 'in', 'TNRNMBRD' ].concat(ids)
-                        ]);
-                    map.on('click', function () {
+                 map.on('click', function () {
                         hoverFreezeEngaged = ((hoverFreezeEngaged === true) ? false : true)
                         console.log("Map Freeze Clicked");
+                        console.log("hoverFreezeEngaged = " + hoverFreezeEngaged);
                     });
-                    if (hoverFreezeEngaged != true) {
-                        var table = $(".data-table").empty();
-                    };
-                    features.forEach(function(result) {
+               
+                map.on("mousemove", function(e) {
 
-                        var div_result = $("<div>").addClass("each_result_table").appendTo(table);
+                $(".latLong").empty();
+                var lat = JSON.stringify(e.lngLat.lat);
+                var lng = JSON.stringify(e.lngLat.lng);
+                $("<h6>").appendTo(".latLong").text("Lat: " + lat);
+                $("<h6>").appendTo(".latLong").text("Long: " + lng);
+
+                 if (hoverFreezeEngaged != true && mapZoom > 6) {
+                    map.featuresAt(e.point, {
+                      radius: 5,  
+                      includeGeometry: true 
+                    }, function (err, features) {
+              
+                      if (err) throw err
+
+                      // Search Box Hide Function
+                      //- if (features && (headerHide === "hideable")) {
+                      //-     $('#header').animate({"height": "50px"}, 1000, function() {
+                      //-             $('.search_box_title').text("Click for Search");
+                      //-             headerHide = "nope";
+                      //-         });
+                      //-     };
+
+                       var ids = features.map(function (feat) { return feat.properties.TNRNMBRD });
+                       console.log("ID:", ids);
+                       map.setFilter('hover', [ 'all',
+                          [ 'in', 'TNRNMBRD' ].concat(ids)
+                          ]);
+                      //- 
+                          var table = $(".data-table").empty();
+                      //- };
+                      features.forEach(function(result) {
+
+                          var div_result = $("<div>").addClass("each_result_table").appendTo(table);
 
 
-                          //- handlebars templating for displaying claim details
-                        var source   = $("#entry-template").html();
-                        var template = Handlebars.compile(source);
-                        var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
-                        var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+                            //- handlebars templating for displaying claim details
+                          var source   = $("#entry-template").html();
+                          var template = Handlebars.compile(source);
+                          var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY');
+                          var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
 
-                        var context = {
-                        clinum: "Client Number: " + result.properties.CLIENTNUM, 
-                        claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
-                        owner_name: "Owner Name: " + result.properties.OWNER_NAME,
-                        tenure: "Tenure: " + result.properties.TNRNMBRD,
-                        type: "Type: " + result.properties.TNRTPDSCRP,
-                        good_until: "Good To Date: " + gtd,
-                        issue_date: "Issue Date: " + issue
-                        }
+                          var context = {
+                          clinum: "Client Number: " + result.properties.CLIENTNUM, 
+                          claim_name: "Claim Name: " + result.properties.CLAIM_NAME,
+                          owner_name: "Owner Name: " + result.properties.OWNER_NAME,
+                          tenure: "Tenure: " + result.properties.TNRNMBRD,
+                          type: "Type: " + result.properties.TNRTPDSCRP,
+                          good_until: "Good To Date: " + gtd,
+                          issue_date: "Issue Date: " + issue
+                          }
 
-                        var el_html = template(context);
+                          var el_html = template(context);
 
-                        div_result.html(el_html);
-                    });  //Ends for each function
-                  }); // Ends mousemove calback
+                          div_result.html(el_html);
+                      });  //Ends for each function
+                    }); // Ends mousemove calback
+                  }; // Ends if hoverFreezeEngaged
                 }); // Ends Hover Function (mousemove)
+               
         };  // Ends function(results)
 
       $("#searchForm").on('submit',function(e){
         e.preventDefault();
 
         // Search Parameters
+        var userClaims = $('#userClaims').val();
         var clientnum = $('#ClientNum').val();
-        var TNRNMBRD = $('#TNRNMBRD').val();
+        //- var TNRNMBRD = $('#TNRNMBRD').val();
+        // User claims search option
+        var TNRNMBRD = ((userClaims) ? userClaims : $('#TNRNMBRD').val())
         var TNRTPDSCRP = $('#TNRTPDSCRP').val();
         var GDTDT = $('#GDTDT').val();
         var ownerName = $('#ownerName').val();
 
-        // Geo Query Stuff (Nick)
+        // Geo Query Stuff (Nick) 
+        // The condition is for tenure searches
         if (TNRNMBRD) { 
             // Bounds for all of BC
             var ne_lat = 60.201513365378474;
@@ -260,7 +400,7 @@ block content
           GDTDT: GDTDT,
           ownerName: ownerName,
           ne_lat, ne_lng, sw_lat, sw_lng
-        },  
+        },
          //- results from getJSON
         function(results){ 
             loadData(results);
@@ -282,22 +422,19 @@ block content
     map.on('style.load', function () {
       if (geoData) loadData(geoData);
     });
-
     }); //-ends document ready. 
 
      mapboxgl.accessToken =  'pk.eyJ1Ijoibmd1c3QiLCJhIjoiY2lraHBnaDM3MDI4aHUwbTZnenJ5dno2YyJ9.8iIZEsDPnm2nQ4jV_Yj92A'; 
-
     var map = new mapboxgl.Map({
         container: 'map',
         style: '/outdoors-v8.json',
-        center: [-120.79433441162108, 49.49935027965388],
-        zoom: 7.8
+        //- center: [-120.79433441162108, 49.49935027965388],
+        center: [-125.1318637, 54.3356591],
+        zoom: 4.75
     });
-
     // Stuff for changing the base map
     var layerList = document.getElementById('menu');
     var inputs = layerList.getElementsByTagName('input');
-
     function switchLayer(layer) {
         var layerId = layer.target.id;
         if (layerId === 'outdoors') {

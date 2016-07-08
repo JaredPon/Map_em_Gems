@@ -230,6 +230,13 @@ select option {
  /* overflow: scroll;*/
 }
 
+.latLong {
+  clear: both;
+}
+
+.zoomLevel {
+  float:left;
+}
 .results-count{
   float:right;
 }
@@ -317,3 +324,10 @@ body {
   z-index: 999;
   background: url(/images/Preloader_3.gif) center no-repeat rgba(245, 245, 245, 0.6);
 }
+
+#userClientnum {
+  display: none;
+}
+ #userClaims {
+  display: none;
+ }
