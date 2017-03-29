@@ -27,6 +27,7 @@ block content
             div
               select(name="userClaims", class='dropSearch', id='userClaims')
                 option(value="") My Claims
+                option(value="All") All
             div
               select(name="TNRTPDSCRP", class='dropSearch', id='TNRTPDSCRP')
                 option(value="") Claim Type
@@ -38,11 +39,12 @@ block content
             div
               input(type="text", class="form-control", id="ownerName", name="ownerName", placeholder="Owner Name")
             div
-              input(type="submit", class="actions", value="Search") 
+              input(type="submit", class="actions", value="Search")
 
         //- shows user's claims if logged in 
         - if ( typeof user !== "undefined" )
           #userClientnum #{user.CLIENTNUM}
+          #username #{user.profile.name}
 
         .latLong
         .zoomLevel
@@ -81,20 +83,32 @@ block content
       var geoData;
       var test;
       var headerHide = "nope";
+      var userClaimList = [];
       // User Claims Dropdown
       var clientNumber = $('#userClientnum').text()
       //- shows user's claims if logged in 
       if (clientNumber) {
           $("#userClaims").css("display", "inline-block");
-          $.getJSON('/clientclaims/search', {
-            clientnum: clientNumber
-          },function(results){
-            var $dropdown = $("#userClaims");
-            results.forEach(function(result) {
-                var claim = result.properties.TNRNMBRD
-                 $dropdown.append(new Option(claim, claim))
-            });  //Ends for each function     
-          });
+
+          var WCP = $('#username').text()
+          if ( WCP === "WCP Club") {
+              [280056,278107].forEach(claimsDrop);
+            } else {
+            claimsDrop(clientNumber);
+            }
+
+          function claimsDrop(num) {
+            $.getJSON('/clientclaims/search', {
+              clientnum: num
+            },function(results){
+              var $dropdown = $("#userClaims");
+              results.forEach(function(result) {
+                  var claim = result.properties.TNRNMBRD
+                   $dropdown.append(new Option(claim, claim))
+                   userClaimList.push(claim);
+              });  //Ends for each function     
+            });
+          };
         };
 
 
@@ -302,6 +316,7 @@ block content
                 $("<h6>").appendTo(".latLong").text("Long: " + lng);
 
                  if (hoverFreezeEngaged != true && mapZoom > 6) {
+                    console.log(hoverFreezeEngaged);
                     map.featuresAt(e.point, {
                       radius: 5,  
                       includeGeometry: true 
@@ -384,6 +399,37 @@ block content
             var sw_lng = map.getBounds().getSouthWest().lng;
         };
 
+         ///////////////  All User Claims  ////////////////////////////////////////
+        if (userClaims == "All") {
+            //- Take form data and pass to server
+          var userClaimListResults = [];
+          userClaimList.forEach(getClaimsList)
+          console.log(userClaimListResults);
+          loadData(userClaimListResults);
+          geoData = userClaimListResults;
+
+          function getClaimsList(num) {
+            $.getJSON('/map/search', {
+              clientnum: clientnum,
+              TNRNMBRD: num,
+              TNRTPDSCRP: TNRTPDSCRP,
+              GDTDT: GDTDT,
+              ownerName: ownerName,
+              ne_lat, ne_lng, sw_lat, sw_lng
+            },
+             //- results from getJSON
+            function(results){ 
+                console.log(results.length);
+                if(results.length >0){
+                  userClaimListResults.push(results[0])
+                };
+                  //- console.log(userClaimListResults);
+            });
+          };
+        } else {
+
+         ///////////////  All User Claims  ////////////////////////////////////////
+
         // Won't allow huge queries
         if ((map.getZoom() < 6) && (!clientnum) && (!TNRNMBRD) && (!ownerName)) {
             alert("Too much data, zoom in more or choose a more specific query.")
@@ -403,6 +449,7 @@ block content
         },
          //- results from getJSON
         function(results){ 
+            console.log(results);
             loadData(results);
             geoData = results;
 
@@ -416,6 +463,7 @@ block content
         });
 
         }; // Ends Zoom if condition
+        }; // Ends user claim list condition
       }); // Ends the on submit click handler
 
       // Triggered when `setStyle` is called

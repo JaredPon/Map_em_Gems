@@ -5,6 +5,7 @@ block content
   h3 Client Claims
 
   h5#client-number #{user.CLIENTNUM}
+  h5#username #{user.profile.name}
 
   .client-claims-table
     //- Data table to append results to.
@@ -24,30 +25,42 @@ block content
   script.
     $(function() {
       var clientNumber = $('#client-number').text()
-
-      $.getJSON('/clientclaims/search', {
-        clientnum: clientNumber
-      },
-
-
-      function(results){
-        //- Put data in table
-        var table = $(".client-claims-table").find('tbody');
-        
-        results.forEach(function(result) {
-          var tr = $("<tr>").appendTo(table);
+      var WCP = $('#username').text()
+      if ( WCP === "WCP Club") {
+          [280056,278107].forEach(popluateTable);
+        } else {
+        popluateTable(clientNumber);
+        }
 
 
-          $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
-          $("<td>").appendTo(tr).text(result.properties.CLAIM_NAME);
-          $("<td>").appendTo(tr).text(result.properties.PRCNTOWNER); 
-          $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
-          var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
-          $("<td>").appendTo(tr).text(issue);
-          var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY'); 
-          $("<td>").appendTo(tr).text(gtd);
-          $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
-          $("<td>").appendTo(tr).text(result.properties.RNHCTRS);   
+
+
+      function popluateTable(num){
+        $.getJSON('/clientclaims/search', {
+
+          clientnum: num
+        },
+
+
+        function(results){
+          //- Put data in table
+          var table = $(".client-claims-table").find('tbody');
+          
+          results.forEach(function(result) {
+            var tr = $("<tr>").appendTo(table);
+
+
+            $("<td>").appendTo(tr).text(result.properties.TNRNMBRD);
+            $("<td>").appendTo(tr).text(result.properties.CLAIM_NAME);
+            $("<td>").appendTo(tr).text(result.properties.PRCNTOWNER); 
+            $("<td>").appendTo(tr).text(result.properties.TNRTPDSCRP);
+            var issue = moment(result.properties.ISSUE_DATE).format('MMM DD, YYYY'); 
+            $("<td>").appendTo(tr).text(issue);
+            var gtd = moment(result.properties.GDTDT).format('MMM DD, YYYY'); 
+            $("<td>").appendTo(tr).text(gtd);
+            $("<td>").appendTo(tr).text(result.properties.OWNER_NAME); 
+            $("<td>").appendTo(tr).text(result.properties.RNHCTRS);   
+          });
         });
-      });
+      };
     });
