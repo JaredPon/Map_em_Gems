@@ -399,37 +399,6 @@ block content
             var sw_lng = map.getBounds().getSouthWest().lng;
         };
 
-         ///////////////  All User Claims  ////////////////////////////////////////
-        if (userClaims == "All") {
-            //- Take form data and pass to server
-          var userClaimListResults = [];
-          userClaimList.forEach(getClaimsList)
-          console.log(userClaimListResults);
-          loadData(userClaimListResults);
-          geoData = userClaimListResults;
-
-          function getClaimsList(num) {
-            $.getJSON('/map/search', {
-              clientnum: clientnum,
-              TNRNMBRD: num,
-              TNRTPDSCRP: TNRTPDSCRP,
-              GDTDT: GDTDT,
-              ownerName: ownerName,
-              ne_lat, ne_lng, sw_lat, sw_lng
-            },
-             //- results from getJSON
-            function(results){ 
-                console.log(results.length);
-                if(results.length >0){
-                  userClaimListResults.push(results[0])
-                };
-                  //- console.log(userClaimListResults);
-            });
-          };
-        } else {
-
-         ///////////////  All User Claims  ////////////////////////////////////////
-
         // Won't allow huge queries
         if ((map.getZoom() < 6) && (!clientnum) && (!TNRNMBRD) && (!ownerName)) {
             alert("Too much data, zoom in more or choose a more specific query.")
